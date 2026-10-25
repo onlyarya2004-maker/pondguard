@@ -54,6 +54,10 @@ class TelemetrySettings(_Strict):
 class LLMSettings(_Strict):
     temperature: float = Field(ge=0, le=2)
     request_timeout_s: int = Field(ge=1)
+    max_retries: int = Field(default=3, ge=0, le=10)
+    retry_backoff_s: float = Field(default=1.0, ge=0)
+    schema_repair_attempts: int = Field(default=1, ge=0, le=1)
+    cache: bool = True
 
 
 # --- thresholds.yaml ---------------------------------------------------------

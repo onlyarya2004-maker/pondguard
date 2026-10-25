@@ -20,6 +20,10 @@ telemetry:
 llm:
   temperature: 0
   request_timeout_s: 120      # local SLMs can be slow on long prompts
+  max_retries: 3              # retries on connection errors / timeouts (server or model not ready)
+  retry_backoff_s: 1.0        # waits 1 s, 2 s, 4 s between retries
+  schema_repair_attempts: 1   # one re-ask with the validation error, then a safe fallback
+  cache: true                 # response cache in data/llm_cache.db (real providers only)
 
 # Fault injection for the honest critic-revise demo. Off by default.
 #   none          - normal run

@@ -1,0 +1,303 @@
+{
+  "started": "20261025_191102",
+  "calls_per_task": 10,
+  "context_length": 8192,
+  "temperature": 0,
+  "cache": "off",
+  "passage_ids": [
+    "CIBA-EHP-2022:p13",
+    "CIBA-EHP-2022:p11",
+    "CIBA-DISMGMT-2022:p19",
+    "CIBA-DISMGMT-2022:p36",
+    "CIBA-DISMGMT-2022:p35",
+    "CIBA-INLAND-2022:p30",
+    "CIBA-INLAND-2022:p48"
+  ],
+  "models": {
+    "qwen2.5-7b-instruct": {
+      "identity": {
+        "provider": "lmstudio",
+        "model_key": "qwen2.5-7b-instruct",
+        "file": "lmstudio-community/Qwen2.5-7B-Instruct-GGUF/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+        "quantization": "Q4_K_M",
+        "params": "7B",
+        "lmstudio_version": "0.4.23.0",
+        "runtime": "llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.64.0"
+      },
+      "load_seconds": 5.7,
+      "gpu_mib_used_by_model": 4924,
+      "lmstudio_ram_mib_increase": 4888,
+      "calls": 80,
+      "first_try_pct": 87.5,
+      "valid_after_repair_pct": 87.5,
+      "fallbacks": 0,
+      "errors": 10,
+      "median_s": 1.39,
+      "agent_tasks_sanity_ok_pct": 100.0,
+      "per_task": {
+        "plan": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 1.06,
+          "sanity_ok_pct": null
+        },
+        "summarise": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 1.07,
+          "sanity_ok_pct": null
+        },
+        "grade": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 8.69,
+          "sanity_ok_pct": 100.0
+        },
+        "rewrite": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.71,
+          "sanity_ok_pct": null
+        },
+        "rank": {
+          "calls": 10,
+          "first_try_pct": 0.0,
+          "valid_after_repair_pct": 0.0,
+          "fallbacks": 0,
+          "errors": 10,
+          "median_s": null,
+          "sanity_ok_pct": null
+        },
+        "advise": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 5.13,
+          "sanity_ok_pct": 100.0
+        },
+        "extract_claims": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 2.81,
+          "sanity_ok_pct": 100.0
+        },
+        "check_claim": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 1.0,
+          "sanity_ok_pct": 90.0
+        }
+      }
+    },
+    "meta-llama-3.1-8b-instruct": {
+      "identity": {
+        "provider": "lmstudio",
+        "model_key": "meta-llama-3.1-8b-instruct",
+        "file": "lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+        "quantization": "Q4_K_M",
+        "params": "8B",
+        "lmstudio_version": "0.4.23.0",
+        "runtime": "llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.64.0"
+      },
+      "load_seconds": 4.7,
+      "gpu_mib_used_by_model": 5712,
+      "lmstudio_ram_mib_increase": 5119,
+      "calls": 80,
+      "first_try_pct": 100.0,
+      "valid_after_repair_pct": 100.0,
+      "fallbacks": 0,
+      "errors": 0,
+      "median_s": 1.68,
+      "agent_tasks_sanity_ok_pct": 76.7,
+      "per_task": {
+        "plan": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 1.0,
+          "sanity_ok_pct": null
+        },
+        "summarise": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.47,
+          "sanity_ok_pct": null
+        },
+        "grade": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 8.61,
+          "sanity_ok_pct": 100.0
+        },
+        "rewrite": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.78,
+          "sanity_ok_pct": null
+        },
+        "rank": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 4.47,
+          "sanity_ok_pct": 40.0
+        },
+        "advise": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 4.68,
+          "sanity_ok_pct": 90.0
+        },
+        "extract_claims": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 3.31,
+          "sanity_ok_pct": 80.0
+        },
+        "check_claim": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.59,
+          "sanity_ok_pct": 80.0
+        }
+      }
+    },
+    "llama-3.2-3b-instruct": {
+      "identity": {
+        "provider": "lmstudio",
+        "model_key": "llama-3.2-3b-instruct",
+        "file": "lmstudio-community/Llama-3.2-3B-Instruct-GGUF/Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+        "quantization": "Q4_K_M",
+        "params": "3B",
+        "lmstudio_version": "0.4.23.0",
+        "runtime": "llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.64.0"
+      },
+      "load_seconds": 2.5,
+      "gpu_mib_used_by_model": 3056,
+      "lmstudio_ram_mib_increase": 2349,
+      "calls": 80,
+      "first_try_pct": 100.0,
+      "valid_after_repair_pct": 100.0,
+      "fallbacks": 0,
+      "errors": 0,
+      "median_s": 1.21,
+      "agent_tasks_sanity_ok_pct": 63.3,
+      "per_task": {
+        "plan": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.64,
+          "sanity_ok_pct": null
+        },
+        "summarise": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.62,
+          "sanity_ok_pct": null
+        },
+        "grade": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 3.96,
+          "sanity_ok_pct": 100.0
+        },
+        "rewrite": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.5,
+          "sanity_ok_pct": null
+        },
+        "rank": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 2.82,
+          "sanity_ok_pct": 40.0
+        },
+        "advise": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 2.22,
+          "sanity_ok_pct": 50.0
+        },
+        "extract_claims": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 1.73,
+          "sanity_ok_pct": 100.0
+        },
+        "check_claim": {
+          "calls": 10,
+          "first_try_pct": 100.0,
+          "valid_after_repair_pct": 100.0,
+          "fallbacks": 0,
+          "errors": 0,
+          "median_s": 0.35,
+          "sanity_ok_pct": 50.0
+        }
+      }
+    }
+  }
+}
