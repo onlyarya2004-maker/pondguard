@@ -1,0 +1,6 @@
+# Local-only: no usage statistics, no first-run email prompt.
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true

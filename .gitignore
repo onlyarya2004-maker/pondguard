@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# Secrets and local settings
+.env
+
+# Regenerable or large local data
+data/chroma/
+data/telemetry/
+*.db
+*.db-journal
+*.sqlite
+
+# Copyrighted knowledge-base PDFs (links stay in data/kb/sources.csv)
+data/kb/raw/*.pdf
+
+# Per-run trace logs from development runs; eval CSVs, summaries and figures
+# in results/ are committed.
+results/runs/
+
+# Never commit model weights (they live in ../models, outside this repo)
+*.gguf
+*.safetensors
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

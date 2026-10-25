@@ -1,0 +1,38 @@
+# Pinned 25 Oct 2026 on Python 3.11.9 (Windows). Install with the CPU torch index:
+#   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+# Everything runs locally; no cloud SDKs.
+
+# Orchestration
+langgraph==1.2.17
+langgraph-checkpoint-sqlite==3.1.2
+langchain-core==1.7.0
+
+# Local LLM runtimes (LM Studio via its OpenAI-compatible server; Ollama optional)
+langchain-openai==1.7.2
+langchain-ollama==1.1.0
+
+# Schemas and data
+pydantic==2.14.1
+pandas==3.1.0
+numpy==2.4.6
+pyyaml==6.0.3
+pypdf==6.21.2
+python-dotenv==1.2.4
+
+# Retrieval (embeddings on CPU)
+chromadb==1.5.9
+sentence-transformers==6.2.0
+torch==2.14.1
+
+# Local tracing
+arize-phoenix==20.26.0
+arize-phoenix-otel==0.17.2
+openinference-instrumentation-langchain==0.1.80
+
+# UI
+streamlit==1.66.1
+plotly==7.1.0
+
+# Dev
+pytest==9.1.1
+ruff==0.17.2
