@@ -9,7 +9,7 @@ Checked on M1's laptop, 25 Oct 2026:
 | Item | Value |
 |---|---|
 | LM Studio app | 0.4.23 |
-| `lms` CLI | `C:\Users\Arya\.lmstudio\bin\lms.exe` (commit 07b7252) |
+| `lms` CLI | `%USERPROFILE%\.lmstudio\bin\lms.exe` (commit 07b7252) |
 | Selected runtime | `llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.33.0` (GGUF) |
 | Hardware | Intel Core Ultra 9 275HX · 31.4 GB RAM · NVIDIA GeForce RTX 5070 Ti Laptop GPU |
 | Server | `http://localhost:1234/v1` |
