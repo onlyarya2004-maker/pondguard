@@ -35,3 +35,4 @@ def test_caches_live_inside_project_folder(name):
 def test_library_telemetry_is_off():
     assert os.environ["ANONYMIZED_TELEMETRY"] == "False"
     assert os.environ["HF_HUB_DISABLE_TELEMETRY"] == "1"
+    assert os.environ["LANGSMITH_TRACING"] == "false"  # no online LangChain tracing

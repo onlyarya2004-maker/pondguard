@@ -41,6 +41,8 @@ _OFFLINE_FLAGS = {
     "HF_HUB_DISABLE_TELEMETRY": "1",  # Hugging Face Hub
     "PHOENIX_TELEMETRY_ENABLED": "false",  # Arize Phoenix
     "PHOENIX_ALLOW_EXTERNAL_RESOURCES": "false",  # Phoenix: no external downloads/CDNs
+    "LANGSMITH_TRACING": "false",  # LangSmith is an online service; never send traces
+    "LANGCHAIN_TRACING_V2": "false",  # older name for the same switch
 }
 
 

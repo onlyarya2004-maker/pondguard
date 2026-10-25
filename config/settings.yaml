@@ -1,0 +1,29 @@
+# Run-time settings (spec §6.3). Every loop in PondGuard is bounded by these values.
+# Change a value only with a comment here and an entry in docs/tuning_log.md.
+
+loop_bounds:
+  max_supervisor_steps: 8     # supervisor forces finish at this step count
+  max_requeries: 2            # Diagnostician rewrite_query -> retrieve rounds
+  max_critic_revisions: 1     # Critic may send a draft back once
+  recursion_limit: 25         # LangGraph recursion limit per run
+  tool_timeout_s: 30
+  token_cap_per_run: 20000    # run stops (and logs it) when reached
+
+retrieval:
+  k: 5
+  grade_threshold: 0.6        # passage counts as relevant at >= this grade
+  min_relevant_passages: 2    # "good enough" evidence for ranking
+
+telemetry:
+  window_hours: 72
+
+llm:
+  temperature: 0
+  request_timeout_s: 120      # local SLMs can be slow on long prompts
+
+# Fault injection for the honest critic-revise demo. Off by default.
+#   none          - normal run
+#   uncited_step  - the Advisor's first draft gets one uncited step (wired in Phase 6);
+#                   the trace and CLI always say the fault was injected.
+# Override with PONDGUARD_INJECT_FAULT or the CLI flag --inject-fault.
+fault_injection: none

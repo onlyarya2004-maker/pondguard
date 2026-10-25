@@ -1,0 +1,21 @@
+# Substances the Critic blocks in any recommendation (spec §6.11).
+#
+# TODO-TEAM: fill from the Coastal Aquaculture Authority list of antibiotics and
+# pharmacologically active substances banned in shrimp aquaculture (CAA-BANNED in
+# data/kb/sources.csv; the CAA FAQ says 20 substances are listed). Record the
+# document and page in `source`, add every name and common synonym, and set
+# verified: true on each entry you confirmed.
+#
+# The two entries below are the examples the build spec names; they are NOT yet
+# verified against the CAA document. The guardrail blocks every entry, verified
+# or not, so over-blocking is the safe failure.
+
+source: "TODO-TEAM: CAA banned-substances list, document and page"
+
+substances:
+  - name: chloramphenicol
+    synonyms: []
+    verified: false
+  - name: nitrofurans
+    synonyms: [nitrofuran, nitrofurazone, furazolidone, nitrofurantoin]
+    verified: false

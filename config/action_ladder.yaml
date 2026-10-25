@@ -1,0 +1,49 @@
+# Graded action ladder (spec §3.4). These are design rules agreed at R1/R2, not
+# facts from the knowledge base; tune them only with a note in docs/tuning_log.md.
+
+levels:
+  L0:
+    name: Monitor
+    meaning: Continue routine checks; re-check at the next reading.
+    requires_approval: false
+  L1:
+    name: Adjust management
+    meaning: "Non-chemical changes: aeration, feed reduction, water-quality correction."
+    requires_approval: false
+  L2:
+    name: Confirm with a test
+    meaning: Send a sample for PCR/lab testing; closer observation; plus L1 steps.
+    requires_approval: false
+  L3:
+    name: Contain
+    meaning: "Biosecurity: stop water exchange with neighbours, isolate the pond, inform neighbouring farms."
+    requires_approval: true
+  L4:
+    name: Emergency harvest
+    meaning: Harvest early to salvage the crop.
+    requires_approval: true
+
+# Allowed action levels for each risk level.
+allowed_actions:
+  normal: [L0]
+  watch: [L0, L1]
+  alert: [L1, L2]
+  critical: [L2, L3, L4]
+
+# Starting risk for each condition (spec §3.5). The Advisor raises it for severe
+# anomalies or rising mortality; water-quality stress ranges Watch -> Critical by severity.
+condition_default_risk:
+  wssv: critical
+  ehp: alert
+  white_faeces: alert
+  ahpnd: critical
+  vibriosis: alert
+  water_quality_stress: watch
+  unknown: watch
+
+# If the same Alert repeats on this many consecutive days (from pond memory),
+# the Advisor may escalate the action by one level.
+escalation:
+  repeat_risk: alert
+  consecutive_days: 3
+  max_levels_up: 1

@@ -1,0 +1,36 @@
+# Water-quality limits for Penaeus vannamei grow-out ponds (spec §6.3).
+#
+# VERIFY: these are commonly quoted INDICATIVE ranges copied from the build spec.
+# They have NOT been checked against a knowledge-base document yet. Before
+# evaluation, a team member must confirm each value in a KB document and replace
+# `source` with "<document id from sources.csv>, p. <page>". check_thresholds
+# returns the source string with every flag, so a TODO-TEAM source is visible.
+
+do_mg_l:
+  min: 4.0
+  critical_min: 3.0
+  source: "TODO-TEAM: verify in KB"
+ph:
+  min: 7.5
+  max: 8.5
+  source: "TODO-TEAM: verify in KB"
+temp_c:
+  min: 26.0
+  max: 32.0
+  max_drop_24h: 3.0
+  source: "TODO-TEAM: verify in KB"
+salinity_ppt:
+  min: 10
+  max: 25
+  max_drop_24h: 5
+  source: "TODO-TEAM: verify in KB"
+tan_mg_l:           # total ammonia nitrogen
+  max: 1.0
+  source: "TODO-TEAM: verify in KB"
+nitrite_mg_l:
+  max: 1.0
+  source: "TODO-TEAM: verify in KB"
+alkalinity_mg_l:
+  min: 100
+  max: 150
+  source: "TODO-TEAM: verify in KB"
