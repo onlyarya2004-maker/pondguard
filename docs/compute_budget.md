@@ -11,6 +11,7 @@ Checked on M1's laptop, 25 Oct 2026:
 | LM Studio app | 0.4.23 |
 | `lms` CLI | `%USERPROFILE%\.lmstudio\bin\lms.exe` (commit 07b7252) |
 | Selected runtime | `llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.64.0` (GGUF). It was 2.33.0 on 25 Oct morning; LM Studio switched it after a service restart that day. Every results file records the runtime used. |
+| Runtime auto-updates | **Off** (set in LM Studio by M1 on 25 Oct, after the smoke test), so the runtime stays at 2.64.0 for all reported runs. Changing it means re-running everything reported (rule 8). |
 | Hardware | Intel Core Ultra 9 275HX · 31.4 GB RAM · NVIDIA GeForce RTX 5070 Ti Laptop GPU |
 | Server | `http://localhost:1234/v1` |
 | Tracing | Arize Phoenix on `http://localhost:6006` (not installed yet) · JSONL always on |

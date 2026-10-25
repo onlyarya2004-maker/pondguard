@@ -74,14 +74,19 @@ All tests run in **mock mode**, offline, with no model loaded.
 
 ## Phoenix (local tracing UI)
 
-`phoenix serve` does not read PondGuard's `.env`, so set its data folder and switch telemetry off in the shell first. Run from `pondguard/`:
+Start Phoenix with PondGuard's wrapper. It stores data in `../cache/phoenix` and switches Phoenix telemetry and external resources off. Leave this terminal open:
 
 ```powershell
-$env:PHOENIX_WORKING_DIR = "..\cache\phoenix"
-$env:PHOENIX_TELEMETRY_ENABLED = "false"
-$env:PHOENIX_ALLOW_EXTERNAL_RESOURCES = "false"
-.venv\Scripts\phoenix serve      # UI at http://localhost:6006
+.venv\Scripts\pondguard phoenix          # UI at http://localhost:6006
 ```
+
+Then set `TRACING=phoenix` in `.env` and check tracing end to end:
+
+```powershell
+.venv\Scripts\pondguard trace-demo       # one dummy tool call -> JSONL + Phoenix project "pondguard"
+```
+
+Every run is also written to `results/runs/{run_id}.jsonl`, whether or not Phoenix is running. If Phoenix is down, PondGuard logs one warning and continues with JSONL only.
 
 ## LM Studio
 

@@ -27,10 +27,14 @@ chromadb==1.5.9
 sentence-transformers==6.2.0
 torch==2.14.1
 
-# Local tracing
+# Local tracing: PondGuard exports spans with plain OpenTelemetry (OTLP/HTTP) to a
+# local Phoenix server; it never imports the Phoenix server package itself.
 arize-phoenix==20.26.0
 arize-phoenix-otel==0.17.2
+opentelemetry-sdk==1.45.1
+opentelemetry-exporter-otlp-proto-http==1.45.1
 openinference-instrumentation-langchain==0.1.80
+openinference-semantic-conventions==0.1.42
 
 # UI
 streamlit==1.66.1

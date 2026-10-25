@@ -29,6 +29,9 @@ results/runs/
 *.gguf
 *.safetensors
 
+# Local tool config (Claude Code preview launcher)
+.claude/
+
 # OS / editor
 .DS_Store
 Thumbs.db
