@@ -34,6 +34,15 @@ def build_parser() -> argparse.ArgumentParser:
     sim.add_argument("--specs", default="config/scenario_specs.yaml")
     sim.add_argument("--out", default="data/scenarios")
 
+    ing = sub.add_parser("ingest", help="build the disease knowledge base from the KB PDFs")
+    ing.add_argument(
+        "--sources",
+        nargs="+",
+        default=["CIBA-EHP-2022", "CIBA-DISMGMT-2022"],
+        help="document ids from data/kb/sources.csv (default: the two R3 manuals)",
+    )
+    ing.add_argument("--embedder", choices=["bge", "hash"], default="bge")
+
     demo = sub.add_parser("trace-demo", help="record one dummy tool call to JSONL and Phoenix")
     demo.add_argument(
         "--no-phoenix", action="store_true", help="JSONL only, even if TRACING=phoenix"
@@ -85,9 +94,25 @@ def cmd_simulate(specs: str, out: str) -> int:
     return 0
 
 
+def cmd_ingest(sources: list[str], embedder: str) -> int:
+    from pondguard.kb.embeddings import get_embedder
+    from pondguard.kb.ingest import ingest, read_sources
+    from pondguard.paths import DATA_DIR
+
+    kb = DATA_DIR / "kb"
+    docs = read_sources(kb / "sources.csv", kb / "raw", only=sources)
+    counts = ingest(docs, get_embedder(embedder))
+    for doc_id, n in counts.items():
+        print(f"{doc_id}: {n} chunks")
+    print(f"knowledge base 'disease_kb_{embedder}' built: {sum(counts.values())} chunks")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.command == "ingest":
+        return cmd_ingest(args.sources, args.embedder)
     if args.command == "simulate":
         return cmd_simulate(args.specs, args.out)
     if args.command == "phoenix":
