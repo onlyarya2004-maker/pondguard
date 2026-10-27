@@ -57,7 +57,7 @@ py -3.11 -m venv .venv
 
 ```powershell
 $env:PIP_CACHE_DIR = "..\cache\pip"     # optional: keeps pip's download cache in the project folder
-.venv\Scripts\python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+.venv\Scripts\python -m pip install -r requirements.txt -c constraints-windows.txt --extra-index-url https://download.pytorch.org/whl/cpu
 .venv\Scripts\python -m pip install -e . --no-deps
 Copy-Item .env.example .env
 ```

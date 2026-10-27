@@ -75,7 +75,7 @@ Run these from the `pondguard/` folder in PowerShell.
 python -m venv .venv
 $env:PIP_CACHE_DIR = "..\cache\pip"
 .venv\Scripts\python -m pip install --upgrade pip
-.venv\Scripts\python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+.venv\Scripts\python -m pip install -r requirements.txt -c constraints-windows.txt --extra-index-url https://download.pytorch.org/whl/cpu
 .venv\Scripts\python -m pip install -e . --no-deps
 Copy-Item .env.example .env
 ```
