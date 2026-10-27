@@ -1,0 +1,52 @@
+{
+  "scenario_id": "EHP-03",
+  "group": "white_faeces",
+  "pond_id": "P-07",
+  "date": "2026-10-20",
+  "day_of_culture": 42,
+  "seed": 703,
+  "telemetry_csv": "data/telemetry/EHP-03.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-07",
+      "date": "2026-10-20",
+      "day_of_culture": 42,
+      "feed_consumed_pct": 68.0,
+      "mortality_count": 3,
+      "symptoms": [
+        "white_faecal_strings",
+        "reduced_feeding"
+      ],
+      "notes": "white strings on surface"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-10-18",
+      "risk_level": "watch",
+      "action_level": "L1"
+    }
+  ],
+  "injected_events": [
+    {
+      "type": "do_crash",
+      "start": "2026-10-18T00:00",
+      "nights": 3,
+      "depth": 1.5
+    }
+  ],
+  "label": {
+    "risk_level": "alert",
+    "top_condition": "white_faeces",
+    "acceptable_conditions": [
+      "white_faeces",
+      "ehp"
+    ],
+    "action_level": "L2",
+    "acceptable_action_levels": [
+      "L2"
+    ],
+    "should_abstain": false,
+    "notes": "white faeces + feed drop + mild DO trend"
+  }
+}

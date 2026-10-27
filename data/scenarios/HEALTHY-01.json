@@ -1,0 +1,33 @@
+{
+  "scenario_id": "HEALTHY-01",
+  "group": "healthy",
+  "pond_id": "P-01",
+  "date": "2026-10-20",
+  "day_of_culture": 35,
+  "seed": 101,
+  "telemetry_csv": "data/telemetry/HEALTHY-01.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-01",
+      "date": "2026-10-20",
+      "day_of_culture": 35,
+      "feed_consumed_pct": 98.0,
+      "mortality_count": 0,
+      "symptoms": [],
+      "notes": "feed trays clean, shrimp active"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "normal",
+    "top_condition": null,
+    "acceptable_conditions": [],
+    "action_level": "L0",
+    "acceptable_action_levels": [
+      "L0"
+    ],
+    "should_abstain": false,
+    "notes": "no anomaly and no symptoms; the Supervisor should skip diagnosis"
+  }
+}

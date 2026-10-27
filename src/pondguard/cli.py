@@ -30,6 +30,10 @@ def build_parser() -> argparse.ArgumentParser:
     phoenix = sub.add_parser("phoenix", help="start the local Phoenix tracing UI")
     phoenix.add_argument("--port", type=int, default=6006)
 
+    sim = sub.add_parser("simulate", help="generate scenario JSON and telemetry CSV")
+    sim.add_argument("--specs", default="config/scenario_specs.yaml")
+    sim.add_argument("--out", default="data/scenarios")
+
     demo = sub.add_parser("trace-demo", help="record one dummy tool call to JSONL and Phoenix")
     demo.add_argument(
         "--no-phoenix", action="store_true", help="JSONL only, even if TRACING=phoenix"
@@ -70,9 +74,22 @@ def cmd_trace_demo(no_phoenix: bool) -> int:
     return 0
 
 
+def cmd_simulate(specs: str, out: str) -> int:
+    from pathlib import Path
+
+    from pondguard.simulator.scenarios import simulate
+
+    written = simulate(Path(specs), Path(out))
+    for path in written:
+        print(f"wrote {path}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.command == "simulate":
+        return cmd_simulate(args.specs, args.out)
     if args.command == "phoenix":
         return cmd_phoenix(args.port)
     if args.command == "trace-demo":

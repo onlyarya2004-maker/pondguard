@@ -1,0 +1,107 @@
+# Recipes for the R3 demo scenarios. The full 40-scenario golden set comes later (R4).
+#
+# LABELS ARE WRITTEN HERE FIRST, before any agent code exists, from the scenario
+# recipe and the condition sign sets in the build spec (§3.5, §6.15) -- not from
+# agent output. The commit history shows this order. Labels are still to be
+# reviewed by the team (TODO-TEAM).
+#
+# Telemetry window: 7 days of hourly readings ending at 07:00 on `date` (the
+# morning check, after the dawn oxygen minimum at ~04:00). The agents read the
+# last 72 hours.
+#
+# do_crash: progressive dawn-oxygen crash. Night k of `nights` lowers the dawn
+# minimum by depth * (k+1) / nights mg/L, so dawn minima fall night after night.
+# EHP-03 starts on 18 Oct (the spec example says 17 Oct) so that all three dawn
+# minima fall inside the 72-hour window that ends on 20 Oct.
+
+scenarios:
+  - scenario_id: EHP-03
+    group: white_faeces            # R2 worked example (pond P-07, day 42); R3 main demo
+    pond_id: P-07
+    date: "2026-10-20"
+    day_of_culture: 42
+    seed: 703
+    events:
+      - {type: do_crash, start: "2026-10-18T00:00", nights: 3, depth: 1.5}
+    farmer_log:
+      feed_consumed_pct: 68
+      mortality_count: 3
+      symptoms: [white_faecal_strings, reduced_feeding]
+      notes: white strings on surface
+    history:
+      - {date: "2026-10-18", risk_level: watch, action_level: L1}
+    label:
+      risk_level: alert
+      top_condition: white_faeces
+      acceptable_conditions: [white_faeces, ehp]
+      action_level: L2
+      acceptable_action_levels: [L2]
+      should_abstain: false
+      notes: white faeces + feed drop + mild DO trend
+
+  - scenario_id: HEALTHY-01
+    group: healthy
+    pond_id: P-01
+    date: "2026-10-20"
+    day_of_culture: 35
+    seed: 101
+    events: []
+    farmer_log:
+      feed_consumed_pct: 98
+      mortality_count: 0
+      symptoms: []
+      notes: feed trays clean, shrimp active
+    history: []
+    label:
+      risk_level: normal
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: [L0]
+      should_abstain: false
+      notes: no anomaly and no symptoms; the Supervisor should skip diagnosis
+
+  - scenario_id: AMBIG-01
+    group: ambiguous
+    pond_id: P-12
+    date: "2026-10-20"
+    day_of_culture: 50
+    seed: 1201
+    events: []
+    farmer_log:
+      feed_consumed_pct: 88
+      mortality_count: 1
+      symptoms: [lethargy]
+      notes: a few shrimp slow near the edge this morning
+    history: []
+    label:
+      risk_level: watch
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: [L0, L1]
+      should_abstain: true
+      notes: one non-specific sign and normal telemetry; evidence is insufficient, so ask a follow-up
+
+  - scenario_id: CRITIC-DEMO-01
+    group: vibriosis               # kept outside the golden set; used with --inject-fault uncited_step
+    pond_id: P-09
+    date: "2026-10-20"
+    day_of_culture: 48
+    seed: 901
+    events:
+      - {type: do_crash, start: "2026-10-19T00:00", nights: 2, depth: 1.0}
+    farmer_log:
+      feed_consumed_pct: 72
+      mortality_count: 6
+      symptoms: [red_discoloration, luminescence, lethargy]
+      notes: shrimp glow at night, reddish colour
+    history: []
+    label:
+      risk_level: alert
+      top_condition: vibriosis
+      acceptable_conditions: [vibriosis]
+      action_level: L2
+      acceptable_action_levels: [L1, L2]
+      should_abstain: false
+      notes: luminescence and red discoloration with a mild dawn-oxygen dip
