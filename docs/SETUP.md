@@ -8,7 +8,7 @@ Read section 1 first: it tells you what you can do with no downloads at all.
 
 | You want to... | You need |
 |---|---|
-| Read the code, run `ruff` and the tests (184, mock mode) | Python 3.11 + the pip packages (sections 3–4). **No models, no GPU, no PDFs, no internet after install.** |
+| Read the code, run `ruff` and the tests (183 pass + 1 skipped without the PDFs; mock mode) | Python 3.11 + the pip packages (sections 3–4). **No models, no GPU, no PDFs, no internet after install.** |
 | Generate the scenarios (`pondguard simulate`) | The same. |
 | Run the whole agent graph in **mock mode** (structure only) | Python + packages + the two PDFs + `pondguard ingest --embedder hash`. No models, no GPU. |
 | Build the real knowledge base (`pondguard ingest`) | The two PDFs + internet **once** (downloads the 128 MB BGE embedding model). CPU only; no LM Studio. |
@@ -180,7 +180,7 @@ Run these in `pondguard/`. Each line shows what correct output looks like. Stop 
 py -3.11 --version                              # Python 3.11.x
 .venv\Scripts\python -m pip check               # No broken requirements found.
 .venv\Scripts\ruff check .                      # All checks passed!
-.venv\Scripts\python -m pytest                  # 184 passed in about 10 s (the number grows as tests are added)
+.venv\Scripts\python -m pytest                  # 183 passed, 1 skipped in about 15 s (the skipped test needs the PDFs; with them in place: 184 passed)
 .venv\Scripts\pondguard --version               # pondguard 0.1.0
 .venv\Scripts\pondguard simulate                # four lines: wrote data\scenarios\EHP-03.json, HEALTHY-01.json, AMBIG-01.json, CRITIC-DEMO-01.json
 ```
