@@ -19,6 +19,7 @@ NextNode = Literal["monitor", "diagnostician", "advisor", "critic", "human_gate"
 class GraphState(TypedDict, total=False):
     # Identity of the run
     run_id: str
+    scenario_id: str
     pond_id: str
     date: str
     day_of_culture: int
@@ -31,7 +32,10 @@ class GraphState(TypedDict, total=False):
 
     # Supervisor routing (plan-and-execute)
     plan: list[str]
+    plan_source: str  # "llm", "fallback" (model output invalid) or "default" (plan rejected)
     next: NextNode
+    diagnosis_skipped: bool  # no anomalies and no symptoms: nothing to diagnose
+    loop_bound_hit: str | None  # which bound stopped the run, if any
 
     # Monitor
     telemetry_summary: dict
@@ -41,12 +45,13 @@ class GraphState(TypedDict, total=False):
     # Diagnostician (corrective RAG)
     queries: list[str]
     retrieved_passages: list[dict]
-    diagnosis: dict
+    relevant_ids: list[str]  # passages graded relevant in the last retrieval round
+    diagnosis: dict | None
 
     # Advisor and Critic (reflection)
-    action_plan: dict
-    critic_verdict: dict
-    critic_feedback: str
+    action_plan: dict | None
+    critic_verdict: dict | None
+    critic_feedback: str | None
     follow_up_question: str | None
 
     # Loop counters checked against config/settings.yaml loop_bounds

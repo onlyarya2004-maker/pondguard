@@ -1,0 +1,55 @@
+# Sign sets: which conditions each reported sign or sensor anomaly points to.
+# Drives query building and the "vague evidence" abstain rule (agents/diagnostician.py).
+#
+# From the sign sets in the build spec (§3.5). VERIFY against the knowledge-base
+# manuals (TODO-TEAM), as with thresholds.yaml.
+#
+# A sign is SPECIFIC if it maps to at least one condition and VAGUE if it maps to none
+# (or is missing here). Vague signs (lethargy, reduced feeding, ...) fit many conditions
+# and therefore narrow nothing down.
+
+sign_to_conditions:
+  white_spots: [wssv]
+  red_discoloration: [wssv, vibriosis]
+  gathering_at_edges: [wssv]
+  white_faecal_strings: [white_faeces, ehp]
+  slow_growth: [ehp]
+  size_variation: [ehp]
+  empty_gut: [ahpnd]
+  pale_hepatopancreas: [ahpnd]
+  luminescence: [vibriosis]
+  sudden_mortality: [ahpnd, wssv]
+  surfacing_at_dawn: [water_quality_stress]
+  # lethargy, reduced_feeding, loose_shell: vague on purpose (no entry)
+
+# A sensor anomaly on one of these parameters points to these conditions.
+anomaly_to_conditions:
+  do_mg_l: [water_quality_stress]
+  ph: [water_quality_stress]
+  temp_c: [water_quality_stress]
+  salinity_ppt: [water_quality_stress]
+  tan_mg_l: [water_quality_stress]
+  nitrite_mg_l: [water_quality_stress]
+  alkalinity_mg_l: [water_quality_stress]
+
+# How the manuals name each condition (search terms for the first query).
+condition_terms:
+  wssv: white spot syndrome virus WSSV
+  ehp: EHP Enterocytozoon hepatopenaei
+  white_faeces: white feces syndrome
+  ahpnd: AHPND acute hepatopancreatic necrosis disease
+  vibriosis: Vibrio vibriosis
+  water_quality_stress: water quality stress
+
+# Follow-up questions, most informative first. When the Diagnostician abstains it asks
+# about the first sign in this list that the farmer has not already reported.
+question_bank:
+  - {sign: white_spots, question: "Do you see white spots on the shell?"}
+  - {sign: sudden_mortality, question: "Have many shrimp died suddenly in the last day or two?"}
+  - {sign: white_faecal_strings, question: "Do you see white strings floating on the water surface?"}
+  - {sign: red_discoloration, question: "Are the shrimp reddish in colour?"}
+  - {sign: luminescence, question: "Do the shrimp or the water glow at night?"}
+  - {sign: empty_gut, question: "Is the gut of the shrimp empty, with a pale hepatopancreas?"}
+  - {sign: slow_growth, question: "Is growth slower than expected, with very uneven sizes?"}
+
+generic_question: "Can you describe any other changes you see in the shrimp or the pond water?"

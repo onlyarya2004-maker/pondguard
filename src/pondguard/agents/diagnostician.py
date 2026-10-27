@@ -23,7 +23,7 @@ from typing import Any, Literal, cast, get_args
 
 from pydantic import BaseModel, ConfigDict, Field, create_model
 
-from pondguard.config import Settings, get_settings
+from pondguard.config import Settings, SignSets, get_settings
 from pondguard.kb.retriever import Retriever
 from pondguard.llm import LLMClient, RankedHypotheses
 from pondguard.models import Anomaly, CauseHypothesis, Condition, Diagnosis, Passage
@@ -45,19 +45,6 @@ KIND_WORDS = {
     "spike": "sudden change",
     "drop": "sudden drop",
 }
-
-# One question per sign, asked when the evidence is too weak to diagnose. The Diagnostician
-# asks about the first sign (in this order) that the farmer has not already reported.
-QUESTION_BANK: list[tuple[str, str]] = [
-    ("white_spots", "Do you see white spots on the shell?"),
-    ("sudden_mortality", "Have many shrimp died suddenly in the last day or two?"),
-    ("white_faecal_strings", "Do you see white strings floating on the water surface?"),
-    ("red_discoloration", "Are the shrimp reddish in colour?"),
-    ("luminescence", "Do the shrimp or the water glow at night?"),
-    ("empty_gut", "Is the gut of the shrimp empty, with a pale hepatopancreas?"),
-    ("slow_growth", "Is growth slower than expected, with very uneven sizes?"),
-]
-GENERIC_QUESTION = "Can you describe any other changes you see in the shrimp or the pond water?"
 
 SYSTEM = (
     "You are the Diagnostician of PondGuard, an advisory assistant for Penaeus vannamei "
@@ -83,53 +70,41 @@ def describe_anomaly(a: Anomaly) -> str:
     return f"{name} {KIND_WORDS.get(a.kind, a.kind)}"
 
 
-# Which conditions each sign points to, from the sign sets in the build spec (§3.5).
-# Signs that fit many conditions (lethargy, reduced feeding) are left out on purpose:
-# they do not narrow anything down, so they add no "possible condition" to the query.
-SIGN_TO_CONDITIONS: dict[str, list[str]] = {
-    "white_spots": ["wssv"],
-    "red_discoloration": ["wssv", "vibriosis"],
-    "gathering_at_edges": ["wssv"],
-    "white_faecal_strings": ["white_faeces", "ehp"],
-    "slow_growth": ["ehp"],
-    "size_variation": ["ehp"],
-    "empty_gut": ["ahpnd"],
-    "pale_hepatopancreas": ["ahpnd"],
-    "luminescence": ["vibriosis"],
-    "sudden_mortality": ["ahpnd", "wssv"],
-}
-# How the knowledge-base manuals name each condition (used as search terms).
-CONDITION_TERMS = {
-    "wssv": "white spot syndrome virus WSSV",
-    "ehp": "EHP Enterocytozoon hepatopenaei",
-    "white_faeces": "white feces syndrome",
-    "ahpnd": "AHPND acute hepatopancreatic necrosis disease",
-    "vibriosis": "Vibrio vibriosis",
-}
+def pointed_conditions(
+    anomalies: list[Anomaly], symptoms: list[str], sign_sets: SignSets
+) -> list[str]:
+    """Conditions that any reported sign or sensor anomaly points to (config: sign_sets.yaml).
+
+    Empty means the evidence is vague: every sign is non-specific and no anomaly maps to a
+    condition. That triggers the deterministic abstain rule in `diagnose`.
+    """
+    found = sign_sets.conditions_for_signs(symptoms)
+    for a in anomalies:
+        found += [c for c in sign_sets.conditions_for_parameter(a.parameter) if c not in found]
+    return found
 
 
-def likely_conditions(symptoms: list[str]) -> list[str]:
-    """Conditions suggested by the reported signs, most-supported first."""
-    votes: dict[str, int] = {}
-    for sign in symptoms:
-        for condition in SIGN_TO_CONDITIONS.get(sign, []):
-            votes[condition] = votes.get(condition, 0) + 1
-    return sorted(votes, key=lambda c: -votes[c])
-
-
-def build_query(anomalies: list[Anomaly], symptoms: list[str], day_of_culture: int) -> str:
+def build_query(
+    anomalies: list[Anomaly],
+    symptoms: list[str],
+    day_of_culture: int,
+    sign_sets: SignSets | None = None,
+) -> str:
     """Signs first, then likely conditions, with water quality as context.
 
     A general rule for every scenario: the observed signs and the conditions they point
     to come first, because they decide the diagnosis; sensor anomalies come last, because
     they usually describe pond conditions around a disease rather than the disease itself.
     """
+    sign_sets = sign_sets or get_settings().sign_sets
     parts = []
     if symptoms:
         parts.append("signs: " + ", ".join(s.replace("_", " ") for s in symptoms))
-    conditions = likely_conditions(symptoms)
+    conditions = sign_sets.conditions_for_signs(symptoms)
     if conditions:
-        parts.append("possible conditions: " + ", ".join(CONDITION_TERMS[c] for c in conditions))
+        parts.append(
+            "possible conditions: " + ", ".join(sign_sets.condition_terms[c] for c in conditions)
+        )
     water = list(dict.fromkeys(describe_anomaly(a) for a in anomalies))
     if water:
         parts.append("water quality: " + ", ".join(water))
@@ -137,9 +112,12 @@ def build_query(anomalies: list[Anomaly], symptoms: list[str], day_of_culture: i
     return "; ".join(parts)
 
 
-def follow_up_question(symptoms: list[str]) -> str:
+def follow_up_question(symptoms: list[str], sign_sets: SignSets | None = None) -> str:
+    """Ask about the first sign in the question bank that has not been reported yet."""
+    sign_sets = sign_sets or get_settings().sign_sets
     seen = set(symptoms)
-    return next((q for sign, q in QUESTION_BANK if sign not in seen), GENERIC_QUESTION)
+    asked = next((e.question for e in sign_sets.question_bank if e.sign not in seen), None)
+    return asked or sign_sets.generic_question
 
 
 def _evidence(anomalies: list[Anomaly], symptoms: list[str]) -> list[str]:
@@ -234,7 +212,12 @@ def diagnose(
         if tracer is not None:
             tracer.event("diagnostician", message, **data)
 
-    query = build_query(anomalies, symptoms, day_of_culture)
+    sign_sets = settings.sign_sets
+    # Deterministic abstain rule (docs/tuning_log.md, design rule): the 8B grader over-scores
+    # passages that merely list a general sign, so if no reported sign and no anomaly points
+    # to any condition, retrieval and re-querying still run but the answer is an abstention.
+    vague = not pointed_conditions(anomalies, symptoms, sign_sets)
+    query = build_query(anomalies, symptoms, day_of_culture, sign_sets)
     # Passages are always graded against the ORIGINAL situation, never the rewritten query:
     # a rewrite may add disease names the farmer never reported, and grading against those
     # would make unrelated passages look relevant.
@@ -257,7 +240,10 @@ def diagnose(
             graded = grade_passages(situation, found, llm)
             relevant = [p for p in graded if (p.grade or 0.0) >= threshold]
             weak = len(relevant) < needed
-            decision = ("abstain" if requeries >= max_requeries else "re-query") if weak else "rank"
+            if weak:
+                decision = "abstain" if requeries >= max_requeries else "re-query"
+            else:
+                decision = "abstain (vague evidence rule)" if vague else "rank"
             entry = {
                 "round": number,
                 "query": query,
@@ -293,7 +279,11 @@ def diagnose(
 
     retrieved = list(seen.values())
     hypotheses: list[CauseHypothesis] = []
-    if not weak:
+    if vague:
+        note(
+            "no sign or anomaly points to a specific condition -> abstaining (vague evidence rule)"
+        )
+    elif not weak:
         hypotheses = rank_hypotheses(llm, anomalies, symptoms, day_of_culture, relevant)
         if not hypotheses:
             note("ranking produced no hypothesis with valid citations -> abstain")
@@ -301,7 +291,7 @@ def diagnose(
         note("ranked: " + ", ".join(f"{h.condition} ({h.confidence:.2f})" for h in hypotheses))
         diagnosis = Diagnosis(hypotheses=hypotheses, abstained=False, retrieval_rounds=len(rounds))
     else:
-        question = follow_up_question(symptoms)
+        question = follow_up_question(symptoms, sign_sets)
         note(f"abstained after {len(rounds)} round(s); follow-up: {question}")
         diagnosis = Diagnosis(
             hypotheses=[],
@@ -312,5 +302,38 @@ def diagnose(
     return DiagnosisResult(diagnosis, rounds, retrieved, relevant)
 
 
-__all__ = ["DiagnosisResult", "build_query", "diagnose", "follow_up_question", "ranking_schema"]
+def diagnostician_node(
+    state: dict[str, Any],
+    *,
+    llm: LLMClient,
+    settings: Settings,
+    retriever: Retriever | None = None,
+) -> dict[str, Any]:
+    """Graph node: run the corrective loop on the Monitor's anomalies and the farmer's signs."""
+    result = diagnose(
+        anomalies=[Anomaly(**a) for a in state.get("anomalies", [])],
+        symptoms=list(state.get("symptoms", [])),
+        day_of_culture=state["day_of_culture"],
+        llm=llm,
+        settings=settings,
+        retriever=retriever,
+    )
+    return {
+        "diagnosis": result.diagnosis.model_dump(),
+        "retrieved_passages": [p.model_dump() for p in result.retrieved],
+        "relevant_ids": [p.id for p in result.relevant],
+        "queries": [r["query"] for r in result.rounds],
+        "follow_up_question": result.diagnosis.follow_up_question,
+        "retries": max(len(result.rounds) - 1, 0),
+    }
+
+
+__all__ = [
+    "DiagnosisResult",
+    "build_query",
+    "diagnose",
+    "diagnostician_node",
+    "follow_up_question",
+    "ranking_schema",
+]
 _ = (cast, RankedHypotheses)  # re-exported types used by callers and tests

@@ -43,6 +43,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     ing.add_argument("--embedder", choices=["bge", "hash"], default="bge")
 
+    run = sub.add_parser("run", help="run the agents on one scenario, printing each step live")
+    run.add_argument("--scenario", required=True, help="e.g. EHP-03")
+    run.add_argument(
+        "--inject-fault",
+        choices=["none", "uncited_step"],
+        default=None,
+        help="uncited_step: the Advisor's first draft gets one uncited step (critic demo)",
+    )
+    run.add_argument("--no-cache", action="store_true", help="make every model call fresh")
+
     demo = sub.add_parser("trace-demo", help="record one dummy tool call to JSONL and Phoenix")
     demo.add_argument(
         "--no-phoenix", action="store_true", help="JSONL only, even if TRACING=phoenix"
@@ -108,9 +118,74 @@ def cmd_ingest(sources: list[str], embedder: str) -> int:
     return 0
 
 
+def format_report(report: dict) -> str:
+    lines = [
+        "",
+        "=" * 70,
+        f"PONDGUARD REPORT  pond {report['pond_id']}  {report['date']}  (advisory only)",
+        "=" * 70,
+        f"Risk level : {report['risk_level'].upper()}",
+        f"Action     : {report['action']['action_level']}"
+        + ("   (needs human approval)" if report["needs_human"] else ""),
+    ]
+    if report["hypotheses"]:
+        lines.append("Likely causes:")
+        for h in report["hypotheses"]:
+            lines.append(
+                f"  - {h['condition']} ({h['confidence']:.2f}) cites {', '.join(h['citations'])}"
+            )
+    else:
+        lines.append("Likely causes: none confirmed")
+    if report["follow_up_question"]:
+        lines.append(f"Follow-up question: {report['follow_up_question']}")
+    lines.append("Steps:")
+    lines += [f"  {i}. {s}" for i, s in enumerate(report["action"]["steps"], start=1)]
+    if report["sources"]:
+        lines.append("Sources:")
+        lines += [f"  [{s['id']}] {s['title'][:60]}, page {s['page']}" for s in report["sources"]]
+    if report["issues"]:
+        lines.append("Unresolved review issues: " + "; ".join(report["issues"]))
+    lines.append(report["disclaimer"])
+    return "\n".join(lines)
+
+
+def cmd_run(scenario_id: str, inject_fault: str | None, no_cache: bool) -> int:
+    from pondguard.config import load_settings
+    from pondguard.graph import run_scenario
+    from pondguard.llm import get_llm
+    from pondguard.paths import DATA_DIR
+    from pondguard.simulator.scenarios import load_scenario
+    from pondguard.tools.kb_tools import get_retriever
+
+    if inject_fault:
+        os.environ["PONDGUARD_INJECT_FAULT"] = inject_fault
+    settings = load_settings()
+    scenario = load_scenario(scenario_id, DATA_DIR / "scenarios")
+    llm = get_llm("agent", settings, use_cache=not no_cache)
+    retriever = get_retriever(settings)
+    print(f"scenario {scenario_id}  pond {scenario['pond_id']}  model {llm.model} ({llm.provider})")
+    if settings.fault_injection != "none":
+        print(f"!! fault injection ON: {settings.fault_injection}")
+    final, tracer = run_scenario(
+        scenario,
+        llm,
+        settings,
+        retriever,
+        echo=lambda e: print(f"  [{e['node']}] {e['message']}", flush=True),
+    )
+    print(format_report(final["report"]))
+    print(
+        f"\nsteps {final.get('step_count')}  llm calls {llm.budget.calls}  "
+        f"tokens {llm.budget.used}  trace {tracer.path}"
+    )
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.command == "run":
+        return cmd_run(args.scenario, args.inject_fault, args.no_cache)
     if args.command == "ingest":
         return cmd_ingest(args.sources, args.embedder)
     if args.command == "simulate":

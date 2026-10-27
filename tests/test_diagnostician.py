@@ -8,6 +8,7 @@ from pondguard.agents.diagnostician import (
     build_query,
     diagnose,
     follow_up_question,
+    pointed_conditions,
     ranking_schema,
 )
 from pondguard.config import load_settings
@@ -112,6 +113,83 @@ def test_good_evidence_ranks_with_citations_from_the_relevant_set(llm, retriever
     assert not d.abstained and d.retrieval_rounds == 1
     relevant_ids = {p.id for p in result.relevant}
     assert all(set(h.citations) <= relevant_ids for h in d.hypotheses)
+
+
+@pytest.fixture
+def strong_grades(monkeypatch):
+    real = llm_module.mock_response
+
+    def fn(task, context):
+        if task == "grade":
+            ids = context["passage_ids"]
+            return PassageGrades(
+                grades=[PassageGrade(passage_id=p, grade=0.9, reason="r") for p in ids]
+            )
+        return real(task, context)
+
+    monkeypatch.setattr(llm_module, "mock_response", fn)
+
+
+def test_vague_evidence_still_retrieves_but_abstains_without_ranking(llm, retriever, strong_grades):
+    # lethargy maps to no condition and there is no anomaly: nothing specific to diagnose
+    result = diagnose(
+        anomalies=[],
+        symptoms=["lethargy"],
+        day_of_culture=50,
+        llm=llm,
+        settings=SETTINGS,
+        retriever=retriever,
+    )
+    assert result.rounds[0]["decision"] == "abstain (vague evidence rule)"
+    assert result.diagnosis.abstained and result.diagnosis.follow_up_question
+    assert "rank" not in [c.task for c in llm.calls]  # the ranking step never ran
+    assert "grade" in [c.task for c in llm.calls]  # but retrieval and grading did
+
+
+def test_vague_evidence_still_re_queries_when_grades_are_weak(llm, retriever):
+    result = diagnose(
+        anomalies=[],
+        symptoms=["lethargy"],
+        day_of_culture=50,
+        llm=llm,
+        settings=SETTINGS,
+        retriever=retriever,
+    )
+    assert [r["decision"] for r in result.rounds] == ["re-query", "re-query", "abstain"]
+
+
+def test_a_sensor_anomaly_is_enough_to_diagnose_without_a_specific_sign(
+    llm, retriever, strong_grades
+):
+    result = diagnose(
+        anomalies=[DO_TREND],
+        symptoms=["lethargy"],
+        day_of_culture=50,
+        llm=llm,
+        settings=SETTINGS,
+        retriever=retriever,
+    )
+    assert result.rounds[0]["decision"] == "rank" and not result.diagnosis.abstained
+
+
+def test_one_specific_sign_is_enough_to_diagnose(llm, retriever, strong_grades):
+    result = diagnose(
+        anomalies=[],
+        symptoms=["lethargy", "white_spots"],
+        day_of_culture=50,
+        llm=llm,
+        settings=SETTINGS,
+        retriever=retriever,
+    )
+    assert result.rounds[0]["decision"] == "rank" and not result.diagnosis.abstained
+
+
+def test_pointed_conditions_come_from_the_config_sign_sets():
+    sets = SETTINGS.sign_sets
+    assert pointed_conditions([], ["lethargy", "reduced_feeding"], sets) == []
+    assert pointed_conditions([], ["white_spots"], sets) == ["wssv"]
+    assert pointed_conditions([DO_TREND], [], sets) == ["water_quality_stress"]
+    assert sets.is_specific("white_spots") and not sets.is_specific("lethargy")
 
 
 def test_requery_limit_comes_from_settings(llm, retriever):

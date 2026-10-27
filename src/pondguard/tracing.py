@@ -193,6 +193,7 @@ class RunTracer:
     tags: dict[str, str] = field(default_factory=dict)  # pond_id, scenario_id, variant
     models: dict[str, dict[str, Any]] | None = None  # filled from settings if None
     phoenix: bool | None = None  # None = follow settings.runtime.tracing
+    echo: Callable[[dict], None] | None = None  # called with each event, e.g. to print live
     events: list[dict] = field(default_factory=list)
 
     def __post_init__(self) -> None:
@@ -250,6 +251,8 @@ class RunTracer:
         entry = make_event(node, message, **data)
         self.events.append(entry)
         self.write({"type": "event", **entry})
+        if self.echo is not None:
+            self._safe(lambda: self.echo(entry))
         return entry
 
     # -- spans ------------------------------------------------------------------

@@ -17,7 +17,14 @@ from typing import Literal
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from pondguard.models import ACTION_LEVELS, RISK_LEVELS, ActionLevel, Condition, RiskLevel
+from pondguard.models import (
+    ACTION_LEVELS,
+    RISK_LEVELS,
+    ActionLevel,
+    Condition,
+    RiskLevel,
+    Symptom,
+)
 from pondguard.paths import CONFIG_DIR, REPO_ROOT
 
 Provider = Literal["mock", "lmstudio", "ollama"]
@@ -140,6 +147,49 @@ class BannedSubstances(_Strict):
         return sorted({n.lower() for s in self.substances for n in (s.name, *s.synonyms)})
 
 
+# --- sign_sets.yaml ----------------------------------------------------------
+
+
+class QuestionEntry(_Strict):
+    sign: Symptom
+    question: str = Field(min_length=1)
+
+
+class SignSets(_Strict):
+    sign_to_conditions: dict[Symptom, list[Condition]]
+    anomaly_to_conditions: dict[str, list[Condition]]
+    condition_terms: dict[Condition, str]
+    question_bank: list[QuestionEntry]
+    generic_question: str
+
+    @model_validator(mode="after")
+    def _check(self) -> SignSets:
+        for sign, conditions in self.sign_to_conditions.items():
+            if not conditions:
+                raise ValueError(f"{sign}: list at least one condition, or omit the sign")
+        mapped = {c for cs in self.sign_to_conditions.values() for c in cs}
+        mapped |= {c for cs in self.anomaly_to_conditions.values() for c in cs}
+        missing = mapped - set(self.condition_terms)
+        if missing:
+            raise ValueError(f"condition_terms is missing {sorted(missing)}")
+        return self
+
+    def is_specific(self, sign: str) -> bool:
+        """A sign is specific if it maps to at least one condition."""
+        return bool(self.sign_to_conditions.get(sign))  # type: ignore[call-overload]
+
+    def conditions_for_signs(self, signs: list[str]) -> list[str]:
+        """Conditions pointed to by the signs, most-supported first."""
+        votes: dict[str, int] = {}
+        for sign in signs:
+            for condition in self.sign_to_conditions.get(sign, []):  # type: ignore[call-overload]
+                votes[condition] = votes.get(condition, 0) + 1
+        return sorted(votes, key=lambda c: -votes[c])
+
+    def conditions_for_parameter(self, parameter: str) -> list[str]:
+        return list(self.anomaly_to_conditions.get(parameter, []))
+
+
 # --- environment (.env) ------------------------------------------------------
 
 
@@ -194,6 +244,7 @@ class Settings(_Strict):
     thresholds: dict[str, ThresholdSpec]
     action_ladder: ActionLadder
     banned: BannedSubstances
+    sign_sets: SignSets
     runtime: RuntimeEnv
 
 
@@ -217,6 +268,7 @@ def load_settings(config_dir: Path = CONFIG_DIR, env: Mapping[str, str] | None =
         thresholds=_read_yaml(config_dir / "thresholds.yaml"),
         action_ladder=_read_yaml(config_dir / "action_ladder.yaml"),
         banned=_read_yaml(config_dir / "banned_substances.yaml"),
+        sign_sets=_read_yaml(config_dir / "sign_sets.yaml"),
         runtime=RuntimeEnv.from_env(env),
     )
 

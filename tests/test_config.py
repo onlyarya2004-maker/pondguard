@@ -81,6 +81,22 @@ def test_banned_names_include_synonyms(settings):
     assert "furazolidone" in names
 
 
+def test_sign_sets_load_and_validate(settings, config_copy):
+    sets = settings.sign_sets
+    assert sets.conditions_for_signs(["white_faecal_strings"]) == ["white_faeces", "ehp"]
+    assert sets.conditions_for_parameter("do_mg_l") == ["water_quality_stress"]
+    assert sets.question_bank[0].sign == "white_spots"
+    _edit(config_copy / "sign_sets.yaml", lambda d: d["sign_to_conditions"].update(lethargy=[]))
+    with pytest.raises(ValidationError, match="at least one condition"):
+        load_settings(config_copy, env={})
+    _edit(
+        config_copy / "sign_sets.yaml",
+        lambda d: d["sign_to_conditions"].update(white_spots=["wssv", "plague"]),
+    )
+    with pytest.raises(ValidationError):
+        load_settings(config_copy, env={})
+
+
 def test_defaults_are_offline_mock(settings):
     env = settings.runtime
     assert env.provider == "mock"

@@ -179,6 +179,7 @@ class PondReport(_Strict):
     follow_up_question: str | None = None
     needs_human: bool
     approval_status: Literal["not_needed", "pending", "approved", "edited", "rejected"]
+    issues: list[str] = Field(default_factory=list)  # unresolved Critic issues, if any
     disclaimer: str = DISCLAIMER
 
     @model_validator(mode="after")
