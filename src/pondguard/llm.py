@@ -328,23 +328,37 @@ class LLMClient:
     calls: list[LLMResult] = field(default_factory=list)
 
     def run(
-        self, task: TaskType, prompt: Any, *, context: dict[str, Any] | None = None
+        self,
+        task: TaskType,
+        prompt: Any,
+        *,
+        context: dict[str, Any] | None = None,
+        schema: type[_Out] | None = None,
     ) -> LLMResult:
-        """Run one task. `prompt` is a string or a list of (role, text) messages."""
+        """Run one task. `prompt` is a string or a list of (role, text) messages.
+
+        `schema` replaces the task's default output schema for this call, e.g. a
+        model whose `citations` field only allows the passage ids that were retrieved,
+        so constrained decoding cannot produce any other id.
+        """
         self._check_role(task)
         self.budget.check(task)
         context = context or {}
         if self.provider == "mock":
-            result = self._run_mock(task, prompt, context)
+            result = self._run_mock(task, prompt, context, schema)
         else:
-            result = self._run_model(task, prompt, context)
+            result = self._run_model(task, prompt, context, schema)
         self.budget.charge(result.usage)
         self.calls.append(result)
         return result
 
-    def _run_mock(self, task: TaskType, prompt: Any, context: dict[str, Any]) -> LLMResult:
+    def _run_mock(
+        self, task: TaskType, prompt: Any, context: dict[str, Any], schema: type[_Out] | None
+    ) -> LLMResult:
         start = time.perf_counter()
         output = mock_response(task, context)
+        if schema is not None:
+            output = schema.model_validate(output.model_dump())
         usage = TokenUsage(
             input_tokens=estimate_tokens(str(prompt)),
             output_tokens=estimate_tokens(output.model_dump_json()),
@@ -352,8 +366,10 @@ class LLMClient:
         )
         return LLMResult(task, output, usage, time.perf_counter() - start, "mock", self.model)
 
-    def _run_model(self, task: TaskType, prompt: Any, context: dict[str, Any]) -> LLMResult:
-        schema = TASK_SCHEMAS[task]
+    def _run_model(
+        self, task: TaskType, prompt: Any, context: dict[str, Any], schema: type[_Out] | None
+    ) -> LLMResult:
+        schema = schema or TASK_SCHEMAS[task]
         settings = self.settings or LLMSettings(temperature=0, request_timeout_s=120)
         key = cache_key(
             provider=self.provider,
