@@ -6,6 +6,9 @@
 langgraph==1.2.17
 langgraph-checkpoint-sqlite==3.1.2
 langchain-core==1.7.0
+# Also pinned on purpose: arize-phoenix only asks for bashkit>=0.10, so a fresh install picks 0.20.1,
+# whose native module Smart App Control blocks (breaks pytest's plugin loading); 0.20.0 loads.
+bashkit==0.20.0
 # Pinned below the latest on purpose: Windows Smart App Control blocks the native
 # module in ormsgpack 1.13.0 on the team laptop; 1.12.2 is allowed (langgraph needs >=1.12).
 ormsgpack==1.12.2

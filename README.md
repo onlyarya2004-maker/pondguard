@@ -67,6 +67,8 @@ AI team project/
 
 ## Setup (Windows, Python 3.11)
 
+> **Full guide: [docs/SETUP.md](docs/SETUP.md)**: every download with exact names, sizes and sources, hardware needs, Windows Smart App Control notes, what works without models, and a "verify your setup" checklist with expected output. The short version follows.
+
 Run these from the `pondguard/` folder in PowerShell.
 
 ```powershell
