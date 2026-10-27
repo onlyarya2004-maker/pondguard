@@ -55,10 +55,20 @@ def llm():
     return get_llm("agent", SETTINGS, TokenBudget(cap=100_000))
 
 
-def test_query_combines_anomalies_symptoms_and_day():
+def test_query_puts_signs_and_conditions_before_water_quality():
     q = build_query([DO_TREND], ["white_faecal_strings", "reduced_feeding"], 42)
-    assert "dissolved oxygen falling at dawn" in q
-    assert "white faecal strings" in q and "reduced feeding" in q and "day 42" in q
+    assert q.startswith("signs: white faecal strings, reduced feeding")
+    assert "white feces syndrome" in q and "EHP Enterocytozoon" in q
+    assert q.index("possible conditions") < q.index("water quality: dissolved oxygen falling")
+    assert q.endswith("day 42 of culture")
+
+
+def test_query_is_general_not_scenario_specific():
+    wssv = build_query([], ["white_spots", "red_discoloration"], 55)
+    assert "white spot syndrome virus" in wssv and "water quality" not in wssv
+    only_vague = build_query([], ["lethargy"], 50)  # non-specific sign: no condition guessed
+    assert "possible conditions" not in only_vague and "lethargy" in only_vague
+    assert build_query([DO_TREND], [], 30).startswith("water quality: dissolved oxygen")
 
 
 def test_weak_evidence_requeries_twice_then_abstains(llm, retriever):

@@ -65,8 +65,15 @@ def grading_prompt(query: str, passages: list[Passage]) -> list[tuple[str, str]]
     body = "\n\n".join(f"[{p.id}]\n{p.text}" for p in passages)
     user = (
         f"Pond situation / query: {query}\n\n"
-        "Grade each passage from 0 to 1 for how useful it is for explaining this pond's "
-        "signs (1 = directly describes these signs or their likely cause; 0 = unrelated). "
+        "Grade each passage from 0 to 1 for whether it helps EXPLAIN the observed signs as a "
+        "disease or cause. Scoring rules:\n"
+        "- 0.8 to 1.0: the passage describes a disease or cause that would produce the "
+        "observed signs together, or states how to tell it from other causes.\n"
+        "- 0.4 to 0.7: it describes a disease or cause that fits some of the signs.\n"
+        "- 0.0 to 0.3: it only mentions a matching word (for example oxygen, feeding or "
+        "lethargy) in general management or background text, or it is unrelated.\n"
+        "A single general sign such as lethargy fits many diseases, so a passage that only "
+        "matches that one sign scores at most 0.4. "
         f"Return exactly one grade per passage id.\n\n{body}"
     )
     return [("system", GRADER_SYSTEM), ("human", user)]

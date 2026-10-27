@@ -83,10 +83,56 @@ def describe_anomaly(a: Anomaly) -> str:
     return f"{name} {KIND_WORDS.get(a.kind, a.kind)}"
 
 
+# Which conditions each sign points to, from the sign sets in the build spec (§3.5).
+# Signs that fit many conditions (lethargy, reduced feeding) are left out on purpose:
+# they do not narrow anything down, so they add no "possible condition" to the query.
+SIGN_TO_CONDITIONS: dict[str, list[str]] = {
+    "white_spots": ["wssv"],
+    "red_discoloration": ["wssv", "vibriosis"],
+    "gathering_at_edges": ["wssv"],
+    "white_faecal_strings": ["white_faeces", "ehp"],
+    "slow_growth": ["ehp"],
+    "size_variation": ["ehp"],
+    "empty_gut": ["ahpnd"],
+    "pale_hepatopancreas": ["ahpnd"],
+    "luminescence": ["vibriosis"],
+    "sudden_mortality": ["ahpnd", "wssv"],
+}
+# How the knowledge-base manuals name each condition (used as search terms).
+CONDITION_TERMS = {
+    "wssv": "white spot syndrome virus WSSV",
+    "ehp": "EHP Enterocytozoon hepatopenaei",
+    "white_faeces": "white feces syndrome",
+    "ahpnd": "AHPND acute hepatopancreatic necrosis disease",
+    "vibriosis": "Vibrio vibriosis",
+}
+
+
+def likely_conditions(symptoms: list[str]) -> list[str]:
+    """Conditions suggested by the reported signs, most-supported first."""
+    votes: dict[str, int] = {}
+    for sign in symptoms:
+        for condition in SIGN_TO_CONDITIONS.get(sign, []):
+            votes[condition] = votes.get(condition, 0) + 1
+    return sorted(votes, key=lambda c: -votes[c])
+
+
 def build_query(anomalies: list[Anomaly], symptoms: list[str], day_of_culture: int) -> str:
-    """Anomalies + symptoms + day of culture -> one natural-language search query."""
-    parts = list(dict.fromkeys(describe_anomaly(a) for a in anomalies))
-    parts += [s.replace("_", " ") for s in symptoms]
+    """Signs first, then likely conditions, with water quality as context.
+
+    A general rule for every scenario: the observed signs and the conditions they point
+    to come first, because they decide the diagnosis; sensor anomalies come last, because
+    they usually describe pond conditions around a disease rather than the disease itself.
+    """
+    parts = []
+    if symptoms:
+        parts.append("signs: " + ", ".join(s.replace("_", " ") for s in symptoms))
+    conditions = likely_conditions(symptoms)
+    if conditions:
+        parts.append("possible conditions: " + ", ".join(CONDITION_TERMS[c] for c in conditions))
+    water = list(dict.fromkeys(describe_anomaly(a) for a in anomalies))
+    if water:
+        parts.append("water quality: " + ", ".join(water))
     parts.append(f"shrimp pond, day {day_of_culture} of culture")
     return "; ".join(parts)
 
@@ -189,6 +235,10 @@ def diagnose(
             tracer.event("diagnostician", message, **data)
 
     query = build_query(anomalies, symptoms, day_of_culture)
+    # Passages are always graded against the ORIGINAL situation, never the rewritten query:
+    # a rewrite may add disease names the farmer never reported, and grading against those
+    # would make unrelated passages look relevant.
+    situation = query
     rounds: list[dict[str, Any]] = []
     seen: dict[str, Passage] = {}
     relevant: list[Passage] = []
@@ -204,7 +254,7 @@ def diagnose(
         span = span_cm.__enter__() if span_cm else None
         try:
             found = search_disease_kb(query, k=k, retriever=retriever)
-            graded = grade_passages(query, found, llm)
+            graded = grade_passages(situation, found, llm)
             relevant = [p for p in graded if (p.grade or 0.0) >= threshold]
             weak = len(relevant) < needed
             decision = ("abstain" if requeries >= max_requeries else "re-query") if weak else "rank"

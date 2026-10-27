@@ -44,6 +44,9 @@ def main() -> None:
         anomalies = detect_anomalies(readings) + check_thresholds(readings)
         for a in anomalies:
             print(f"  anomaly: {a.parameter} {a.kind} {a.severity} value={a.value} ({a.window})")
+        if not anomalies and not log["symptoms"]:
+            print("\nno anomalies and no symptoms: the Supervisor would skip diagnosis")
+            return
         result = diagnose(
             anomalies=anomalies,
             symptoms=log["symptoms"],
