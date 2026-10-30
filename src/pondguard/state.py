@@ -64,6 +64,8 @@ class GraphState(TypedDict, total=False):
     # Human-in-the-loop
     needs_human: bool
     approval: dict | None
+    gate_would_pause: bool  # the human gate was reached (paused, auto-approved or flagged)
+    started_at: str
 
     # Output
     report: dict

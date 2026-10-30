@@ -26,6 +26,7 @@ always says it was injected.
 
 from __future__ import annotations
 
+from datetime import date, timedelta
 from typing import Any, Literal
 
 from pydantic import ConfigDict, Field, create_model
@@ -50,6 +51,15 @@ SYSTEM = (
 
 def _raise(risk: RiskLevel) -> RiskLevel:
     return RISK_LEVELS[min(RISK_LEVELS.index(risk) + 1, len(RISK_LEVELS) - 1)]
+
+
+def repeats(history: list[dict], today: str, rule) -> bool:
+    """True if the same risk was recorded on each of the previous (days - 1) days in a row."""
+    day = date.fromisoformat(today)
+    seen = {h["date"] for h in history if h.get("risk_level") == rule.repeat_risk}
+    return all(
+        (day - timedelta(days=n)).isoformat() in seen for n in range(1, rule.consecutive_days)
+    )
 
 
 def decide_risk(state: GraphState, settings: Settings) -> tuple[RiskLevel, str]:
@@ -92,6 +102,17 @@ def decide_risk(state: GraphState, settings: Settings) -> tuple[RiskLevel, str]:
     if mortality >= MORTALITY_RAISE:
         risk = _raise(risk)
         why += f"; raised one level for mortality {mortality}"
+    rule = ladder.escalation
+    if (
+        state.get("date")
+        and risk == rule.repeat_risk
+        and rule.max_levels_up
+        and repeats(state.get("pond_history") or [], state.get("date", ""), rule)
+    ):
+        risk = _raise(risk)
+        why += (
+            f"; {rule.repeat_risk} on {rule.consecutive_days} consecutive days, escalated one level"
+        )
     return risk, why
 
 

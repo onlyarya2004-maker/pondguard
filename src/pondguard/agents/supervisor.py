@@ -19,6 +19,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from pondguard.agents.gate import needs_gate
 from pondguard.config import Settings
 from pondguard.llm import DEFAULT_PLAN, LLMClient
 from pondguard.state import GraphState
@@ -108,8 +109,8 @@ def supervisor_node(state: GraphState, *, llm: LLMClient, settings: Settings) ->
             n = updates["revisions"]
             note(f"Critic sent the draft back to the {target} (revision {n}): {issues}")
         else:
-            note("Critic still not satisfied after the allowed revision; flagging for a human")
-            return {**updates, "next": "finish", "needs_human": True}
+            note("Critic still not satisfied after the allowed revision; sending it to a human")
+            return {**updates, "next": "human_gate", "needs_human": True}
 
     for step in view["plan"]:
         if _done(view, step):
@@ -121,5 +122,8 @@ def supervisor_node(state: GraphState, *, llm: LLMClient, settings: Settings) ->
         node = STEP_TO_NODE[step]
         note(f"next: {node}")
         return {**updates, "next": node}
+    if needs_gate(view, settings) and not view.get("gate_would_pause"):
+        note("action needs human approval: going to the gate")
+        return {**updates, "next": "human_gate"}
     note("all planned steps done; finishing")
     return {**updates, "next": "finish"}

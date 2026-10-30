@@ -192,6 +192,40 @@ def rewrite_query(llm: LLMClient, query: str, passages: list[Passage], symptoms:
     return result.output.query
 
 
+def _single_pass(anomalies, symptoms, day_of_culture, llm, settings, retriever, note, sign_sets):
+    """Variant A (the experiment's baseline): retrieve once, rank, done.
+
+    Same query, same ranking step and same citation limits as Variant B, but no grading, no
+    re-query and no abstention: every retrieved passage counts as evidence. The only way it
+    ends without a cause is when the model returns no valid, cited hypothesis; then there is
+    nothing to report, so it asks the follow-up question (forced, and recorded as such).
+    """
+    query = build_query(anomalies, symptoms, day_of_culture, sign_sets)
+    found = search_disease_kb(query, k=settings.retrieval.k, retriever=retriever)
+    entry = {
+        "round": 1,
+        "query": query,
+        "passages": [
+            {"id": p.id, "score": p.score, "grade": None, "disease": p.disease} for p in found
+        ],
+        "relevant": len(found),
+        "needed": 0,
+        "decision": "rank (variant A: no grading)",
+    }
+    note(f"variant A: one search, {len(found)} passages used as evidence, no grading", query=query)
+    hypotheses = rank_hypotheses(llm, anomalies, symptoms, day_of_culture, found)
+    if hypotheses:
+        note("ranked: " + ", ".join(f"{h.condition} ({h.confidence:.2f})" for h in hypotheses))
+        diagnosis = Diagnosis(hypotheses=hypotheses, abstained=False, retrieval_rounds=1)
+    else:
+        question = follow_up_question(symptoms, sign_sets)
+        note("variant A: the model returned no valid cited hypothesis (forced abstention)")
+        diagnosis = Diagnosis(
+            hypotheses=[], abstained=True, follow_up_question=question, retrieval_rounds=1
+        )
+    return DiagnosisResult(diagnosis, [entry], found, found)
+
+
 def diagnose(
     *,
     anomalies: list[Anomaly],
@@ -200,6 +234,7 @@ def diagnose(
     llm: LLMClient,
     settings: Settings | None = None,
     retriever: Retriever | None = None,
+    variant: str = "B",
 ) -> DiagnosisResult:
     settings = settings or get_settings()
     k = settings.retrieval.k
@@ -213,6 +248,10 @@ def diagnose(
             tracer.event("diagnostician", message, **data)
 
     sign_sets = settings.sign_sets
+    if variant == "A":
+        return _single_pass(
+            anomalies, symptoms, day_of_culture, llm, settings, retriever, note, sign_sets
+        )
     # Deterministic abstain rule (docs/tuning_log.md, design rule): the 8B grader over-scores
     # passages that merely list a general sign, so if no reported sign and no anomaly points
     # to any condition, retrieval and re-querying still run but the answer is an abstention.
@@ -317,6 +356,7 @@ def diagnostician_node(
         llm=llm,
         settings=settings,
         retriever=retriever,
+        variant=str(state.get("variant", "B")),
     )
     return {
         "diagnosis": result.diagnosis.model_dump(),

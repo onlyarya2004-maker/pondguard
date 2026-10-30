@@ -58,6 +58,7 @@ _OPENINFERENCE_KIND = {
     "human": "CHAIN",
 }
 MAX_FIELD_CHARS = 2000
+PAUSE_EXCEPTIONS = ("GraphInterrupt", "NodeInterrupt")  # LangGraph interrupt() waiting for a human
 PROJECT_NAME = "pondguard"
 
 _current: contextvars.ContextVar[RunTracer | None] = contextvars.ContextVar(
@@ -267,10 +268,12 @@ class RunTracer:
         otel_span = self._safe(otel_cm.__enter__) if otel_cm is not None else None
         start = time.perf_counter()
         error: BaseException | None = None
+        paused = False
         try:
             yield record
         except BaseException as exc:
-            error = exc
+            paused = type(exc).__name__ in PAUSE_EXCEPTIONS  # waiting for a person, not a failure
+            error = None if paused else exc
             raise
         finally:
             duration_ms = round((time.perf_counter() - start) * 1000, 2)
@@ -279,7 +282,7 @@ class RunTracer:
                     "type": "span",
                     "kind": kind,
                     "name": name,
-                    "status": "error" if error else "ok",
+                    "status": "paused" if paused else ("error" if error else "ok"),
                     "duration_ms": duration_ms,
                     "inputs": record.inputs,
                     "outputs": record.outputs,

@@ -15,7 +15,7 @@ from pondguard.config import load_settings
 from pondguard.kb.embeddings import HashEmbedder
 from pondguard.kb.ingest import collection_name, open_store
 from pondguard.kb.retriever import Retriever
-from pondguard.llm import PassageGrade, PassageGrades, TokenBudget, get_llm
+from pondguard.llm import PassageGrade, PassageGrades, RankedHypotheses, TokenBudget, get_llm
 from pondguard.models import Anomaly
 
 SETTINGS = load_settings(env={})
@@ -231,3 +231,47 @@ def test_ranking_schema_only_allows_the_given_passage_ids():
     bad = {"hypotheses": [{"condition": "ehp", "confidence": 0.7, "citations": ["B:p9:c0"]}]}
     with pytest.raises(ValidationError):
         schema.model_validate(bad)
+
+
+# --- Variant A: single-pass RAG (the experiment's baseline) ----------------------------------
+
+
+def test_variant_a_retrieves_once_without_grading_or_re_querying(llm, retriever):
+    # the mock would grade 0.5 and the sign is vague: variant B would re-query and abstain
+    result = diagnose(
+        anomalies=[],
+        symptoms=["lethargy"],
+        day_of_culture=50,
+        llm=llm,
+        settings=SETTINGS,
+        retriever=retriever,
+        variant="A",
+    )
+    tasks = [c.task for c in llm.calls]
+    assert "grade" not in tasks and "rewrite" not in tasks
+    assert len(result.rounds) == 1 and result.diagnosis.retrieval_rounds == 1
+    assert result.rounds[0]["decision"].startswith("rank (variant A")
+    assert not result.diagnosis.abstained  # the vague-evidence rule belongs to variant B
+    cited = {c for h in result.diagnosis.hypotheses for c in h.citations}
+    assert cited <= {p.id for p in result.retrieved}  # citations still limited to what was found
+
+
+def test_variant_a_forced_abstention_when_the_model_returns_nothing_valid(
+    llm, retriever, monkeypatch
+):
+    real = llm_module.mock_response
+
+    def empty_rank(task, ctx):
+        return RankedHypotheses(hypotheses=[]) if task == "rank" else real(task, ctx)
+
+    monkeypatch.setattr(llm_module, "mock_response", empty_rank)
+    result = diagnose(
+        anomalies=[DO_TREND],
+        symptoms=["white_spots"],
+        day_of_culture=50,
+        llm=llm,
+        settings=SETTINGS,
+        retriever=retriever,
+        variant="A",
+    )
+    assert result.diagnosis.abstained and result.diagnosis.follow_up_question

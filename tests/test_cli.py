@@ -11,10 +11,10 @@ def test_unknown_scenario_is_a_short_message(capsys):
     assert err.startswith("error: unknown scenario 'NOPE-99'") and "Traceback" not in err
 
 
-def test_variant_a_is_refused_not_silently_run_as_b(capsys, monkeypatch):
-    monkeypatch.setenv("PONDGUARD_VARIANT", "A")
+def test_an_unknown_variant_is_refused(capsys, monkeypatch):
+    monkeypatch.setenv("PONDGUARD_VARIANT", "C")
     assert cli.main(["run", "--scenario", "HEALTHY-01"]) == 1
-    assert "not built yet" in capsys.readouterr().err
+    assert "error:" in capsys.readouterr().err
 
 
 def test_connection_failures_get_a_fix_hint():

@@ -15,6 +15,7 @@ import sys
 import uuid
 
 from pondguard import __version__
+from pondguard.memory import Memory, open_checkpointer
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -52,6 +53,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="uncited_step: the Advisor's first draft gets one uncited step (critic demo)",
     )
     run.add_argument("--no-cache", action="store_true", help="make every model call fresh")
+    run.add_argument(
+        "--variant",
+        choices=["A", "B"],
+        default=None,
+        help="A: single-pass RAG (experiment baseline); B: agentic RAG (default)",
+    )
+
+    appr = sub.add_parser("approve", help="resume a run that is paused at the human gate")
+    appr.add_argument("--thread", required=True, help="thread id shown by `pending`")
+    appr.add_argument("--decision", required=True, choices=["approve", "edit", "reject"])
+    appr.add_argument("--level", help="edit: the new action level (e.g. L4)")
+    appr.add_argument("--note", default="", help="edit: a note for the report")
+    appr.add_argument("--reviewer", default=os.environ.get("USERNAME", "reviewer"))
+
+    sub.add_parser("pending", help="list runs waiting for human approval")
 
     demo = sub.add_parser("trace-demo", help="record one dummy tool call to JSONL and Phoenix")
     demo.add_argument(
@@ -149,7 +165,63 @@ def format_report(report: dict) -> str:
     return "\n".join(lines)
 
 
-def cmd_run(scenario_id: str, inject_fault: str | None, no_cache: bool) -> int:
+def print_paused(final: dict) -> None:
+    plan = final["action_plan"]
+    thread = final["__paused__"]["thread_id"]
+    print("\n" + "=" * 70)
+    print(f"PAUSED: action {plan['action_level']} ({plan['risk_level']}) needs human approval")
+    print("=" * 70)
+    for i, step in enumerate(plan["steps"], start=1):
+        print(f"  {i}. {step}")
+    print(f"\nThread: {thread}")
+    print("List waiting runs : python -m pondguard.cli pending")
+    cmd = 'python -m pondguard.cli approve --thread "' + thread + '" --decision approve'
+    print("Approve           : " + cmd)
+    print('Or --decision reject (downgrades to L2), or --decision edit --level L4 --note "..."')
+
+
+def cmd_pending() -> int:
+    rows = Memory().list_pending()
+    if not rows:
+        print("nothing is waiting for approval")
+        return 0
+    for r in rows:
+        print(
+            f"{r['thread_id']}  {r['scenario_id']}  risk {r['risk_level']}  "
+            f"action {r['action_level']}  since {r['created_at']}"
+        )
+    return 0
+
+
+def cmd_approve(thread: str, decision: str, level: str | None, note: str, reviewer: str) -> int:
+    from pondguard.config import load_settings
+    from pondguard.graph import resume_run
+    from pondguard.llm import get_llm
+    from pondguard.tools.kb_tools import get_retriever
+
+    settings = load_settings()
+    answer: dict = {"decision": decision, "reviewer": reviewer}
+    if decision == "edit":
+        answer["edited_action"] = {k: v for k, v in (("action_level", level), ("note", note)) if v}
+    llm = get_llm("agent", settings)
+    final, tracer = resume_run(
+        thread,
+        answer,
+        llm,
+        settings,
+        get_retriever(settings),
+        checkpointer=open_checkpointer(),
+        memory=Memory(),
+        echo=lambda e: print(f"  [{e['node']}] {e['message']}", flush=True),
+    )
+    print(format_report(final["report"]))
+    print(f"\ntrace {tracer.path}")
+    return 0
+
+
+def cmd_run(
+    scenario_id: str, inject_fault: str | None, no_cache: bool, variant: str | None = None
+) -> int:
     from pondguard.config import load_settings
     from pondguard.graph import run_scenario
     from pondguard.llm import get_llm
@@ -160,11 +232,7 @@ def cmd_run(scenario_id: str, inject_fault: str | None, no_cache: bool) -> int:
     if inject_fault:
         os.environ["PONDGUARD_INJECT_FAULT"] = inject_fault
     settings = load_settings()
-    if settings.runtime.variant != "B":
-        raise CliError(
-            "PONDGUARD_VARIANT=A (single-pass RAG) is not built yet; it is part of the "
-            "Review 4 experiment. Use PONDGUARD_VARIANT=B."
-        )
+    variant = variant or settings.runtime.variant
     scenario_path = DATA_DIR / "scenarios" / f"{scenario_id}.json"
     if not scenario_path.exists():
         known = ", ".join(sorted(p.stem for p in scenario_path.parent.glob("*.json"))) or "none"
@@ -175,7 +243,11 @@ def cmd_run(scenario_id: str, inject_fault: str | None, no_cache: bool) -> int:
     scenario = load_scenario(scenario_id, DATA_DIR / "scenarios")
     llm = get_llm("agent", settings, use_cache=not no_cache)
     retriever = get_retriever(settings)
-    print(f"scenario {scenario_id}  pond {scenario['pond_id']}  model {llm.model} ({llm.provider})")
+    memory, checkpointer = Memory(), open_checkpointer()
+    print(
+        f"scenario {scenario_id}  pond {scenario['pond_id']}  variant {variant}  "
+        f"model {llm.model} ({llm.provider})"
+    )
     if settings.fault_injection != "none":
         print(f"!! fault injection ON: {settings.fault_injection}")
     final, tracer = run_scenario(
@@ -183,8 +255,14 @@ def cmd_run(scenario_id: str, inject_fault: str | None, no_cache: bool) -> int:
         llm,
         settings,
         retriever,
+        variant=variant,
+        checkpointer=checkpointer,
+        memory=memory,
         echo=lambda e: print(f"  [{e['node']}] {e['message']}", flush=True),
     )
+    if "__paused__" in final:
+        print_paused(final)
+        return 0
     print(format_report(final["report"]))
     print(
         f"\nsteps {final.get('step_count')}  llm calls {llm.budget.calls}  "
@@ -238,8 +316,12 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def _dispatch(parser: argparse.ArgumentParser, args: argparse.Namespace) -> int:
+    if args.command == "pending":
+        return cmd_pending()
+    if args.command == "approve":
+        return cmd_approve(args.thread, args.decision, args.level, args.note, args.reviewer)
     if args.command == "run":
-        return cmd_run(args.scenario, args.inject_fault, args.no_cache)
+        return cmd_run(args.scenario, args.inject_fault, args.no_cache, args.variant)
     if args.command == "ingest":
         return cmd_ingest(args.sources, args.embedder)
     if args.command == "simulate":
