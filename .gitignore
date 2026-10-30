@@ -40,3 +40,7 @@ results/runs/
 Thumbs.db
 .vscode/
 .idea/
+
+# Raw R3 traces contain knowledge-base passage text (copyrighted)
+docs/r3/traces/
+docs/r3/phoenix/
