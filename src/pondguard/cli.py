@@ -69,6 +69,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("pending", help="list runs waiting for human approval")
 
+    ev = sub.add_parser("eval", help="run the 40-scenario golden set for one variant")
+    ev.add_argument("--variant", required=True, choices=["A", "B"])
+    ev.add_argument("--only", nargs="+", help="run only these scenario ids (a quick check)")
+    ev.add_argument("--no-cache", action="store_true", help="make every model call fresh")
+
     demo = sub.add_parser("trace-demo", help="record one dummy tool call to JSONL and Phoenix")
     demo.add_argument(
         "--no-phoenix", action="store_true", help="JSONL only, even if TRACING=phoenix"
@@ -178,6 +183,14 @@ def print_paused(final: dict) -> None:
     cmd = 'python -m pondguard.cli approve --thread "' + thread + '" --decision approve'
     print("Approve           : " + cmd)
     print('Or --decision reject (downgrades to L2), or --decision edit --level L4 --note "..."')
+
+
+def cmd_eval(variant: str, only: list[str] | None, no_cache: bool) -> int:
+    from pondguard.evaluation.runner import run_eval
+
+    csv_path, summary_path = run_eval(variant, only=only, use_cache=not no_cache)
+    print(f"\nrows    {csv_path}\nsummary {summary_path}")
+    return 0
 
 
 def cmd_pending() -> int:
@@ -316,6 +329,8 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def _dispatch(parser: argparse.ArgumentParser, args: argparse.Namespace) -> int:
+    if args.command == "eval":
+        return cmd_eval(args.variant, args.only, args.no_cache)
     if args.command == "pending":
         return cmd_pending()
     if args.command == "approve":

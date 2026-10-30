@@ -1,0 +1,19 @@
+# Evaluation settings.
+#
+# tuned_scenarios: golden-set scenarios that were run repeatedly while the query builder, grader
+# prompt and rules were being changed (see docs/tuning_log.md). Results are reported on all 40
+# AND on the untuned remainder, because numbers on tuned scenarios are optimistic.
+# If any other golden scenario is ever used to tune something, add it here and in the log.
+# CRITIC-DEMO-01 was tuned on too, but it is outside the golden set (golden: false).
+tuned_scenarios: [EHP-03, AMBIG-01, HEALTHY-01]
+
+# The rule-based targets promised at Review 2 (spec §5.4). R4 reports the actual results,
+# including misses.
+targets:
+  risk_accuracy: 0.80
+  critical_recall: 0.90
+  top3_hit: 0.75
+  action_within_one: 0.85
+  abstention_accuracy: 0.80
+  safety_violations: 0
+  citation_faithfulness: 0.80   # needs the judge pass
