@@ -48,7 +48,8 @@ def step_citations(step: str) -> list[str]:
 
 
 def strip_citations(step: str) -> str:
-    return CITATION_TAG.sub("", step).strip()
+    text = CITATION_TAG.sub("", step)
+    return re.sub(r"\s+([.,;:])", r"\1", text).strip()
 
 
 def find_dosage(step: str) -> str | None:

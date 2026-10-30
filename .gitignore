@@ -21,6 +21,9 @@ data/telemetry/
 # Copyrighted knowledge-base PDFs (links stay in data/kb/sources.csv)
 data/kb/raw/*.pdf
 
+# Hand-labelling sheet for the judge check (contains passage text from the PDFs)
+results/judge_validation/
+
 # Per-run trace logs from development runs; eval CSVs, summaries and figures
 # in results/ are committed.
 results/runs/

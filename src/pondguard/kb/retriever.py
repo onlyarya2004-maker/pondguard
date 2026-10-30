@@ -56,5 +56,12 @@ class Retriever:
             )
         return passages
 
+    def texts(self, ids: list[str]) -> dict[str, str]:
+        """Passage text by id (for the judge; the text is never written to the results)."""
+        if not ids:
+            return {}
+        got = self._collection.get(ids=list(dict.fromkeys(ids)))
+        return dict(zip(got["ids"], got["documents"], strict=True))
+
     def count(self) -> int:
         return self._collection.count()

@@ -69,6 +69,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("pending", help="list runs waiting for human approval")
 
+    jd = sub.add_parser("judge", help="score citation faithfulness with the judge model")
+    jd.add_argument("--variant", required=True, choices=["A", "B"])
+    jd.add_argument("--no-swap", action="store_true", help="do not unload/load models in LM Studio")
+    sub.add_parser("judge-sheet", help="write the 10-claim sheet the team labels by hand")
+    sub.add_parser("judge-validate", help="compare the judge with the team's hand labels")
+    sub.add_parser("experiment", help="A/B comparison, decision and figures from the latest runs")
+
     ev = sub.add_parser("eval", help="run the 40-scenario golden set for one variant")
     ev.add_argument("--variant", required=True, choices=["A", "B"])
     ev.add_argument("--only", nargs="+", help="run only these scenario ids (a quick check)")
@@ -190,6 +197,60 @@ def cmd_eval(variant: str, only: list[str] | None, no_cache: bool) -> int:
 
     csv_path, summary_path = run_eval(variant, only=only, use_cache=not no_cache)
     print(f"\nrows    {csv_path}\nsummary {summary_path}")
+    return 0
+
+
+def cmd_judge(variant: str, no_swap: bool) -> int:
+    from pondguard.evaluation.experiment import latest
+    from pondguard.evaluation.judge import run_judge
+
+    _, summary = latest(variant)
+    out = run_judge(variant, summary, swap_models=not no_swap)
+    print(f"\nwrote {out}")
+    return 0
+
+
+def cmd_judge_sheet() -> int:
+    from pondguard.evaluation.experiment import latest
+    from pondguard.evaluation.judge import build_sheet
+
+    _, summary = latest("B")
+    import json
+
+    stamp = json.loads(summary.read_text(encoding="utf-8"))["started"]
+    sheet = build_sheet(summary.parent / f"judge_B_{stamp}.json")
+    print(
+        f"label the claims in {sheet} (write yes or no in human_supported), then run judge-validate"
+    )
+    return 0
+
+
+def cmd_judge_validate() -> int:
+    from pondguard.evaluation.judge import validate_judge
+
+    result = validate_judge()
+    print(f"judge agrees with the team on {result['agreed']}/{result['cases']} claims")
+    for d in result["disagreements"]:
+        print(
+            f"  {d['claim_id']}: judge {d['judge_said']}, human {d['human_said']}: "
+            f"{d['claim'][:80]}"
+        )
+    return 0
+
+
+def cmd_experiment() -> int:
+    from pondguard.evaluation.experiment import run_experiment
+    from pondguard.evaluation.plots import make_figures
+
+    result = run_experiment()
+    d = result["decision"]
+    print(
+        f"decision: adopt {d['adopt']}  (top-3 gain {d['top3_gain_points']} points, "
+        f"cost {d['cost_ratio']}x)"
+    )
+    for path in make_figures():
+        print(f"wrote {path}")
+    print("wrote results/ab_summary.csv and results/ab_decision.md")
     return 0
 
 
@@ -329,6 +390,14 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def _dispatch(parser: argparse.ArgumentParser, args: argparse.Namespace) -> int:
+    if args.command == "judge":
+        return cmd_judge(args.variant, args.no_swap)
+    if args.command == "judge-sheet":
+        return cmd_judge_sheet()
+    if args.command == "judge-validate":
+        return cmd_judge_validate()
+    if args.command == "experiment":
+        return cmd_experiment()
     if args.command == "eval":
         return cmd_eval(args.variant, args.only, args.no_cache)
     if args.command == "pending":
