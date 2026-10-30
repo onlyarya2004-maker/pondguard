@@ -19,7 +19,7 @@ langchain-ollama==1.1.0
 
 # Schemas and data
 pydantic==2.14.1
-pandas==3.1.0
+pandas==3.0.2  # 3.1.0 was blocked by Smart App Control on 30 Oct; 3.0.2 loads
 numpy==2.4.6
 pyyaml==6.0.3
 pypdf==6.21.2

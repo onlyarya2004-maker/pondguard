@@ -14,19 +14,21 @@ Demo laptop: the one with LM Studio, the models and the GPU (M1's).
 
 ## Demo day, 30 minutes before
 
+Use `.venv\Scripts\python -m pondguard.cli ...` for every command (the `pondguard.exe` launcher is blocked by Smart App Control). Run all commands from `pondguard/`.
+
 - [ ] Laptop charged, on mains power, phone hotspot ready
 - [ ] `lms server start --port 1234` and `lms load meta-llama-3.1-8b-instruct ... -y`; `lms ps` shows the model
-- [ ] Phoenix running (`pondguard phoenix`), http://localhost:6006 opens
+- [ ] Phoenix running (`.venv\Scripts\python -m pondguard.cli phoenix`), http://localhost:6006 opens
 - [ ] `.env`: `LLM_PROVIDER=lmstudio`, both model keys set, `TRACING=phoenix`
-- [ ] `pondguard simulate` and the knowledge base built (`data/chroma` exists; if not, `pondguard ingest`)
+- [ ] `.venv\Scripts\python -m pondguard.cli simulate` and the knowledge base built (`data/chroma` exists; if not, `.venv\Scripts\python -m pondguard.cli ingest`)
 - [ ] `pytest` passes (about 10 seconds, shows tests in mock mode)
-- [ ] One dry run of `pondguard run --scenario EHP-03`
-- [ ] Mock fallback command ready: `LLM_PROVIDER=mock` after `pondguard ingest --embedder hash` (label it as structure only, never as results)
+- [ ] One dry run of `.venv\Scripts\python -m pondguard.cli run --scenario EHP-03`
+- [ ] Mock fallback command ready: `LLM_PROVIDER=mock` after `.venv\Scripts\python -m pondguard.cli ingest --embedder hash` (label it as structure only, never as results)
 
 ## Demo script (about 5 minutes)
 
 1. **Architecture and repo** (30 s): R2 slide; show the folder layout and `docs/concept_evidence.md`.
-2. **HEALTHY-01** (30 s): `pondguard run --scenario HEALTHY-01`. Point out the plan and "skipping diagnosis" (planning).
+2. **HEALTHY-01** (30 s): `.venv\Scripts\python -m pondguard.cli run --scenario HEALTHY-01`. Point out the plan and "skipping diagnosis" (planning).
 3. **EHP-03** (90 s): point out the tool calls, the corrective round (2 of 5 passages relevant), the cited EHP diagnosis, the L2 steps with citations.
 4. **AMBIG-01** (60 s): weak round, **re-query**, then abstain with the follow-up question (agentic RAG, abstention).
 5. **CRITIC-DEMO-01** (60 s): `--inject-fault uncited_step`. Say it is injected; show the rejection, the send-back, the corrected draft (feedback loop).

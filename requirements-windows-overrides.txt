@@ -1,0 +1,9 @@
+# Windows only. Install AFTER requirements.txt, with --no-deps:
+#   pip install --no-deps -r requirements-windows-overrides.txt
+#
+# arize-phoenix asks for arize-phoenix-sqlean>=0.2.1, but on 30 Oct 2026 Windows Smart App Control
+# blocked 0.2.1's native module (_sqlite3), which also broke pytest (pytest's plugin loading imports
+# Phoenix). 0.2.0 loads and Phoenix runs with it (checked: real runs traced, 223 spans).
+# pip check will report this one known mismatch; that is expected.
+# It cannot go in requirements.txt: the resolver would refuse the conflict, and Linux CI is fine with 0.2.1.
+arize-phoenix-sqlean==0.2.0

@@ -144,7 +144,7 @@ orjson==3.13.0
 ormsgpack==1.12.2
 overrides==7.7.0
 packaging==26.3
-pandas==3.1.0
+pandas==3.0.2
 pathable==0.6.0
 pillow==13.0.0
 platformdirs==4.13.5

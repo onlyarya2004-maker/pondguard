@@ -58,6 +58,7 @@ py -3.11 -m venv .venv
 ```powershell
 $env:PIP_CACHE_DIR = "..\cache\pip"     # optional: keeps pip's download cache in the project folder
 .venv\Scripts\python -m pip install -r requirements.txt -c constraints-windows.txt --extra-index-url https://download.pytorch.org/whl/cpu
+.venv\Scripts\python -m pip install --no-deps -r requirements-windows-overrides.txt   # Smart App Control: see docs/SETUP.md
 .venv\Scripts\python -m pip install -e . --no-deps
 Copy-Item .env.example .env
 ```
@@ -65,15 +66,17 @@ Copy-Item .env.example .env
 - Takes about 10 minutes and about **2.2 GB** (`.venv`); it downloads CPU-only PyTorch (`torch==2.14.1`).
 - `requirements.txt` pins the main packages with `==`. Key pins: `langgraph==1.2.17`, `chromadb==1.5.9`, `sentence-transformers==6.2.0`, `arize-phoenix==20.26.0`, `pydantic==2.14.1`.
 - **`constraints-windows.txt` pins every other package** (about 230) to the exact versions of the verified environment. It matters: a fresh install without it picked newer patch releases of about 30 dependencies, and one of them (`bashkit` 0.20.1) was blocked by Smart App Control and broke `pytest`. Always install with `-c constraints-windows.txt` as shown. (CI on Ubuntu does not use it.)
+- **`requirements-windows-overrides.txt`** is a second, one-line install step (`--no-deps`) that swaps `arize-phoenix-sqlean` 0.2.1 for 0.2.0 (see the Smart App Control notes just below).
 - `.env` keeps `LLM_PROVIDER=mock` until you set up LM Studio (section 5).
 
 ### Windows Smart App Control
 
 If Windows **Smart App Control** is on (Settings, Privacy & security, Windows Security, App & browser control), it can block compiled files that are not signed. It did on the team laptop:
 
+- **Smart App Control verdicts change over time.** On 30 Oct 2026 files that had loaded for days started to be blocked: `pandas` 3.1.0 (so `requirements.txt` now pins **`pandas==3.0.2`**), `arize-phoenix-sqlean` 0.2.1 (replaced by **0.2.0** through `requirements-windows-overrides.txt`; `pip check` therefore prints one known mismatch, which is expected), and the `pondguard.exe` launcher.
 - **`bashkit`** (needed by Phoenix, and imported when `pytest` loads its plugins): version 0.20.1 was blocked in a fresh install; `requirements.txt` pins **`bashkit==0.20.0`**, which loads.
 - **`ormsgpack`** (needed by LangGraph): version 1.13.0 was blocked. `requirements.txt` pins **`ormsgpack==1.12.2`**, which loads. If you see `ImportError: DLL load failed while importing ormsgpack: An Application Control policy has blocked this file`, make sure that pin is installed.
-- **`pytest.exe`** (a launcher program) was blocked at one point. Always run tests as **`python -m pytest`**, which starts Python itself instead of the launcher. If `pondguard.exe` is ever blocked, use `python -m pondguard.cli <command>` instead (every `pondguard ...` command below works that way).
+- **`pytest.exe`** (a launcher program) was blocked at one point. Always run tests as **`python -m pytest`**, which starts Python itself instead of the launcher. `pondguard.exe` is blocked the same way on the team laptop (as of 30 Oct): **use `.venv\Scripts\python -m pondguard.cli <command>` instead of `.venv\Scripts\pondguard <command>` everywhere** (the demo checklist and README already do).
 - Do not turn Smart App Control off just for this; it cannot be turned back on without resetting Windows. Use the workarounds above.
 
 ## 5. LM Studio and the two models (real-model runs only)
@@ -178,7 +181,7 @@ Run these in `pondguard/`. Each line shows what correct output looks like. Stop 
 
 ```powershell
 py -3.11 --version                              # Python 3.11.x
-.venv\Scripts\python -m pip check               # No broken requirements found.
+.venv\Scripts\python -m pip check               # one expected line: arize-phoenix 20.26.0 has requirement arize-phoenix-sqlean>=0.2.1, but you have 0.2.0
 .venv\Scripts\ruff check .                      # All checks passed!
 .venv\Scripts\python -m pytest                  # 183 passed, 1 skipped in about 15 s (the skipped test needs the PDFs; with them in place: 184 passed)
 .venv\Scripts\pondguard --version               # pondguard 0.1.0
@@ -236,6 +239,7 @@ The other three demo runs and what to say are in `docs/r3_demo_checklist.md`.
 |---|---|
 | `DLL load failed ... Application Control policy` | Section 4, Smart App Control |
 | `pytest.exe` or `pondguard.exe` will not start | Use `python -m pytest` / `python -m pondguard.cli` |
+| A new `DLL load failed ... Application Control` error for some package | Find a version that loads: `pip install --no-deps --target %TEMP%	 <package>==<version>`, then `set PYTHONPATH=%TEMP%	` and `python -c "import <module>"`; try older and newer releases, pin the one that works in `requirements.txt` and `constraints-windows.txt`. Meanwhile run the demo in mock mode as a fallback. |
 | `Python 3.12` or `3.10` errors on install | Use 3.11.x (section 3) |
 | `knowledge base 'disease_kb_bge' not found; run pondguard ingest first` | Section 7 |
 | `connection refused` to `localhost:1234` | `lms server start --port 1234`, then `lms load ...` |

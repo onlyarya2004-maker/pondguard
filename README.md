@@ -69,13 +69,14 @@ AI team project/
 
 > **Full guide: [docs/SETUP.md](docs/SETUP.md)**: every download with exact names, sizes and sources, hardware needs, Windows Smart App Control notes, what works without models, and a "verify your setup" checklist with expected output. The short version follows.
 
-Run these from the `pondguard/` folder in PowerShell.
+Run these from the `pondguard/` folder in PowerShell. Commands use `python -m pondguard.cli ...` because Windows Smart App Control blocks the `pondguard.exe` launcher on the team laptop (see SETUP).
 
 ```powershell
 python -m venv .venv
 $env:PIP_CACHE_DIR = "..\cache\pip"
 .venv\Scripts\python -m pip install --upgrade pip
 .venv\Scripts\python -m pip install -r requirements.txt -c constraints-windows.txt --extra-index-url https://download.pytorch.org/whl/cpu
+.venv\Scripts\python -m pip install --no-deps -r requirements-windows-overrides.txt   # Smart App Control: see docs/SETUP.md
 .venv\Scripts\python -m pip install -e . --no-deps
 Copy-Item .env.example .env
 ```
@@ -85,8 +86,8 @@ Copy-Item .env.example .env
 **Knowledge base.** Download the PDFs listed in `data/kb/sources.csv` into `data/kb/raw/` as `<id>.pdf` (the Review 3 demo uses `CIBA-EHP-2022` and `CIBA-DISMGMT-2022`), then:
 
 ```powershell
-.venv\Scripts\pondguard simulate         # writes data/scenarios/*.json and data/telemetry/*.csv
-.venv\Scripts\pondguard ingest           # builds the knowledge base (downloads the BGE model once)
+.venv\Scripts\python -m pondguard.cli simulate         # writes data/scenarios/*.json and data/telemetry/*.csv
+.venv\Scripts\python -m pondguard.cli ingest           # builds the knowledge base (downloads the BGE model once)
 ```
 
 **Checks** (all tests run in mock mode, offline, with no model loaded):
@@ -109,7 +110,7 @@ Copy-Item .env.example .env
 2. **Phoenix** (leave this terminal open; UI at http://localhost:6006):
 
    ```powershell
-   .venv\Scripts\pondguard phoenix
+   .venv\Scripts\python -m pondguard.cli phoenix
    ```
 
 3. **Settings** in `.env`: `LLM_PROVIDER=lmstudio`, `LMSTUDIO_AGENT_MODEL=meta-llama-3.1-8b-instruct`, `LMSTUDIO_JUDGE_MODEL=qwen2.5-7b-instruct`, `TRACING=phoenix`.
@@ -117,10 +118,10 @@ Copy-Item .env.example .env
 4. **Run the four scenarios** (add `--no-cache` to force fresh model calls):
 
    ```powershell
-   .venv\Scripts\pondguard run --scenario HEALTHY-01                           # plan, then diagnosis skipped, L0
-   .venv\Scripts\pondguard run --scenario EHP-03                               # tools, corrective RAG, cited EHP diagnosis, L2
-   .venv\Scripts\pondguard run --scenario AMBIG-01                             # re-query, then abstain + follow-up question
-   .venv\Scripts\pondguard run --scenario CRITIC-DEMO-01 --inject-fault uncited_step   # critic sends the draft back
+   .venv\Scripts\python -m pondguard.cli run --scenario HEALTHY-01                           # plan, then diagnosis skipped, L0
+   .venv\Scripts\python -m pondguard.cli run --scenario EHP-03                               # tools, corrective RAG, cited EHP diagnosis, L2
+   .venv\Scripts\python -m pondguard.cli run --scenario AMBIG-01                             # re-query, then abstain + follow-up question
+   .venv\Scripts\python -m pondguard.cli run --scenario CRITIC-DEMO-01 --inject-fault uncited_step   # critic sends the draft back
    ```
 
    Each run prints every step live, then the report. Open the `pondguard` project in Phoenix to walk through the spans. The JSONL trace path is printed at the end.
