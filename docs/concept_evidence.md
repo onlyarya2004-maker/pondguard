@@ -8,11 +8,15 @@ One row per agentic concept: where it is, which test shows it, and what to show 
 | Agentic RAG (mandatory) | `agents/diagnostician.py`; `kb/retriever.py` | `tests/test_diagnostician.py`, `tests/test_kb.py` | `run --scenario AMBIG-01`: round 1 weak, re-query, round 2, abstain + question |
 | Planning and reasoning (mandatory) | `agents/supervisor.py`, `graph.py` | `tests/test_graph.py` | `run --scenario HEALTHY-01`: plan, then "skipping diagnosis" |
 | Observability / tracing (mandatory) | `tracing.py` | `tests/test_tracing.py` | Phoenix project `pondguard`; `results/runs/<run>.jsonl` |
-| Evaluation (mandatory) | Labels in `config/scenario_specs.yaml`; metrics are **R4** | label tests in `tests/test_simulator.py` | Not part of R3 |
 | Multi-agent (bonus) | Supervisor + 4 specialists in `graph.py` | `tests/test_graph.py` | The `[supervisor] next: ...` lines in any run |
 | Reflection / feedback loop | `agents/critic.py`, `tools/guardrail_tools.py` | `test_critic_sends_an_uncited_draft_back_once_then_passes` | `run --scenario CRITIC-DEMO-01 --inject-fault uncited_step` |
 | Guardrails, bounded loops (bonus) | `config/settings.yaml`, `llm.py` token cap | step-bound, token-cap and critic-limit tests in `tests/test_graph.py` | Config values; bounded re-queries in AMBIG-01 |
-| Memory, human gate, durable workflow, experiment (bonus) | **R4**, not built | | |
+| Human gate, durable workflow (bonus) | `agents/gate.py`, `memory.py` (SqliteSaver), `tools/memory_tools.py` | gate, restart, edit/reject tests in `tests/test_graph.py` | `run --scenario WSSV-01` pauses; `pending`; `approve` resumes in a new process |
+| Long-term memory (bonus) | `memory.py` (`pond_history`, `runs`, `approvals`), repeat-alert escalation in `agents/advisor.py` | memory and escalation tests in `tests/test_graph.py` | `data/pondguard.db` rows after a run |
+| Evaluation (mandatory) | `evaluation/metrics.py`, `runner.py`; labels in `config/scenario_specs.yaml` | `tests/test_evaluation.py` | `results/eval_*.csv`, `docs/r4_results.md` |
+| LLM-as-judge (bonus) | `evaluation/judge.py` (Qwen2.5 7B, per-claim yes/no) | `tests/test_judge_experiment.py` | `results/judge_*.json` |
+| Experiment, A vs B (bonus) | `evaluation/experiment.py`, `plots.py`, Variant A in `agents/diagnostician.py` | `tests/test_judge_experiment.py` | `results/ab_decision.md`, `results/figures/` |
+| Dashboard | `app/streamlit_app.py` | `tests/test_app.py` | `streamlit run app/streamlit_app.py` |
 
 ## Honest notes for the walkthrough
 

@@ -143,3 +143,12 @@ Total time ≈ calls × median seconds per call. For example, at 3 s per call th
 | Measured median s/call | | | |
 | Measured total calls | | | |
 | **Measured total eval time** | | | |
+
+## Measured, Review 4 (30 Oct 2026)
+
+| Item | Measured |
+|---|---|
+| Variant B, 40 scenarios (cache on) | 413 s wall clock, mean 5,835 tokens and 5.1 LLM calls per run |
+| Variant A, 40 scenarios (cache on) | 276 s wall clock, mean 4,580 tokens and 3.8 LLM calls per run |
+| Judge | 221 claims (A) and 169 claims (B), one call per (claim, passage), judge model swapped in and out of LM Studio |
+| Runtime used | `llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.67.0`, not 2.64.0 as in the smoke test above. Both variants and the judge ran on 2.67.0. |

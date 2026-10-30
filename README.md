@@ -5,11 +5,11 @@
 - the likely cause, with citations to the manuals
 - a graded action, L0–L4
 
-L3 and L4 actions need human approval (the approval gate is built for Review 4). PondGuard is **advisory only**: confirm any diagnosis with a qualified aquaculture professional or a lab test.
+L3 and L4 actions need human approval: the run pauses at a gate and resumes after a decision. PondGuard is **advisory only**: confirm any diagnosis with a qualified aquaculture professional or a lab test.
 
 Agentic AI mini-project (26CD7PEAAI), B.E. CSE (Data Science), BMSCE. Team: Arya Sharma (1BM22CD010, Team Lead), Nazeef Ahsan Rafiqui (1BM23CD040), Yasser Ahmed Mohammed (1BM23CD071), Ayush Khanuja (1BM23CD075). Instructor: Dr. Kalyan Nagaraj.
 
-> Status: **Review 3 build.** Working: simulator, knowledge base, 8 tools, five agents, the graph, CLI, tracing. Not yet built (Review 4): human approval gate, pond memory, full 40-scenario evaluation, A/B experiment, Streamlit UI.
+> Status: **Review 4 build.** Working: simulator, knowledge base, tools, five agents, graph, CLI, tracing, human approval gate with durable pause/resume, pond memory, 40-scenario evaluation, single-pass vs agentic A/B experiment, SLM judge, Streamlit dashboard. Results and honest caveats: [docs/r4_results.md](docs/r4_results.md).
 
 ## How a run works
 
@@ -128,12 +128,35 @@ Copy-Item .env.example .env
 
 **Offline fallback (mock mode).** With `LLM_PROVIDER=mock` the same graph runs with no model, no network and no GPU, after `pondguard ingest --embedder hash`. The mock gives constant outputs (every passage graded 0.5), so it **shows the structure only**, for example re-queries and abstention. Its results are not real: never present them as results. It exists for tests, CI and as an offline backup.
 
+## Review 4: human gate, evaluation, A/B experiment, dashboard
+
+```powershell
+# human gate: WSSV-01 pauses at L3 and survives a restart; approve it later, even from another terminal
+.venv\Scripts\python -m pondguard.cli run --scenario WSSV-01
+.venv\Scripts\python -m pondguard.cli pending
+.venv\Scripts\python -m pondguard.cli approve --thread <thread_id> --decision approve --reviewer <name>   # or --decision edit --level L2 / reject
+
+# evaluation on the 40 golden scenarios (one variant per run), judge, A/B decision, figures
+.venv\Scripts\python -m pondguard.cli eval --variant A
+.venv\Scripts\python -m pondguard.cli eval --variant B
+.venv\Scripts\python -m pondguard.cli judge --variant A      # loads the judge model, then restores the agent model
+.venv\Scripts\python -m pondguard.cli judge --variant B
+.venv\Scripts\python -m pondguard.cli experiment             # results/ab_summary.csv, ab_decision.md, figures/
+
+# dashboard: results, run a scenario, approvals
+.venv\Scripts\python -m streamlit run app\streamlit_app.py
+```
+
+Results, the A/B decision and the weaknesses: [docs/r4_results.md](docs/r4_results.md). In evaluation mode the gate auto-approves but records whether it *would* have paused; memory is off so runs stay independent.
+
 ## Limitations
 
 - Telemetry and farmer logs are simulated; scenarios come from documented disease descriptions, not real outbreaks.
 - The knowledge base holds two ICAR-CIBA manuals so far. Water-quality limits in `config/thresholds.yaml` are indicative and still marked `TODO-TEAM` (not yet verified against a manual).
 - The 8B model's management steps are cited but can be generic or questionable; they are advisory text, not verified practice.
-- Tuning was done on the demo scenarios (EHP-03, AMBIG-01, CRITIC-DEMO-01); see `docs/tuning_log.md`.
+- Tuning was done on the demo scenarios (EHP-03, AMBIG-01, HEALTHY-01); see `docs/tuning_log.md`. The untuned slice is reported separately.
+- Citation faithfulness is 0.28 to 0.38 (target 0.8): the step citations are weak. The A/B rule keeps single-pass A, although B is better at risk and abstention. See `docs/r4_results.md`.
+- One evaluation run per variant, simulated data, and a small judge model whose agreement with hand labels is still to be measured.
 
 ## Citations
 

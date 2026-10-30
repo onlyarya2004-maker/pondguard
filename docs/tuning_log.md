@@ -33,3 +33,7 @@ No score threshold was changed (still 0.6, 2 relevant passages).
 **Full-graph real-model results (Llama 3.1 8B, cache off, all four scenarios):** HEALTHY-01: normal/L0, diagnosis skipped. EHP-03: ehp 0.90, alert/L2, no re-query. AMBIG-01: real re-query, abstains, asks "Do you see white spots on the shell?", watch/L0. CRITIC-DEMO-01 with fault injection: draft rejected for the uncited step, sent back once, then passes; vibriosis 0.90, alert/L2. Quality caveat: some of the 8B model's management steps are generic or questionable (for example "increase water exchange"); steps are cited to the passages but are advisory text, not verified practice.
 
 Tuned on: **EHP-03, AMBIG-01, CRITIC-DEMO-01** (all run repeatedly against the real model while changing the query builder and the grader prompt). HEALTHY-01 was only run to check that no diagnosis is needed. All four demo scenarios are therefore outside the "untuned" evaluation slice (R4). CRITIC-DEMO-01 is outside the golden set anyway.
+
+## Review 4 evaluation (30 Oct): no tuning
+
+After the golden-set labels were committed and the first full run started, no prompt, rule, threshold or setting was changed. The scenarios used while tuning (EHP-03, AMBIG-01, HEALTHY-01; `tuned_scenarios` in `config/eval.yaml`) define the "untuned" slice. The low citation faithfulness found by the judge was **not** fixed, so the reported results stay on one commit; fixing it needs both variants re-run.
