@@ -7,7 +7,7 @@
 
 L3 and L4 actions need human approval (the approval gate is built for Review 4). PondGuard is **advisory only**: confirm any diagnosis with a qualified aquaculture professional or a lab test.
 
-Agentic AI mini-project (26CD7PEAAI), B.E. CSE (Data Science), BMSCE. Team: TODO-TEAM.
+Agentic AI mini-project (26CD7PEAAI), B.E. CSE (Data Science), BMSCE. Team: Arya Sharma (1BM22CD010, Team Lead), Nazeef Ahsan Rafiqui (1BM23CD040), Yasser Ahmed Mohammed (1BM23CD071), Ayush Khanuja (1BM23CD075). Instructor: Dr. Kalyan Nagaraj.
 
 > Status: **Review 3 build.** Working: simulator, knowledge base, 8 tools, five agents, the graph, CLI, tracing. Not yet built (Review 4): human approval gate, pond memory, full 40-scenario evaluation, A/B experiment, Streamlit UI.
 
@@ -141,4 +141,11 @@ To be completed: datasets, knowledge-base documents (`data/kb/sources.csv`), mod
 
 ## Contributions
 
-TODO-TEAM: member names and who owns which module.
+| Member | USN | Role | Owns in the code |
+|---|---|---|---|
+| Arya Sharma (M1, Team Lead) | 1BM22CD010 | Orchestration | config, models, state, LLM layer, Supervisor, Advisor, Critic, graph, CLI, final submission |
+| Nazeef Ahsan Rafiqui (M2) | 1BM23CD040 | Data and tools | simulator and scenarios, telemetry and memory tools, Monitor |
+| Yasser Ahmed Mohammed (M3) | 1BM23CD071 | Knowledge and retrieval | knowledge base, retrieval, KB tools, Diagnostician, prompts |
+| Ayush Khanuja (M4) | 1BM23CD075 | Evaluation and interface | tracing, evaluation, judge, experiment, plots, report assembly |
+
+Every member is expected to explain any part of the system (see `docs/viva/`). The module split above is the ownership plan from Review 1; AI coding assistance (Claude Code) was used throughout and is described in the report.

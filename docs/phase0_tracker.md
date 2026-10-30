@@ -6,7 +6,7 @@ Status key: ⬜ not started · 🟨 in progress · ✅ done
 
 | # | Item | Owner | Due | Status | Notes |
 |---|---|---|---|---|---|
-| 1 | Real names and final role split; put them into the R1 charter and both R1/R2 decks | M1 | Sun 25 Oct | ⬜ | Fill the roles table below |
+| 1 | Real names and final role split; put them into the R1 charter and both R1/R2 decks | M1 | Sun 25 Oct | ✅ repo (30 Oct); the R1/R2 decks are the team's to update | Fill the roles table below |
 | 2 | R1/R2 rehearsal: both decks, timed, with likely questions | All | Sun 25 Oct evening | ⬜ | |
 | 3 | GitHub repo with all 4 members; branch per member, merge via pull request | M4 | Sun 25 Oct | 🟨 | Public repo `onlyarya2004-maker/pondguard` created 25 Oct. Still to do: add the 3 teammates as collaborators and turn on branch protection for `main` |
 | 4 | Knowledge-base PDFs in `data/kb/raw/`, each recorded in `data/kb/sources.csv` | M3 | ≥ 2 by Wed 28 Oct; rest by Sun 1 Nov | 🟨 | 6 downloaded: 4 ICAR-CIBA manuals and 2 FAO papers. Both FAO papers are general background only, and FAO-TP450 is only a 2-page summary. Still to get by hand: 2 WOAH chapters, the CAA banned list, CAA vannamei Dos and Don'ts, MPEDA/NaCSA BMPs. Contents of the downloaded PDFs not reviewed yet |
@@ -22,10 +22,10 @@ Status key: ⬜ not started · 🟨 in progress · ✅ done
 
 | Member | Real name | Role | Owns |
 |---|---|---|---|
-| M1 | TODO-TEAM | Team Lead, orchestration | config, models, graph, Supervisor, Advisor, Critic, human gate, memory, CLI, submission |
-| M2 | TODO-TEAM | Data and UI | simulator, golden set, telemetry and memory tools, Monitor, Streamlit UI |
-| M3 | TODO-TEAM | Knowledge and retrieval | KB, retrieval, KB tools, Diagnostician, prompts, A/B analysis, report §4–6 |
-| M4 | TODO-TEAM | Evidence | tracing, CI, blind scenarios, evaluation, judge, experiments, plots, report assembly |
+| M1 | Arya Sharma (1BM22CD010) | Team Lead, orchestration | config, models, graph, Supervisor, Advisor, Critic, human gate, memory, CLI, submission |
+| M2 | Nazeef Ahsan Rafiqui (1BM23CD040) | Data and UI | simulator, golden set, telemetry and memory tools, Monitor, Streamlit UI |
+| M3 | Yasser Ahmed Mohammed (1BM23CD071) | Knowledge and retrieval | KB, retrieval, KB tools, Diagnostician, prompts, A/B analysis, report §4–6 |
+| M4 | Ayush Khanuja (1BM23CD075) | Evidence | tracing, CI, blind scenarios, evaluation, judge, experiments, plots, report assembly |
 
 ## Knowledge-base coverage (item 4)
 

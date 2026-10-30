@@ -9,7 +9,12 @@ description = "An agentic early-warning advisor for shrimp-pond disease (Agentic
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
 license = { file = "LICENSE" }
-authors = [{ name = "PondGuard team" }]  # TODO-TEAM: real names
+authors = [
+    { name = "Arya Sharma" },
+    { name = "Nazeef Ahsan Rafiqui" },
+    { name = "Yasser Ahmed Mohammed" },
+    { name = "Ayush Khanuja" },
+]
 
 [project.scripts]
 pondguard = "pondguard.cli:main"
