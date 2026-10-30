@@ -1,0 +1,2878 @@
+{
+  "variant": "A",
+  "eval_run": "20261030_223911",
+  "judge_models": {
+    "provider": "lmstudio",
+    "model_key": "qwen2.5-7b-instruct",
+    "file": "lmstudio-community/Qwen2.5-7B-Instruct-GGUF/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+    "quantization": "Q4_K_M",
+    "params": "7B",
+    "lmstudio_version": "0.4.23.0",
+    "runtime": "llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.67.0"
+  },
+  "faithfulness": 0.3846,
+  "claims_total": 221,
+  "claims_supported": 85,
+  "claims_without_citation": 0,
+  "per_report": {
+    "AHPND-01": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "AHPND-02": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "AHPND-03": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "AHPND-04": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "AHPND-05": {
+      "claims": 6,
+      "faithfulness": 0.0
+    },
+    "AMBIG-01": {
+      "claims": 7,
+      "faithfulness": 0.2857
+    },
+    "AMBIG-02": {
+      "claims": 7,
+      "faithfulness": 0.4286
+    },
+    "AMBIG-03": {
+      "claims": 6,
+      "faithfulness": 0.3333
+    },
+    "AMBIG-04": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "AMBIG-05": {
+      "claims": 7,
+      "faithfulness": 0.5714
+    },
+    "EHP-01": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "EHP-02": {
+      "claims": 7,
+      "faithfulness": 0.7143
+    },
+    "EHP-03": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "EHP-04": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "EHP-05": {
+      "claims": 7,
+      "faithfulness": 0.4286
+    },
+    "HEALTHY-01": {
+      "claims": 0,
+      "faithfulness": null
+    },
+    "HEALTHY-02": {
+      "claims": 0,
+      "faithfulness": null
+    },
+    "HEALTHY-03": {
+      "claims": 0,
+      "faithfulness": null
+    },
+    "HEALTHY-04": {
+      "claims": 0,
+      "faithfulness": null
+    },
+    "HEALTHY-05": {
+      "claims": 0,
+      "faithfulness": null
+    },
+    "VIBRIO-01": {
+      "claims": 7,
+      "faithfulness": 0.8571
+    },
+    "VIBRIO-02": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "VIBRIO-03": {
+      "claims": 7,
+      "faithfulness": 0.2857
+    },
+    "VIBRIO-04": {
+      "claims": 6,
+      "faithfulness": 0.3333
+    },
+    "VIBRIO-05": {
+      "claims": 6,
+      "faithfulness": 0.3333
+    },
+    "WFS-01": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "WFS-02": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "WFS-03": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "WFS-04": {
+      "claims": 7,
+      "faithfulness": 0.4286
+    },
+    "WFS-05": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "WQ-01": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "WQ-02": {
+      "claims": 6,
+      "faithfulness": 0.3333
+    },
+    "WQ-03": {
+      "claims": 7,
+      "faithfulness": 0.5714
+    },
+    "WQ-04": {
+      "claims": 7,
+      "faithfulness": 0.4286
+    },
+    "WQ-05": {
+      "claims": 7,
+      "faithfulness": 0.5714
+    },
+    "WSSV-01": {
+      "claims": 6,
+      "faithfulness": 0.3333
+    },
+    "WSSV-02": {
+      "claims": 6,
+      "faithfulness": 0.3333
+    },
+    "WSSV-03": {
+      "claims": 6,
+      "faithfulness": 0.5
+    },
+    "WSSV-04": {
+      "claims": 6,
+      "faithfulness": 0.1667
+    },
+    "WSSV-05": {
+      "claims": 6,
+      "faithfulness": 0.3333
+    }
+  },
+  "claims": [
+    {
+      "scenario_id": "AHPND-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses AHPND (acute hepatopancreatic necrosis disease) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0",
+        "CIBA-DISMGMT-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses AHPND (acute hepatopancreatic necrotic disease) in detail, describing its impact on P. vannamei and P. monodon, its etiology, symptoms, diagnosis methods, and environmental factors that can predispose shrimp to the disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) and its effects on shrimp health, including clinical manifestations, pathology, epidemiology, and transmission.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0",
+        "CIBA-DISMGMT-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions vibriosis in shrimp, stating 'Apart from AHPND-causing V. parahaemolyticus, there are several other species of Vibrio, which can affect shrimp.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-01",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p38:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p38:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about stopping water exchange with neighbors.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-01",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about isolating the pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-01",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about informing neighboring farms regarding the health of shrimp ponds or any related issues.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses AHPND (acute hepatopancreatic necrosis disease) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p70:c0",
+      "supported": false,
+      "reason": "The passage does not discuss AHPND (acute hepatopancreatic necrosis disease) in shrimp. It mentions a disease caused by a pathogenic strain of Vibrio parahaemolyticus but does not specifically refer to AHPND.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions vibriosis in shrimp, stating 'Apart from AHPND-causing V. parahaemolyticus, there are several other species of Vibrio, which can affect shrimp.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p12:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p12:c0",
+      "supported": false,
+      "reason": "The passage does not specifically mention water quality stress. It discusses diseases affecting shrimp, particularly WSD and EHP, but does not directly address water quality as a source of stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-02",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about stopping water exchange with neighbors or related practices in shrimp pond management.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-02",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p35:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p35:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about isolating the pond or any measures related to pond isolation.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-02",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about informing neighboring farms regarding the health of shrimp ponds or any related issues.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions vibriosis in shrimp, stating 'Apart from AHPND-causing V. parahaemolyticus, there are several other species of Vibrio, which can affect shrimp.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses AHPND (acute hepatopancreatic necrosis disease) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": false,
+      "reason": "The passage discusses EHP (Enterocytozoon hepatopenaei) and its effects on shrimp but does not mention AHPND (acute hepatopancreatic necrosis disease).",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p38:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p38:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp directly. It mentions diseases affecting shrimp but does not address water quality as a stressor.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-03",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p38:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p38:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about water exchange rates or their recommended values.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-03",
+      "kind": "step",
+      "text": "Monitor water temperature and salinity levels closely, maintaining optimal ranges for shrimp growth.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0",
+        "CIBA-DISMGMT-2022:p35:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p35:c1",
+      "supported": false,
+      "reason": "The passage does not mention monitoring water temperature and salinity levels or maintaining optimal ranges for shrimp growth. It discusses bacterial pathogens affecting shrimp and a specific disease called AHPND that caused significant crop loss in South-east Asian nations.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-03",
+      "kind": "step",
+      "text": "Implement good hygiene practices, such as regular cleaning of equipment and nets, to prevent the spread of disease.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": false,
+      "reason": "The passage does not mention any hygiene practices or recommendations for preventing the spread of disease in shrimp ponds. It primarily discusses diseases affecting shrimp, such as AHPND and vibriosis, but does not provide guidance on preventive measures like regular cleaning of equipment and nets.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses AHPND (acute hepatopancreatic necrosis disease) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0",
+        "CIBA-DISMGMT-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses AHPND (acute hepatopancreatic necrotic disease) in detail, describing its impact on P. vannamei and P. monodon, its etiology, symptoms, diagnosis methods, and environmental factors that can predispose shrimp to the disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) and its effects on shrimp health, including clinical manifestations, pathology, epidemiology, and transmission.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c0",
+        "CIBA-DISMGMT-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions vibriosis in shrimp, stating 'Apart from AHPND-causing V. parahaemolyticus, there are several other species of Vibrio, which can affect shrimp.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-04",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p38:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p38:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about stopping water exchange with neighbors.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-04",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about isolating the pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-04",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p35:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p35:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about informing neighboring farms regarding shrimp pond health or any related issues.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses AHPND (acute hepatopancreatic necrosis disease) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p70:c0",
+      "supported": false,
+      "reason": "The passage does not discuss AHPND (acute hepatopancreatic necrosis disease) in shrimp. It mentions a disease caused by a pathogenic strain of Vibrio parahaemolyticus but does not specifically refer to AHPND.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p38:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p38:c0",
+      "supported": false,
+      "reason": "The passage does not mention EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p35:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p35:c1",
+      "supported": false,
+      "reason": "The passage does not explicitly mention vibriosis in shrimp. It only lists vibriosis among other diseases that can affect shrimp but does not provide specific information about its impact or prevalence.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-05",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p35:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p35:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about stopping water exchange with neighbors or any related practices for shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-05",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about isolating the pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AHPND-05",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p38:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p38:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about informing neighboring farms or any communication strategy between farms.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p71:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p71:c0",
+      "supported": false,
+      "reason": "The passage does not discuss vibriosis in shrimp; instead, it talks about managing Vibrio load and provides information on Covert Mortality Disease caused by Covert Mortality Noda Virus.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p199:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p199:c0",
+      "supported": true,
+      "reason": "The passage discusses water quality parameters such as pH, dissolved oxygen, and temperature which are crucial for shrimp farming. It explicitly mentions that 'Among these, water quality management is a crucial part of shrimp farming.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause of shrimp health issues; it lists various symptoms and management practices related to shrimp health but does not imply or state an unknown cause.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-01",
+      "kind": "step",
+      "text": "Stop all activities that may cause stress or injury to the shrimp, such as harvesting, sampling, and stocking.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly state or clearly imply that all activities causing stress or injury to shrimp, such as harvesting, sampling, and stocking, should be stopped. Instead, it mentions controlling the number of workers during these activities but does not ban them entirely.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-01",
+      "kind": "step",
+      "text": "Increase aeration in unaffected ponds to improve water quality and reduce stress on the shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention increasing aeration in unaffected ponds as a preventive measure to improve water quality or reduce stress on shrimp. Instead, it suggests increasing aerators in unaffected ponds when a viral outbreak is suspected.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-01",
+      "kind": "step",
+      "text": "Monitor water quality parameters, such as pH, dissolved oxygen, and salinity, and take corrective action if necessary.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p121:c0",
+        "CIBA-DISMGMT-2022:p199:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p121:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'Monitoring and management of salinity, pH, dissolved oxygen and microbial load should be done periodically.' which directly supports the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-01",
+      "kind": "step",
+      "text": "Implement biosecurity measures, such as disinfecting the pond water and controlling worker movement, to prevent the spread of disease.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p43:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p43:c0",
+      "supported": false,
+      "reason": "The passage mentions disinfecting pond water and adopting biosecurity measures as per CAA guidelines but does not explicitly state all the specific measures such as controlling worker movement.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause in shrimp; instead, it discusses management practices related to pond bottom and feed, as well as routine health monitoring.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p69:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p69:c1",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss 'water quality stress' in shrimp but mentions that poor water management and excess feed can compromise water quality maintenance, which may give stress to the animal. However, this is implied rather than directly stated.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not specifically mention vibriosis or any specific bacterial disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-02",
+      "kind": "step",
+      "text": "Check the pond bottom weekly for black soil, benthic algae, and bad odor.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check weekly basis, especially at the feeding area for black soil, benthic algae and bad o dour.' which directly supports the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-02",
+      "kind": "step",
+      "text": "Do water exchange and reduce feeding in areas where the soil is black.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Do water exchange and reduce feeding in areas where the soil is black.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-02",
+      "kind": "step",
+      "text": "Feed shrimp 4/5 meals a day, using high-quality feed and check trays to monitor feed intake.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p153:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p153:c0",
+      "supported": true,
+      "reason": "The passage states 'Daily ration should be offered in 4/5 meals' and 'Feed intake should be checked through check trays (6 nos/ha)', which directly supports the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-02",
+      "kind": "step",
+      "text": "Reduce feeding by 30-50% during moulting periods and avoid feeding during heavy rain.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about reducing feeding during moulting periods or avoiding feeding during heavy rain.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p81:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p81:c1",
+      "supported": false,
+      "reason": "The passage does not mention vibriosis or any bacterial infection related to shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions monitoring water quality parameters and observing pond conditions but does not directly state that these are indicators of water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p46:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p46:c0",
+      "supported": false,
+      "reason": "The passage does not discuss an unidentified cause for shrimp health; it mentions specific pathogens like V. alginolyticus, V. Parahaemolyticus, and Shewanella putrefacien associated with shell disease in mud crabs.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-03",
+      "kind": "step",
+      "text": "Increase aeration to increase the carrying capacity of unaffected ponds.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage states 'To increase the carrying capacity of unaffected ponds \u2022 Increase number of aerators', which directly supports the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-03",
+      "kind": "step",
+      "text": "Stop sampling activities and check for any abnormalities in water and soil conditions.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check any abnormalities in water and soil condition' under the context of disease outbreak management.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-03",
+      "kind": "step",
+      "text": "Implement closer observation of the shrimp and pond conditions.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p81:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p81:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about observing shrimp or pond conditions. It discusses the life cycle of certain spores and protozoa that can infect shrimps, but does not provide any guidance on monitoring health or implementing closer observation.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p71:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p71:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions monitoring and managing diseases like AHPND and CMD but does not directly address water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p71:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p71:c0",
+      "supported": false,
+      "reason": "The passage does not discuss vibriosis in shrimp; instead, it talks about managing Vibrio load and provides information on Covert Mortality Disease caused by Covert Mortality Noda Virus.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p156:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p156:c0",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause related to shrimp health or pond conditions.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-04",
+      "kind": "step",
+      "text": "Check the pond bottom for black soil, benthic algae, and bad odour, especially at the feeding area.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states to check 'weekly basis, especially at the feeding area for black soil, benthic algae and bad odour' in step 5 of pond bottom management.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-04",
+      "kind": "step",
+      "text": "Do water exchange and reduce feeding in areas where the soil is black.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Do water exchange and reduce feeding in areas where the soil is black.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-04",
+      "kind": "step",
+      "text": "Monitor the feeding rate, reduce it during periods of low DO, plankton crash, rainfall, moulting, extremes of temperature, and disease outbreaks.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check the feeding rate, reduce the feeding rate during periods of low DO, plankton crash, rainfall, moulting, extremes of temperature and during disease outbreaks.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p71:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p71:c0",
+      "supported": false,
+      "reason": "The passage does not discuss vibriosis in shrimp; instead, it talks about managing Vibrio load and provides information on Covert Mortality Disease caused by Covert Mortality Noda Virus.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses AHPND (acute hepatopancreatic necrosis disease) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p69:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p69:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'Acute Hepatopancreatic Necrosis Disease (AHPND)' as a significant shrimp disease, which is also referred to as early mortality syndrome (EMS) and provides details about its effects on shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions monitoring water quality parameters and observing pond conditions but does not directly state that these are indicators of water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-05",
+      "kind": "step",
+      "text": "Monitor water quality parameters once a week.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Monitor water quality parameters once a week.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-05",
+      "kind": "step",
+      "text": "Control workers\u201f movement in and across the farm and minimize the number of workers in stocking, harvest, sampling etc.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Control workers\u2019 movement in and across the farm and minimize the number of workers in stocking, harvest, sampling etc.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-05",
+      "kind": "step",
+      "text": "Increase number of aerators to increase the carrying capacity of unaffected ponds.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p69:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p69:c0",
+      "supported": false,
+      "reason": "The passage does not mention aerators or carrying capacity of ponds. It discusses management practices for dealing with EHP (Early Mortality Syndrome) and AHPND (Acute Hepatopancreatic Necrosis Disease) in shrimp, focusing on pond treatment methods and disease prevention.",
+      "judged": true
+    },
+    {
+      "scenario_id": "AMBIG-05",
+      "kind": "step",
+      "text": "Remove dead animals and bury them away from the ponds.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Remove dead animals and bury them away from the ponds.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) and its effects on shrimp health, including clinical manifestations, pathology, epidemiology, and transmission.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c1",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp. It mentions ammonia and nitrite accumulation affecting the survival and growth performance of white shrimp, but this is not equivalent to discussing water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p19:c0",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause for shrimp health issues. It discusses the presence of a microsporidian parasite (Enterocytozoon hepatopenaei) in feces of Penaeus vannamei exhibiting white feces syndrome and its transmission to healthy shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-01",
+      "kind": "step",
+      "text": "Increase water exchange rate to reduce EHP spores in the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p19:c0",
+      "supported": false,
+      "reason": "The passage does not mention water exchange rate or EHP spores.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-01",
+      "kind": "step",
+      "text": "Monitor feed intake and slow growth, as these are indicators of EHP infection.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": true,
+      "reason": "The passage states that 'Only regular monitoring of intake of feed, slow growth and monitoring hepatopancreas can assist EHP detection in shrimps.' This directly supports the claim that monitoring feed intake and slow growth are indicators of EHP infection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-01",
+      "kind": "step",
+      "text": "Enforce tight biosecurity measures to prevent horizontal transmission of EHP through cohabitation and oral routes.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": true,
+      "reason": "The passage states that EHP spreads horizontally through oral route by consuming spores via cannibalism and cohabitation with infected shrimps. It also recommends enforcing tight biosecurity measures to contain the infection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0",
+        "CIBA-EHP-2022:p17:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) and its effects on shrimp health, including clinical manifestations, pathology, epidemiology, and transmission.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p70:c0",
+      "supported": false,
+      "reason": "The passage does not specifically discuss water quality stress in shrimp. It mentions the importance of maintaining good water quality and monitoring health but does not explicitly state or imply that it is discussing water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c1",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause related to shrimp ponds or the health of shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-02",
+      "kind": "step",
+      "text": "Regularly monitor the health and growth of shrimps.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p70:c0",
+      "supported": true,
+      "reason": "The passage explicitly states that 'Health and growth of shrimps must be monitored regularly'.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-02",
+      "kind": "step",
+      "text": "Ensure healthy feed and effective aeration and water movement in the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p70:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Health and growth of shrimps must be monitored regularly and ensure healthy feed and effective aeration and water movement in the pond.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-02",
+      "kind": "step",
+      "text": "Check for EHP by PCR once slow growth and low feed intake is observed.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0",
+        "CIBA-EHP-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p70:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Once slow growth and low feed intake is observed, check for EHP by PCR.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-02",
+      "kind": "step",
+      "text": "Avoid over feeding and try to provide high protein diet once EHP is diagnosed in an on-going culture.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p70:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Once EHP is diagnosed in an on-going culture avoid over feeding and try to provide high protein diet.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) in shrimp, including its impact on shrimp health and growth, detection methods, and management strategies.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p39:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p39:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss vibriosis in shrimp. It mentions Vibrio bacteria on several occasions but does not specifically address vibriosis as a disease or syndrome affecting shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions EHP infection causing growth retardation and economic loss but does not directly address water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-03",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention any recommendations regarding water exchange rates or their impact on shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-03",
+      "kind": "step",
+      "text": "Monitor and control ammonia and nitrite levels in the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": false,
+      "reason": "The passage does not mention monitoring or controlling ammonia and nitrite levels in shrimp ponds.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-03",
+      "kind": "step",
+      "text": "Implement strict biosecurity measures, including regular disinfection of equipment and personnel.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p39:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p39:c0",
+      "supported": false,
+      "reason": "The passage does not mention any biosecurity measures or regular disinfection procedures for equipment and personnel.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'EHP (Enterocytozoon hepatopenaei)' in shrimp farms and discusses its effects on shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses white faeces syndrome in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": true,
+      "reason": "The passage explicitly mentions that 'EHP is often associated with White Feces Syndrome (WFS)'. It also provides additional context about the clinical signs of EHP infection, including white faecal strands floating on the surface of an affected pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p19:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp; instead, it focuses on the microsporidian Enterocytozoon hepatopenaei and its transmission among Penaeus vannamei exhibiting white feces syndrome.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-04",
+      "kind": "step",
+      "text": "Increase water exchange rate.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p19:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about water exchange rates or their potential increase.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-04",
+      "kind": "step",
+      "text": "Monitor shrimp size and weight distribution.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage states that 'the coefficient of variation in shrimp size or weight is the best indicator for its impact on production in a culture pond.' This implies that monitoring shrimp size and weight distribution is important for assessing shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-04",
+      "kind": "step",
+      "text": "Remove white fecal threads from the pond surface.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": false,
+      "reason": "The passage does not provide any information or instructions about removing white fecal threads from the pond surface.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0",
+        "CIBA-EHP-2022:p17:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) in shrimp, including its impact on shrimp health and growth, detection methods, and management strategies.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p75:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p75:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp. It focuses on the collection and preservation of samples for diagnosing diseases such as Enterocytozoon hepatopenaei (EHP) in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause in shrimp; instead, it discusses the microsporidian parasite EHP as a known cause of hepatopancreatic microsporidiosis (HPM) disease in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-05",
+      "kind": "step",
+      "text": "Monitor hepatopancreas for EHP detection.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": true,
+      "reason": "The passage states that 'Only regular monitoring of intake of feed, slow growth and monitoring hepatopancreas can assist EHP detection in shrimps.' This directly supports the claim to monitor the hepatopancreas for EHP detection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-05",
+      "kind": "step",
+      "text": "Enforce tight biosecurity to contain the infection.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly state or clearly imply that 'Enforce tight biosecurity to contain the infection.' It mentions that enforcing tight biosecurity is a method to contain the infection but does not provide an explicit command or recommendation for enforcement.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-05",
+      "kind": "step",
+      "text": "Regularly monitor intake of feed, slow growth and loss during harvest.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about monitoring feed intake, growth or harvest losses.",
+      "judged": true
+    },
+    {
+      "scenario_id": "EHP-05",
+      "kind": "step",
+      "text": "Collect and preserve shrimp samples for accurate disease diagnosis.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p75:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p75:c0",
+      "supported": true,
+      "reason": "The passage explicitly states the importance of collecting and preserving shrimp samples for accurate disease diagnosis, providing detailed instructions on how to do so.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c0",
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Vibrio species causing diseases in shrimp, specifically mentioning vibriosis and its effects on the hepatopancreas. It also describes diagnostic methods and control measures for this disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage clearly states that 'mortality is mainly due to different stress factors caused by poor water quality, crowding, high water temperature, low dissolved oxygen and low water exchange,' which directly supports the claim about water quality stress in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p46:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p46:c0",
+      "supported": false,
+      "reason": "The passage does not discuss an unidentified cause for shrimp health; it mentions specific pathogens like V. alginolyticus, V. Parahaemolyticus, and Shewanella putrefacien associated with shell disease in mud crabs.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-01",
+      "kind": "step",
+      "text": "Stop peoples, motorcycles passing across the pond and stop sampling activities.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Stop peoples, motorcycles passing across the pond and stop sampling activities' under the context of disease outbreak management.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-01",
+      "kind": "step",
+      "text": "Check any abnormalities in water and soil condition.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check any abnormalities in water and soil condition' under the section describing measures to take during a disease outbreak.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-01",
+      "kind": "step",
+      "text": "Increase number of aerators to increase the carrying capacity of unaffected ponds.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'To increase the carrying capacity of unaffected ponds increase number of aerators', which directly supports the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-01",
+      "kind": "step",
+      "text": "Remove dead animals and bury them away from the ponds.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Remove dead animals and bury them away from the ponds.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1",
+        "CIBA-DISMGMT-2022:p37:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'luminescent diseases' caused by Vibrio species, specifically Vibrio harveyi, and discusses the control methods for these diseases in shrimp hatcheries.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1",
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage clearly states that 'mortality is mainly due to different stress factors caused by poor water quality, crowding, high water temperature, low dissolved oxygen and low water exchange,' which directly supports the claim about water quality stress in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c1",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause for shrimp pond health issues. It discusses various environmental stress factors and Vibrio species as causes of disease, but does not refer to an unidentified cause.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-02",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": false,
+      "reason": "The passage does not mention any specific increase in water exchange rate or a target of 10-15% daily.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-02",
+      "kind": "step",
+      "text": "Monitor and maintain optimal water quality parameters.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage mentions monitoring water quality parameters once a week but does not explicitly state or clearly imply the need to maintain optimal water quality parameters.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-02",
+      "kind": "step",
+      "text": "Apply probiotics directly into the water or via feeds.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage explicitly states that 'Probiotics are administered directly into the water or via feeds'.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c0",
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Vibrio species causing diseases in shrimp, specifically mentioning vibriosis and its effects on the hepatopancreas. It also describes diagnostic methods and control measures for this disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage clearly states that 'mortality is mainly due to different stress factors caused by poor water quality, crowding, high water temperature, low dissolved oxygen and low water exchange,' which directly supports the claim about water quality stress in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p39:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p39:c0",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause for shrimp pond health issues. It discusses specific diseases such as filamentous bacterial disease and white faeces syndrome, but does not state that there is an unidentified cause.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-03",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention any specific water exchange rate or recommend increasing it to 10-15% daily.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-03",
+      "kind": "step",
+      "text": "Monitor water quality parameters twice a week and adjust as necessary.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage states that water quality parameters should be monitored once a week, not twice a week as claimed.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-03",
+      "kind": "step",
+      "text": "Apply probiotics to improve overall pond microbial balance.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly state that probiotics should be applied to improve overall pond microbial balance. It mentions that probiotics can control vibriosis in grow-out ponds but does not make a general claim about improving the overall microbial balance.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-03",
+      "kind": "step",
+      "text": "Increase aeration in unaffected ponds by adding more aerators.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage suggests increasing aeration in unaffected ponds during disease outbreaks by adding more aerators, but it does not provide this instruction for unaffected ponds under normal conditions.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1",
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'luminescent diseases' caused by Vibrio species, specifically Vibrio harveyi, and discusses the control methods for these diseases in shrimp hatcheries.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p69:c1",
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage clearly states that 'mortality is mainly due to different stress factors caused by poor water quality, crowding, high water temperature, low dissolved oxygen and low water exchange,' which directly supports the claim about water quality stress in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c1",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause for shrimp pond health issues. It discusses various environmental stress factors and Vibrio species as causes of disease, but does not refer to an unidentified cause.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-04",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": false,
+      "reason": "The passage does not mention any specific increase in water exchange rate or a target of 10-15% daily.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-04",
+      "kind": "step",
+      "text": "Monitor water quality parameters more frequently, at least twice a day.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage states that water quality parameters should be monitored once a week, not twice a day.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-04",
+      "kind": "step",
+      "text": "Reduce stocking density by 20-30% to alleviate stress on the shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p36:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p36:c1",
+      "supported": false,
+      "reason": "The passage does not mention reducing stocking density to alleviate stress on shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p39:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p39:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss vibriosis in shrimp. It mentions Vibrio bacteria on several occasions but does not specifically address vibriosis as a disease or syndrome affecting shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p39:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p39:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions various diseases affecting shrimp but does not directly address the impact of water quality on their health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p39:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p39:c0",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause for shrimp pond health issues. It discusses specific diseases such as filamentous bacterial disease and white faeces syndrome, but does not state that there is an unidentified cause.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-05",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention any specific water exchange rate or recommend increasing it to 10-15% daily.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-05",
+      "kind": "step",
+      "text": "Monitor and control stress factors such as high water temperature, low dissolved oxygen, and poor water quality.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage clearly mentions that mortality is mainly due to different stress factors such as poor water quality, crowding, high water temperature, low dissolved oxygen and low water exchange. This directly supports the claim of monitoring and controlling these stress factors for shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "VIBRIO-05",
+      "kind": "step",
+      "text": "Apply probiotics directly into the water or via feeds to reduce shrimp mortalities associated with vibriosis.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p37:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c1",
+      "supported": true,
+      "reason": "The passage explicitly states that 'probiotics are administered directly into the water or via feeds and the immunostimulants successfully used for reducing shrimp mortalities associated with vibriosis.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'EHP (Enterocytozoon hepatopenaei)' in shrimp farms and discusses its effects on shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp. It focuses on Enterocytozoon hepatopenaei (EHP) and its impact on shrimp health, particularly growth retardation and associated issues.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p19:c0",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause for shrimp health issues. It discusses the presence of a microsporidian parasite (Enterocytozoon hepatopenaei) in feces of Penaeus vannamei exhibiting white feces syndrome and its transmission to healthy shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-01",
+      "kind": "step",
+      "text": "Increase water exchange rate to 20% daily.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about increasing water exchange rate or a daily percentage.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-01",
+      "kind": "step",
+      "text": "Monitor and control ammonia levels in the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about monitoring or controlling ammonia levels in shrimp ponds. It discusses Enterocytozoon hepatopenaei (EHP) and its impact on shrimp health but does not address pond management practices related to ammonia levels.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-01",
+      "kind": "step",
+      "text": "Implement strict biosecurity measures, including regular disinfection of equipment and personnel.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": false,
+      "reason": "The passage does not mention any biosecurity measures or disinfection protocols for equipment and personnel.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0",
+        "CIBA-EHP-2022:p19:c0",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions EHP (Enterocytozoon hepatopenaei) and discusses its association with WFS (White Feces Syndrome) in shrimp, as well as its impact on shrimp health and production.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1",
+        "CIBA-EHP-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p19:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp; instead, it focuses on the microsporidian Enterocytozoon hepatopenaei and its transmission among Penaeus vannamei exhibiting white feces syndrome.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause in shrimp. It discusses EHP (Early Mortality Syndrome) and its effects on shrimp, but does not introduce an unknown factor affecting the shrimp's health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-02",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": false,
+      "reason": "The passage does not mention any specific water exchange rate or recommend an increase to 10-15% daily. It discusses the effects of EHP infection on shrimp farms but does not provide guidance on water management practices.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-02",
+      "kind": "step",
+      "text": "Monitor and control ammonia and nitrite levels in the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c1",
+      "supported": false,
+      "reason": "The passage does not mention monitoring or controlling ammonia and nitrite levels in shrimp ponds. It discusses the effects of these compounds on white shrimp survival and growth performance but does not provide instructions for their management.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-02",
+      "kind": "step",
+      "text": "Implement strict biosecurity measures, including disinfection of equipment and personnel.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention strict biosecurity measures or equipment/personnel disinfection. It discusses EHP, its impact on shrimp health, and methods to detect it but does not provide specific instructions on biosecurity measures.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) in shrimp, including its impact on shrimp health and growth, detection methods, and management strategies.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p14:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p14:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp ponds. It primarily focuses on the relationship between EHP (Enterocytozoon hepatopenaei) and white faecal strings (WFS), as well as the pathology of microsporidian infections, particularly EHP, in shrimps.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause in shrimp; instead, it discusses Enterocytozoon hepatopenaei (EHP) as a known parasite causing issues in shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-03",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention any recommendations regarding water exchange rates or their impact on shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-03",
+      "kind": "step",
+      "text": "Monitor shrimp growth and feed intake closely.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p14:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p14:c0",
+      "supported": false,
+      "reason": "The passage does not mention monitoring shrimp growth and feed intake closely. It discusses the relationship between EHP (Enterocytozoon hepatopenaei) and white faecal strings in shrimp, as well as the methods of microsporidian infection, but does not provide any guidance on how to manage or monitor shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-03",
+      "kind": "step",
+      "text": "Implement tight biosecurity measures, including routine disinfection.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly mention implementing tight biosecurity measures or routine disinfection as a recommendation for managing Enterocytozoon hepatopenaei (EHP) in shrimp hatcheries and farms. It only suggests that enforcing tight biosecurity is a recommended method to contain the infection but does not specify routine disinfection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions EHP (Enterocytozoon hepatopenaei) and discusses its association with WFS (White Feces Syndrome) in shrimp, as well as its impact on shrimp health and production.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions size variation and growth retardation due to EHP infection but does not directly address water quality.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause in shrimp; instead, it discusses Enterocytozoon hepatopenaei (EHP) as a known parasite causing issues in shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-04",
+      "kind": "step",
+      "text": "Monitor hepatopancreas for signs of EHP infection.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly state that hepatopancreas should be monitored for signs of EHP infection. It mentions monitoring hepatopancreas as one of several methods to assist in EHP detection but does not make it a primary claim or recommendation.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-04",
+      "kind": "step",
+      "text": "Enforce tight biosecurity and routine disinfection.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly state or clearly imply that 'Enforce tight biosecurity and routine disinfection' is a claim. It discusses EHP as a threat to shrimp farming and mentions the need for tight biosecurity but does not specifically mention routine disinfection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-04",
+      "kind": "step",
+      "text": "Monitor size variation and overall slow growth in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage clearly states that EHP causes 'size variation' and 'overall slow growth', which are directly related to the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-04",
+      "kind": "step",
+      "text": "Check for soft shells, lethargy, loss of appetite, reduced feed intake, empty midguts, and whitish hindgut in infected shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'soft shells, lethargy, loss of appetite, reduced feed intake, empty midguts and whitish hindgut' as signs of EHP infection in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c0",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions EHP (Enterocytozoon hepatopenaei) and discusses its association with WFS (White Feces Syndrome) in shrimp, as well as its impact on shrimp health and production.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1",
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp. It focuses on Enterocytozoon hepatopenaei (EHP) and its impact on shrimp health, particularly growth retardation and associated issues.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause in shrimp. It discusses EHP (Early Mortality Syndrome) and its effects on shrimp, but does not introduce an unknown factor affecting the shrimp's health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-05",
+      "kind": "step",
+      "text": "Increase water exchange rate to 10-15% daily.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention any recommendations regarding water exchange rates or their impact on shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-05",
+      "kind": "step",
+      "text": "Monitor and control ammonia and nitrite levels in the pond.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p17:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p17:c1",
+      "supported": false,
+      "reason": "The passage does not mention monitoring or controlling ammonia and nitrite levels in shrimp ponds. It discusses the effects of these compounds on white shrimp survival and growth performance but does not provide instructions for their management.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WFS-05",
+      "kind": "step",
+      "text": "Implement a strict biosecurity protocol, including regular disinfection of equipment and personnel.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p65:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p65:c0",
+      "supported": false,
+      "reason": "The passage does not mention implementing a strict biosecurity protocol or regular disinfection of equipment and personnel. It discusses EHP, its impact on shrimp health, and methods to detect the infection but does not provide instructions for biosecurity measures.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p127:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p127:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp but mentions regular monitoring of water quality parameters and oxygen levels which are related to water quality.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p15:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p15:c1",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'EHP (Enterocytozoon hepatopenaei)' and discusses its prevalence in shrimp ponds related to ammonia and nitrite concentrations.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p43:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p43:c0",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause related to shrimp health or pond conditions. It provides guidelines for preparing and maintaining a shrimp culture environment but does not discuss an unknown factor affecting shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-01",
+      "kind": "step",
+      "text": "Increase aeration.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p127:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p127:c0",
+      "supported": true,
+      "reason": "The passage states that 'Penaeus vannamei in particular is sensitive to oxygen stress and since a higher stocking density is maintained all along, aeration is very critical aspects for this species.' This clearly implies the need for increased aeration.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-01",
+      "kind": "step",
+      "text": "Reduce feed.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p43:c1"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p43:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about reducing feed.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-01",
+      "kind": "step",
+      "text": "Correct water quality.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p199:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p199:c0",
+      "supported": true,
+      "reason": "The passage clearly states that 'water quality parameters such as pH, dissolved oxygen, ammonia, nitrite, hardness and alkalinity should be maintained at optimum level throughout the culture period for successful shrimp farming.' This directly supports the claim of correct water quality management being crucial.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p199:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p199:c0",
+      "supported": true,
+      "reason": "The passage discusses water quality parameters such as pH, dissolved oxygen, and temperature which are crucial for shrimp farming. It explicitly mentions that 'Among these, water quality management is a crucial part of shrimp farming.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not specifically mention vibriosis or any specific bacterial disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p127:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p127:c0",
+      "supported": false,
+      "reason": "The passage does not mention any unidentified cause related to shrimp health or pond conditions.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-02",
+      "kind": "step",
+      "text": "Increase aeration.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p127:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p127:c0",
+      "supported": true,
+      "reason": "The passage states that 'Penaeus vannamei in particular is sensitive to oxygen stress and since a higher stocking density is maintained all along, aeration is very critical aspects for this species.' This clearly implies the need for increased aeration.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-02",
+      "kind": "step",
+      "text": "Reduce feed.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p199:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p199:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about reducing feed. It discusses water quality parameters and their importance in shrimp farming.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-02",
+      "kind": "step",
+      "text": "Correct water quality.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly state that correct water quality is achieved or maintained through any of the described practices. It mentions monitoring and managing various aspects related to shrimp health but does not directly claim that these actions ensure correct water quality.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p158:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p158:c0",
+      "supported": false,
+      "reason": "The passage does not specifically mention shrimp pond health or water quality stress in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions the importance of maintaining pond bottom and feed management but does not directly address water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p69:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p69:c1",
+      "supported": false,
+      "reason": "The passage does not mention vibriosis or any specific disease related to shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-03",
+      "kind": "step",
+      "text": "Monitor water quality parameters once a week.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Monitor water quality parameters once a week.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-03",
+      "kind": "step",
+      "text": "Check weekly basis, especially at the feeding area for black soil, benthic algae and bad odour. Always take care not to accumulate leftover feed at the pond bottom because later on, it will deteriorate the soil.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check weekly basis, especially at the feeding area for black soil, benthic algae and bad o dour.' and advises 'Always take care not to accumulate leftover feed at the pond bottom because later on, it will deteriorate the soil.', which directly supports the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-03",
+      "kind": "step",
+      "text": "Check tray were monitored at interval to avoid overfeeding or underfeeding of shrimp. Feeding is usually done @ 5% of total biomass at the beginning which is gradually reduced to 3.5% at the end of culture period.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p127:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p127:c0",
+      "supported": true,
+      "reason": "The passage explicitly states that 'Check tray were monitor at interval to avoid overfeeding or underfeeding of shrimp' and provides details about the feeding schedule, which supports the claim.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-03",
+      "kind": "step",
+      "text": "Shrimps were sampled once a week and checked for their general health condition and any other abnormalities like body colour, missing appendages, gill fouling, black gills and growth in terms of length and weight.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p127:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p127:c0",
+      "supported": true,
+      "reason": "The passage explicitly states that 'Shrimps were sampled once a week and checked for their general health condition and any other abnormalities like body colour, missing appendages, gill fouling, black gills and growth in terms of length and weight.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0",
+        "CIBA-DISMGMT-2022:p158:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p158:c0",
+      "supported": false,
+      "reason": "The passage does not specifically mention shrimp pond health or water quality stress in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p15:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p15:c1",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp but rather focuses on how ammonia and nitrite concentrations affect EHP infection prevalence and shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses an unidentified cause in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p15:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p15:c1",
+      "supported": false,
+      "reason": "The passage does not mention an unidentified cause for shrimp pond health issues. Instead, it discusses factors such as ammonia and nitrite concentration that can influence EHP infection prevalence in shrimp farms.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-04",
+      "kind": "step",
+      "text": "Check weekly basis, especially at the feeding area for black soil, benthic algae and bad odour.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check weekly basis, especially at the feeding area for black soil, benthic algae and bad o dour.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-04",
+      "kind": "step",
+      "text": "Do water exchange and reduce feeding in areas where the soil is black.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Do water exchange and reduce feeding in areas where the soil is black.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-04",
+      "kind": "step",
+      "text": "Reduce feeding rate during periods of low DO, plankton crash, rainfall, moulting, extremes of temperature and during disease outbreaks.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'reduce the feeding rate during periods of low DO, plankton crash, rainfall, moulting, extremes of temperature and during disease outbreaks.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-04",
+      "kind": "step",
+      "text": "Store feed in clean, cool and ventilated area, protected from sunlight.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p158:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p158:c0",
+      "supported": false,
+      "reason": "The passage does not provide specific instructions on how to store feed in terms of cleanliness, temperature, ventilation or protection from sunlight.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p69:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p69:c1",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss 'water quality stress' in shrimp but mentions that poor water management and excess feed can compromise water quality maintenance, which may give stress to the animal. However, this is implied rather than directly stated.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p127:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p127:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp but mentions regular monitoring of water quality parameters and oxygen levels which are related to water quality.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": false,
+      "reason": "The passage does not mention vibriosis or any specific disease related to shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-05",
+      "kind": "step",
+      "text": "Check weekly basis, especially at the feeding area for black soil, benthic algae and bad odour.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check weekly basis, especially at the feeding area for black soil, benthic algae and bad o dour.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-05",
+      "kind": "step",
+      "text": "Do water exchange and reduce feeding in areas where the soil is black.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Do water exchange and reduce feeding in areas where the soil is black.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-05",
+      "kind": "step",
+      "text": "Check the feeding rate, reduce the feeding rate during periods of low DO, plankton crash, rainfall, moulting, extremes of temperature and during disease outbreaks.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p122:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p122:c0",
+      "supported": true,
+      "reason": "The passage explicitly states 'Check the feeding rate, reduce the feeding rate during periods of low DO, plankton crash, rainfall, moulting, extremes of temperature and during disease outbreaks.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WQ-05",
+      "kind": "step",
+      "text": "Probiotics, immunostimulants, bioremediating agents can be working as prophylactic measures in grow out culture.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": true,
+      "reason": "The passage explicitly states that 'Probiotics, immunostimulants, bioremediating agents can be working as prophylactic measures in grow out culture.'",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses white spot syndrome (WSSV) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p21:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p21:c0",
+      "supported": true,
+      "reason": "The passage discusses white spot syndrome (WSSV) in shrimp and mentions 'white spots' as a characteristic symptom of WSSV infection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p21:c0",
+        "CIBA-DISMGMT-2022:p37:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Vibrio species causing diseases in shrimp, specifically mentioning vibriosis and its effects on the hepatopancreas. It also describes diagnostic methods and control measures for this disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-01",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-EHP-2022:p33:c0"
+      ],
+      "passage_id": "CIBA-EHP-2022:p33:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress in shrimp. It primarily focuses on various viral infections and other pathobiomes affecting Pacific white shrimp (Litopenaeus vannamei) and Penaeus vannamei, but there is no mention of water quality or its associated stresses.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-01",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention stopping water exchange with neighbors. It discusses various health and disease management practices during a disease outbreak but does not include instructions or recommendations for stopping water exchange with neighboring ponds.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-01",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention 'isolate the pond' as a specific action or recommendation. It discusses various practices and measures for monitoring and managing shrimp pond health but does not explicitly suggest isolating the pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-01",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention informing neighboring farms about any observations or conditions.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses white spot syndrome (WSSV) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p19:c0",
+      "supported": true,
+      "reason": "The passage explicitly mentions White spot syndrome virus (WSSV) as one of the important shrimp viral diseases discussed.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c0",
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Enterocytozoon hepatopenaei (EHP) and its effects on shrimp health, including clinical manifestations, pathology, epidemiology, and transmission.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-02",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss vibriosis in shrimp. It mentions Vibrio spp. as a secondary bacterial infection that can occur due to severe EHP (Early Mortality Syndrome) infection, but it does not provide specific details about vibriosis.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-02",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention stopping water exchange with neighbors. It discusses various health and disease management practices during a disease outbreak but does not include instructions or recommendations for stopping water exchange with neighboring ponds.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-02",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p19:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p19:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about isolating the pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-02",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about informing neighboring farms regarding shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses white spot syndrome (WSSV) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p21:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p21:c0",
+      "supported": true,
+      "reason": "The passage discusses white spot syndrome (WSSV) in shrimp and mentions 'white spots' as a characteristic symptom of WSSV infection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses EHP (Enterocytozoon hepatopenaei) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": true,
+      "reason": "The passage explicitly mentions 'EHP (Enterocytozoon hepatopenaei)' in shrimp farms and discusses its effects on shrimp health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-03",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p37:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Vibrio species causing diseases in shrimp, specifically mentioning vibriosis and its effects on the hepatopancreas. It also describes diagnostic methods and control measures for this disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-03",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention stopping water exchange with neighbors. It discusses various health and disease management practices during a disease outbreak but does not include instructions or recommendations for stopping water exchange with neighboring ponds.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-03",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p21:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p21:c0",
+      "supported": false,
+      "reason": "The passage does not mention anything about isolating the pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-03",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-EHP-2022:p13:c1"
+      ],
+      "passage_id": "CIBA-EHP-2022:p13:c1",
+      "supported": false,
+      "reason": "The passage does not mention anything about informing neighboring farms regarding shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p70:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p70:c0",
+      "supported": false,
+      "reason": "The passage discusses vibriosis caused by a pathogenic strain of Vibrio parahaemolyticus, but it does not specifically mention 'vibriosis' or directly state that the passage is about vibriosis in shrimp.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses white spot syndrome (WSSV) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p21:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p21:c0",
+      "supported": true,
+      "reason": "The passage discusses white spot syndrome (WSSV) in shrimp and mentions 'white spots' as a characteristic symptom of WSSV infection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-04",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly discuss water quality stress in shrimp. It mentions monitoring water quality parameters and observing pond conditions but does not directly state that these are indicators of water quality stress.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-04",
+      "kind": "step",
+      "text": "Increase water exchange rate.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention increasing the water exchange rate as a measure for shrimp pond health.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-04",
+      "kind": "step",
+      "text": "Monitor water quality parameters more frequently.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage states 'Monitor water quality parameters once a week,' which does not support the claim to monitor more frequently.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-04",
+      "kind": "step",
+      "text": "Implement biosecurity measures to prevent the spread of disease.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not explicitly mention implementing biosecurity measures to prevent the spread of disease. It discusses various practices related to monitoring and managing shrimp health but does not specifically address biosecurity measures.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses white spot syndrome (WSSV) in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p21:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p21:c0",
+      "supported": true,
+      "reason": "The passage discusses white spot syndrome (WSSV) in shrimp and mentions 'white spots' as a characteristic symptom of WSSV infection.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses vibriosis in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p21:c0",
+        "CIBA-DISMGMT-2022:p37:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p37:c0",
+      "supported": true,
+      "reason": "The passage explicitly discusses Vibrio species causing diseases in shrimp, specifically mentioning vibriosis and its effects on the hepatopancreas. It also describes diagnostic methods and control measures for this disease.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-05",
+      "kind": "hypothesis",
+      "text": "The passage discusses water quality stress in shrimp.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0",
+        "CIBA-DISMGMT-2022:p21:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p21:c0",
+      "supported": false,
+      "reason": "The passage does not discuss water quality stress directly related to shrimp health or pond conditions. It mentions stressful conditions that can increase PCR detection efficiency but does not provide information on how these affect the overall water quality or shrimp health in a broader sense.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-05",
+      "kind": "step",
+      "text": "Stop water exchange with neighbours.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention stopping water exchange with neighbors. It discusses various health and disease management practices during a disease outbreak but does not include instructions or recommendations for stopping water exchange with neighboring ponds.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-05",
+      "kind": "step",
+      "text": "Isolate the pond.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention 'isolate the pond' as a specific action or recommendation. It discusses various practices and measures for monitoring and managing shrimp pond health but does not explicitly suggest isolating the pond.",
+      "judged": true
+    },
+    {
+      "scenario_id": "WSSV-05",
+      "kind": "step",
+      "text": "Inform neighbouring farms.",
+      "passage_ids": [
+        "CIBA-DISMGMT-2022:p123:c0"
+      ],
+      "passage_id": "CIBA-DISMGMT-2022:p123:c0",
+      "supported": false,
+      "reason": "The passage does not mention informing neighboring farms about any observations or conditions.",
+      "judged": true
+    }
+  ]
+}
