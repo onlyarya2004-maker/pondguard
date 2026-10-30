@@ -158,13 +158,16 @@ def read_rows(path: Path) -> list[dict]:
 
 
 def git_info() -> dict[str, Any]:
+    """Commit and whether any CODE or CONFIG differs from it (results files do not count)."""
+
     def git(*args: str) -> str:
         out = subprocess.run(["git", *args], cwd=REPO_ROOT, capture_output=True, text=True)
         return out.stdout.strip()
 
+    watched = ["src", "config", "data/scenarios", "requirements.txt"]
     return {
         "commit": git("rev-parse", "HEAD"),
-        "uncommitted_changes": bool(git("status", "--porcelain")),
+        "uncommitted_code_changes": bool(git("status", "--porcelain", "--", *watched)),
     }
 
 
