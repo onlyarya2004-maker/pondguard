@@ -249,3 +249,40 @@ def test_risk_and_action_rules(state, risk, level):
     got_risk, _ = decide_risk(state, SETTINGS)
     assert got_risk == risk
     assert decide_action(got_risk, state, SETTINGS) == level
+
+
+# --- robustness ---------------------------------------------------------------------------
+
+
+def test_missing_telemetry_does_not_crash_and_is_not_called_healthy(tmp_path, retriever):
+    scenario = load_scenario("HEALTHY-01", telemetry_tools.DATA_DIR / "scenarios")
+    scenario = {**scenario, "scenario_id": "NO-DATA", "pond_id": "P-404"}
+    llm = get_llm("agent", SETTINGS, TokenBudget(cap=1_000_000))
+    final, _ = run_scenario(scenario, llm, SETTINGS, retriever, runs_dir=tmp_path / "runs")
+    report = final["report"]
+    assert report["risk_level"] == "watch"  # never "normal" without sensor data
+    assert any("Telemetry unavailable" in e["message"] for e in final["events"])
+    assert "no telemetry" in report["action"]["rationale"]
+
+
+def test_critic_sending_the_draft_to_the_diagnostician_re_runs_diagnosis(
+    tmp_path, retriever, strong, monkeypatch
+):
+    from pondguard.agents import critic as critic_module
+    from pondguard.models import CriticVerdict
+
+    real, calls = critic_module.check_guardrails, {"n": 0}
+
+    def first_blames_the_diagnosis(draft, passages, settings=None):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return CriticVerdict(
+                passed=False, issues=["hypothesis lacks evidence"], revise_target="diagnostician"
+            )
+        return real(draft, passages, settings)
+
+    monkeypatch.setattr(critic_module, "check_guardrails", first_blames_the_diagnosis)
+    final, _, llm = _run("EHP-03", tmp_path, retriever)
+    assert final["revisions"] == 1 and final["report"]["issues"] == []
+    assert _called(llm).count("rank") == 2  # the Diagnostician ran again
+    assert any("back to the diagnostician" in e for e in _events(final))

@@ -41,6 +41,7 @@ class GraphState(TypedDict, total=False):
     telemetry_summary: dict
     anomalies: list[dict]
     symptoms: list[str]
+    telemetry_missing: bool  # no usable sensor data: the pond cannot be called healthy
 
     # Diagnostician (corrective RAG)
     queries: list[str]

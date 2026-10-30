@@ -160,6 +160,18 @@ def cmd_run(scenario_id: str, inject_fault: str | None, no_cache: bool) -> int:
     if inject_fault:
         os.environ["PONDGUARD_INJECT_FAULT"] = inject_fault
     settings = load_settings()
+    if settings.runtime.variant != "B":
+        raise CliError(
+            "PONDGUARD_VARIANT=A (single-pass RAG) is not built yet; it is part of the "
+            "Review 4 experiment. Use PONDGUARD_VARIANT=B."
+        )
+    scenario_path = DATA_DIR / "scenarios" / f"{scenario_id}.json"
+    if not scenario_path.exists():
+        known = ", ".join(sorted(p.stem for p in scenario_path.parent.glob("*.json"))) or "none"
+        raise CliError(
+            f"unknown scenario '{scenario_id}'. Available: {known}. "
+            "Generate them with `python -m pondguard.cli simulate`."
+        )
     scenario = load_scenario(scenario_id, DATA_DIR / "scenarios")
     llm = get_llm("agent", settings, use_cache=not no_cache)
     retriever = get_retriever(settings)
@@ -181,9 +193,51 @@ def cmd_run(scenario_id: str, inject_fault: str | None, no_cache: bool) -> int:
     return 0
 
 
+class CliError(Exception):
+    """A problem the user can fix; shown as one line, without a traceback."""
+
+
+def explain(exc: BaseException) -> str:
+    """One-line message with a hint for the failures a teammate is most likely to hit."""
+    from pondguard.llm import LLMConfigError
+
+    text = str(exc) or type(exc).__name__
+    names = {c.__name__ for c in type(exc).__mro__}
+    if isinstance(exc, CliError):
+        return text
+    if isinstance(exc, LLMConfigError):
+        return f"{text} (see docs/SETUP.md, section 5)"
+    if names & {"OpenAIConnectionError", "APIConnectionError", "ConnectError", "ConnectionError"}:
+        base = os.environ.get("LMSTUDIO_BASE_URL", "http://localhost:1234/v1")
+        return (
+            f"cannot reach the language model server at {base}. Start LM Studio's server and "
+            "load the model: `lms server start --port 1234` then `lms load <model-key> -y` "
+            "(docs/SETUP.md, section 5). To run without a model, set LLM_PROVIDER=mock."
+        )
+    if isinstance(exc, FileNotFoundError) and "kb" in text.lower() and ".pdf" in text.lower():
+        return (
+            f"{text}. Download the PDFs listed in data/kb/sources.csv (docs/SETUP.md, section 6)."
+        )
+    if isinstance(exc, RuntimeError) and "pondguard ingest" in text:
+        return f"{text} (docs/SETUP.md, section 7)"
+    return f"{type(exc).__name__}: {text}"
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    try:
+        return _dispatch(parser, args)
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except Exception as exc:  # show a short message; PONDGUARD_DEBUG=1 shows the traceback
+        if os.environ.get("PONDGUARD_DEBUG"):
+            raise
+        print(f"error: {explain(exc)}", file=sys.stderr)
+        return 1
+
+
+def _dispatch(parser: argparse.ArgumentParser, args: argparse.Namespace) -> int:
     if args.command == "run":
         return cmd_run(args.scenario, args.inject_fault, args.no_cache)
     if args.command == "ingest":

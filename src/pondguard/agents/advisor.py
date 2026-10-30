@@ -62,6 +62,8 @@ def decide_risk(state: GraphState, settings: Settings) -> tuple[RiskLevel, str]:
 
     if not hypotheses:
         if diagnosis is None and not anomalies and not symptoms:
+            if state.get("telemetry_missing"):
+                return "watch", "no telemetry available, so the pond cannot be confirmed healthy"
             return "normal", "no anomalies and no symptoms"
         if high:
             return "critical", "abstained, but a high-severity water-quality anomaly exists"

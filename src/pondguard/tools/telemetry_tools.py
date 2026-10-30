@@ -27,6 +27,7 @@ DAWN_HOURS = range(0, 8)  # dawn minimum search window
 # The spec says |z| > 3. Measured on 300 healthy 72 h windows (7 parameters), z > 3 raised a
 # false alarm on 38% of them, z > 4 on 0.3%. So the cutoff is 4 (noted in docs/tuning_log.md).
 SPIKE_Z = 4.0
+MIN_WINDOW_HOURS = 24  # spike, 24 h drop and per-day rise rules need at least a day of readings
 MIN_DAWN_DROP = 0.3  # mg/L fall across three dawn minima that counts as a real trend
 RISE_PER_DAY = 0.1  # mg/L per day for ammonia/nitrite counted as a steady rise
 RISE_PARAMS = ("tan_mg_l", "nitrite_mg_l")
@@ -43,7 +44,13 @@ def _csv_for(pond_id: str, scenario_id: str | None) -> Any:
     raise FileNotFoundError(f"no telemetry found for pond {pond_id}")
 
 
+class TelemetryError(ValueError):
+    """There is no usable telemetry (none for the pond, or an empty window)."""
+
+
 def _frame(readings: list[Reading]) -> pd.DataFrame:
+    if not readings:
+        raise TelemetryError("no telemetry readings to analyse")
     df = pd.DataFrame([r.model_dump() for r in readings])
     return df.sort_values("ts").reset_index(drop=True)
 
@@ -169,10 +176,13 @@ def detect_anomalies(readings: list[Reading], settings: Settings | None = None) 
             )
         )
 
+    if len(df) < MIN_WINDOW_HOURS:  # too short for the spike, drop and rise rules
+        return anomalies
+
     for name in PARAMETERS:
         steps = df[name].diff().dropna()
         spread = float(steps.std())
-        if spread == 0:
+        if not spread or np.isnan(spread):
             continue
         z = (steps - steps.mean()) / spread
         worst = int(z.abs().idxmax())

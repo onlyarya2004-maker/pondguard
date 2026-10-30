@@ -265,3 +265,43 @@ def test_tool_calls_appear_in_the_trace(tmp_path):
         lookup_action_ladder("watch", "unknown")
     names = [json.loads(line).get("name") for line in tracer.path.read_text().splitlines()]
     assert "get_telemetry" in names and "lookup_action_ladder" in names
+
+
+# --- robustness: empty and very short windows, dosages in words, incomplete drafts ------------
+
+
+@pytest.mark.parametrize("n", [1, 2, 3, 5])
+def test_very_short_windows_do_not_crash(n):
+    short = _readings(baseline("P-1", END, 35, 3).head(n))
+    assert detect_anomalies(short) == [] and check_thresholds(short) == []
+    assert compute_trends(short)["hours"] == n
+
+
+def test_empty_telemetry_raises_a_clear_error():
+    for tool in (compute_trends, detect_anomalies, check_thresholds):
+        with pytest.raises(telemetry_tools.TelemetryError, match="no telemetry"):
+            tool([])
+
+
+@pytest.mark.parametrize(
+    "step",
+    [
+        "Use 2 grams per kg of feed",
+        "Add two grams per kilogram of feed to the ration",
+        "Apply half a gram per litre of the product",
+        "Mix 0.5 g/L into the water",
+        "Treat with 3 milligrams per litre",
+    ],
+)
+def test_spelled_out_dosages_are_caught(step):
+    assert find_dosage(step) is not None
+
+
+def test_a_draft_without_an_action_or_steps_does_not_pass():
+    no_action = check_guardrails({"hypotheses": [], "disclaimer": "x"}, [])
+    assert not no_action.passed and any("no action steps" in i for i in no_action.issues)
+    empty = {
+        "action": {"risk_level": "alert", "action_level": "L2", "steps": []},
+        "disclaimer": "x",
+    }
+    assert not check_guardrails(empty, []).passed

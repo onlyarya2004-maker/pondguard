@@ -13,6 +13,7 @@ from pondguard.config import Settings
 from pondguard.llm import LLMClient
 from pondguard.state import GraphState
 from pondguard.tools.telemetry_tools import (
+    TelemetryError,
     check_thresholds,
     compute_trends,
     detect_anomalies,
@@ -29,11 +30,24 @@ SYSTEM = (
 def monitor_node(state: GraphState, *, llm: LLMClient, settings: Settings) -> dict[str, Any]:
     tracer = current_tracer()
     pond_id = state["pond_id"]
-    readings = get_telemetry(
-        pond_id, hours=settings.telemetry.window_hours, scenario_id=state.get("scenario_id")
-    )
-    trends = compute_trends(readings)
-    anomalies = detect_anomalies(readings, settings) + check_thresholds(readings, settings)
+    try:
+        readings = get_telemetry(
+            pond_id, hours=settings.telemetry.window_hours, scenario_id=state.get("scenario_id")
+        )
+        trends = compute_trends(readings)
+        anomalies = detect_anomalies(readings, settings) + check_thresholds(readings, settings)
+    except (TelemetryError, FileNotFoundError) as exc:
+        # No sensor data must not crash the run, and must not look like a healthy pond: the
+        # Advisor treats `telemetry_missing` as "cannot confirm the pond is healthy".
+        text = f"Telemetry unavailable ({exc}); water quality could not be assessed."
+        if tracer:
+            tracer.event("monitor", text)
+        return {
+            "telemetry_summary": {"text": text, "dawn_min_do": []},
+            "anomalies": [],
+            "symptoms": list(state.get("farmer_log", {}).get("symptoms", [])),
+            "telemetry_missing": True,
+        }
 
     facts = [f"{len(readings)} hourly readings."]
     facts.append(

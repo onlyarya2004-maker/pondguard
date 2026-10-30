@@ -26,9 +26,11 @@ from pondguard.tracing import traced_tool
 CITATION_TAG = re.compile(r"\[([^\[\]]+)\]")
 # A dose is "number + amount-per-something". Only flagged next to an action verb, so
 # water-quality readings such as "keep oxygen above 5 mg/L" are not mistaken for doses.
+_NUM = r"(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half)"
+_UNIT = r"(?:mg|milligrams?|g|grams?|kg|kilograms?|ml|millilit(?:re|er)s?|l|lit(?:re|er)s?|ppm)"
+_PER = r"(?:kg|kilograms?|g|grams?|l|lit(?:re|er)s?|m3|m2|ha|hectares?|tons?|tonnes?|day|days)"
 DOSE = re.compile(
-    r"\b\d+(?:\.\d+)?\s*(?:mg|g|kg|ml|l|ppm)\s*(?:/|per\s)\s*(?:kg|g|l|litre|liter|m3|m2|ha|ton|tonne|day)\b"
-    r"|\b\d+(?:\.\d+)?\s*ppm\b",
+    rf"\b{_NUM}\s*(?:an?\s+)?{_UNIT}\s*(?:/|per\s+)\s*{_PER}\b|\b{_NUM}\s*ppm\b",
     re.IGNORECASE,
 )
 DOSE_VERBS = re.compile(
@@ -71,7 +73,7 @@ def check_guardrails(
     issues: list[str] = []
     revise = "advisor"
 
-    action = report_draft.get("action", {})
+    action = report_draft.get("action") or {}
     level = action.get("action_level")
     risk = action.get("risk_level")
 
@@ -84,6 +86,8 @@ def check_guardrails(
             )
             revise = "diagnostician"
 
+    if not action.get("steps"):
+        issues.append("the draft has no action steps")
     for number, step in enumerate(action.get("steps", []), start=1):
         cites = step_citations(step)
         valid = known | {f"ladder:{level}"}
