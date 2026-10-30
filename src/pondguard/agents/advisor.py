@@ -10,7 +10,8 @@ so no step is ever uncited.
 Risk rules (spec §3.5 and config/action_ladder.yaml):
 - nothing to diagnose, no anomalies, no symptoms: normal
 - diagnosed: the top condition's default risk; water-quality stress ranges by severity
-  (high: critical, medium: alert, low: watch); raised one level for a high-severity
+  (a high-severity anomaly: critical; two or more signals, that is anomalous parameters
+  or water-quality signs: alert; otherwise watch); raised one level for a high-severity
   anomaly or rising mortality
 - abstained: at most watch, unless a high-severity (critical) water-quality anomaly exists
 
@@ -74,9 +75,17 @@ def decide_risk(state: GraphState, settings: Settings) -> tuple[RiskLevel, str]:
     risk = ladder.condition_default_risk[top]
     why = f"{top} defaults to {risk}"
     if top == "water_quality_stress":
-        medium = any(a["severity"] == "medium" for a in anomalies)
-        risk = "critical" if high else ("alert" if medium else "watch")
-        why = f"water-quality stress by severity -> {risk}"
+        # Spec §3.4: watch = one mild anomaly, alert = several co-occurring signals,
+        # critical = a severe crisis. A signal is an anomalous parameter or a water-quality sign.
+        params = {
+            a.get("parameter", i)
+            for i, a in enumerate(anomalies)
+            if a["severity"] in ("medium", "high")
+        }
+        signs = set(settings.sign_sets.water_quality_symptoms) & set(symptoms)
+        signals = len(params) + len(signs)
+        risk = "critical" if high else ("alert" if signals >= 2 else "watch")
+        why = f"water-quality stress: {signals} signal(s){', one severe' if high else ''} -> {risk}"
     elif high:
         risk = _raise(risk)
         why += "; raised one level for a high-severity anomaly"

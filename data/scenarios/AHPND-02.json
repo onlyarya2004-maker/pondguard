@@ -1,0 +1,40 @@
+{
+  "scenario_id": "AHPND-02",
+  "group": "ahpnd",
+  "golden": true,
+  "pond_id": "P-52",
+  "date": "2026-10-20",
+  "day_of_culture": 22,
+  "seed": 5201,
+  "telemetry_csv": "data/telemetry/AHPND-02.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-52",
+      "date": "2026-10-20",
+      "day_of_culture": 22,
+      "feed_consumed_pct": 35.0,
+      "mortality_count": 400,
+      "symptoms": [
+        "sudden_mortality",
+        "empty_gut"
+      ],
+      "notes": "heavy mortality in the first month"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "ahpnd",
+    "acceptable_conditions": [
+      "ahpnd"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "ahpnd recipe: sudden_mortality, empty_gut"
+  }
+}

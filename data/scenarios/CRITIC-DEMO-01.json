@@ -1,6 +1,7 @@
 {
   "scenario_id": "CRITIC-DEMO-01",
-  "group": "vibriosis",
+  "group": "demo",
+  "golden": false,
   "pond_id": "P-09",
   "date": "2026-10-20",
   "day_of_culture": 48,

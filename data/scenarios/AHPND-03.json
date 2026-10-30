@@ -1,0 +1,48 @@
+{
+  "scenario_id": "AHPND-03",
+  "group": "ahpnd",
+  "golden": true,
+  "pond_id": "P-53",
+  "date": "2026-10-20",
+  "day_of_culture": 18,
+  "seed": 5301,
+  "telemetry_csv": "data/telemetry/AHPND-03.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-53",
+      "date": "2026-10-20",
+      "day_of_culture": 18,
+      "feed_consumed_pct": 45.0,
+      "mortality_count": 180,
+      "symptoms": [
+        "pale_hepatopancreas",
+        "sudden_mortality",
+        "lethargy"
+      ],
+      "notes": "pale shrunken organs in dead shrimp"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "do_crash",
+      "start": "2026-10-19T00:00",
+      "nights": 2,
+      "depth": 0.8
+    }
+  ],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "ahpnd",
+    "acceptable_conditions": [
+      "ahpnd"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "ahpnd recipe: pale_hepatopancreas, sudden_mortality, lethargy"
+  }
+}

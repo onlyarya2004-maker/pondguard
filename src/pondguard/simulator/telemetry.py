@@ -9,7 +9,7 @@ dawn (minimum about 04:00) and high mid-afternoon. The numbers are tuned so a
 healthy pond stays inside config/thresholds.yaml.
 
 Event injectors are pure functions: they take a DataFrame and return a changed copy.
-Only `do_crash` exists so far (the R3 demos need nothing else).
+Injectors: do_crash, ammonia_buildup, nitrite_buildup, temp_drop, salinity_drop.
 """
 
 from __future__ import annotations
@@ -89,7 +89,54 @@ def do_crash(df: pd.DataFrame, start: str, nights: int, depth: float) -> pd.Data
     return clip_to_physical_ranges(out)
 
 
-INJECTORS = {"do_crash": do_crash}
+def _hours_since(df: pd.DataFrame, start: str) -> pd.Series:
+    """Hours elapsed since `start` for each row (0 before it starts)."""
+    return ((df["ts"] - pd.Timestamp(start)).dt.total_seconds() / 3600).clip(lower=0)
+
+
+def _buildup(df: pd.DataFrame, column: str, start: str, days: float, slope: float) -> pd.DataFrame:
+    """Linear rise of `slope` per day for `days` days from `start`, then held."""
+    out = df.copy()
+    elapsed = _hours_since(out, start).clip(upper=days * 24)
+    out[column] = out[column] + slope * elapsed / 24
+    return clip_to_physical_ranges(out)
+
+
+def ammonia_buildup(df: pd.DataFrame, start: str, days: float, slope: float) -> pd.DataFrame:
+    """Total ammonia nitrogen climbs `slope` mg/L per day for `days` days from `start`."""
+    return _buildup(df, "tan_mg_l", start, days, slope)
+
+
+def nitrite_buildup(df: pd.DataFrame, start: str, days: float, slope: float) -> pd.DataFrame:
+    """Nitrite climbs `slope` mg/L per day for `days` days from `start`."""
+    return _buildup(df, "nitrite_mg_l", start, days, slope)
+
+
+def _drop(df: pd.DataFrame, column: str, start: str, hours: float, delta: float) -> pd.DataFrame:
+    """Falls by `delta` over `hours` hours from `start`, then stays lower."""
+    out = df.copy()
+    progress = (_hours_since(out, start) / hours).clip(upper=1.0)
+    out[column] = out[column] - delta * progress
+    return clip_to_physical_ranges(out)
+
+
+def temp_drop(df: pd.DataFrame, start: str, hours: float, delta: float) -> pd.DataFrame:
+    """Water temperature falls by `delta` C over `hours` hours from `start` (a cold snap)."""
+    return _drop(df, "temp_c", start, hours, delta)
+
+
+def salinity_drop(df: pd.DataFrame, start: str, hours: float, delta: float) -> pd.DataFrame:
+    """Salinity falls by `delta` ppt over `hours` hours from `start` (heavy rain)."""
+    return _drop(df, "salinity_ppt", start, hours, delta)
+
+
+INJECTORS = {
+    "do_crash": do_crash,
+    "ammonia_buildup": ammonia_buildup,
+    "nitrite_buildup": nitrite_buildup,
+    "temp_drop": temp_drop,
+    "salinity_drop": salinity_drop,
+}
 
 
 def apply_events(df: pd.DataFrame, events: list[dict]) -> pd.DataFrame:

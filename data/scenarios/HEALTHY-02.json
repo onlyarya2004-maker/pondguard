@@ -1,0 +1,34 @@
+{
+  "scenario_id": "HEALTHY-02",
+  "group": "healthy",
+  "golden": true,
+  "pond_id": "P-81",
+  "date": "2026-10-20",
+  "day_of_culture": 25,
+  "seed": 8102,
+  "telemetry_csv": "data/telemetry/HEALTHY-02.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-81",
+      "date": "2026-10-20",
+      "day_of_culture": 25,
+      "feed_consumed_pct": 99.0,
+      "mortality_count": 0,
+      "symptoms": [],
+      "notes": "trays clean, shrimp active"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "normal",
+    "top_condition": null,
+    "acceptable_conditions": [],
+    "action_level": "L0",
+    "acceptable_action_levels": [
+      "L0"
+    ],
+    "should_abstain": false,
+    "notes": "healthy recipe: no signs"
+  }
+}

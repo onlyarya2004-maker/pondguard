@@ -1,0 +1,54 @@
+{
+  "scenario_id": "WSSV-03",
+  "group": "wssv",
+  "golden": true,
+  "pond_id": "P-23",
+  "date": "2026-10-20",
+  "day_of_culture": 48,
+  "seed": 2301,
+  "telemetry_csv": "data/telemetry/WSSV-03.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-23",
+      "date": "2026-10-20",
+      "day_of_culture": 48,
+      "feed_consumed_pct": 45.0,
+      "mortality_count": 90,
+      "symptoms": [
+        "white_spots",
+        "red_discoloration",
+        "reduced_feeding"
+      ],
+      "notes": "reddish shrimp with white spots"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "temp_drop",
+      "start": "2026-10-19T14:00",
+      "hours": 4,
+      "delta": 4.0
+    },
+    {
+      "type": "do_crash",
+      "start": "2026-10-19T00:00",
+      "nights": 2,
+      "depth": 0.8
+    }
+  ],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "wssv",
+    "acceptable_conditions": [
+      "wssv"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "wssv recipe: white_spots, red_discoloration, reduced_feeding"
+  }
+}

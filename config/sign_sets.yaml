@@ -32,6 +32,10 @@ anomaly_to_conditions:
   nitrite_mg_l: [water_quality_stress]
   alkalinity_mg_l: [water_quality_stress]
 
+# Signs that count as water-quality signals when judging the severity of water-quality stress
+# (spec §3.5: surfacing at dawn, reduced feeding).
+water_quality_symptoms: [surfacing_at_dawn, reduced_feeding]
+
 # How the manuals name each condition (search terms for the first query).
 condition_terms:
   wssv: white spot syndrome virus WSSV

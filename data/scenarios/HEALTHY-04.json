@@ -1,0 +1,34 @@
+{
+  "scenario_id": "HEALTHY-04",
+  "group": "healthy",
+  "golden": true,
+  "pond_id": "P-83",
+  "date": "2026-10-20",
+  "day_of_culture": 62,
+  "seed": 8304,
+  "telemetry_csv": "data/telemetry/HEALTHY-04.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-83",
+      "date": "2026-10-20",
+      "day_of_culture": 62,
+      "feed_consumed_pct": 100.0,
+      "mortality_count": 0,
+      "symptoms": [],
+      "notes": "normal day"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "normal",
+    "top_condition": null,
+    "acceptable_conditions": [],
+    "action_level": "L0",
+    "acceptable_action_levels": [
+      "L0"
+    ],
+    "should_abstain": false,
+    "notes": "healthy recipe: no signs"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "scenario_id": "WQ-03",
+  "group": "water_quality_stress",
+  "golden": true,
+  "pond_id": "P-73",
+  "date": "2026-10-20",
+  "day_of_culture": 64,
+  "seed": 7301,
+  "telemetry_csv": "data/telemetry/WQ-03.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-73",
+      "date": "2026-10-20",
+      "day_of_culture": 64,
+      "feed_consumed_pct": 75.0,
+      "mortality_count": 2,
+      "symptoms": [
+        "surfacing_at_dawn",
+        "reduced_feeding"
+      ],
+      "notes": "shrimp come to the surface at dawn"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "do_crash",
+      "start": "2026-10-18T00:00",
+      "nights": 3,
+      "depth": 1.5
+    }
+  ],
+  "label": {
+    "risk_level": "alert",
+    "top_condition": "water_quality_stress",
+    "acceptable_conditions": [
+      "water_quality_stress"
+    ],
+    "action_level": "L1",
+    "acceptable_action_levels": [
+      "L1",
+      "L2"
+    ],
+    "should_abstain": false,
+    "notes": "falling dawn oxygen plus surfacing and reduced feeding"
+  }
+}

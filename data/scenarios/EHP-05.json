@@ -1,0 +1,41 @@
+{
+  "scenario_id": "EHP-05",
+  "group": "ehp",
+  "golden": true,
+  "pond_id": "P-35",
+  "date": "2026-10-20",
+  "day_of_culture": 70,
+  "seed": 3501,
+  "telemetry_csv": "data/telemetry/EHP-05.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-35",
+      "date": "2026-10-20",
+      "day_of_culture": 70,
+      "feed_consumed_pct": 80.0,
+      "mortality_count": 1,
+      "symptoms": [
+        "size_variation",
+        "slow_growth",
+        "lethargy"
+      ],
+      "notes": "uneven sizes, a few slow shrimp"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "alert",
+    "top_condition": "ehp",
+    "acceptable_conditions": [
+      "ehp",
+      "white_faeces"
+    ],
+    "action_level": "L2",
+    "acceptable_action_levels": [
+      "L2"
+    ],
+    "should_abstain": false,
+    "notes": "ehp recipe: size_variation, slow_growth, lethargy"
+  }
+}

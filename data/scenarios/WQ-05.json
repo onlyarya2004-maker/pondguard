@@ -1,0 +1,48 @@
+{
+  "scenario_id": "WQ-05",
+  "group": "water_quality_stress",
+  "golden": true,
+  "pond_id": "P-75",
+  "date": "2026-10-20",
+  "day_of_culture": 72,
+  "seed": 7501,
+  "telemetry_csv": "data/telemetry/WQ-05.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-75",
+      "date": "2026-10-20",
+      "day_of_culture": 72,
+      "feed_consumed_pct": 60.0,
+      "mortality_count": 8,
+      "symptoms": [
+        "surfacing_at_dawn",
+        "reduced_feeding"
+      ],
+      "notes": "shrimp gasping at the surface every dawn"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "do_crash",
+      "start": "2026-10-18T00:00",
+      "nights": 3,
+      "depth": 3.0
+    }
+  ],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "water_quality_stress",
+    "acceptable_conditions": [
+      "water_quality_stress"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L2",
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "dawn oxygen crash below the critical limit: crisis"
+  }
+}

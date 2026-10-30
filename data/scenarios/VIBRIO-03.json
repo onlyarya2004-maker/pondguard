@@ -1,0 +1,47 @@
+{
+  "scenario_id": "VIBRIO-03",
+  "group": "vibriosis",
+  "golden": true,
+  "pond_id": "P-63",
+  "date": "2026-10-20",
+  "day_of_culture": 52,
+  "seed": 6301,
+  "telemetry_csv": "data/telemetry/VIBRIO-03.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-63",
+      "date": "2026-10-20",
+      "day_of_culture": 52,
+      "feed_consumed_pct": 68.0,
+      "mortality_count": 10,
+      "symptoms": [
+        "red_discoloration",
+        "luminescence"
+      ],
+      "notes": "red shrimp, glowing at night, dirty water"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "ammonia_buildup",
+      "start": "2026-10-17T00:00",
+      "days": 3,
+      "slope": 0.25
+    }
+  ],
+  "label": {
+    "risk_level": "alert",
+    "top_condition": "vibriosis",
+    "acceptable_conditions": [
+      "vibriosis"
+    ],
+    "action_level": "L2",
+    "acceptable_action_levels": [
+      "L1",
+      "L2"
+    ],
+    "should_abstain": false,
+    "notes": "vibriosis recipe: red_discoloration, luminescence"
+  }
+}

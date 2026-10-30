@@ -1,0 +1,48 @@
+{
+  "scenario_id": "WSSV-05",
+  "group": "wssv",
+  "golden": true,
+  "pond_id": "P-25",
+  "date": "2026-10-20",
+  "day_of_culture": 40,
+  "seed": 2501,
+  "telemetry_csv": "data/telemetry/WSSV-05.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-25",
+      "date": "2026-10-20",
+      "day_of_culture": 40,
+      "feed_consumed_pct": 50.0,
+      "mortality_count": 150,
+      "symptoms": [
+        "red_discoloration",
+        "gathering_at_edges",
+        "lethargy"
+      ],
+      "notes": "red shrimp swimming at the edges after the cold night"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "temp_drop",
+      "start": "2026-10-19T09:00",
+      "hours": 5,
+      "delta": 5.0
+    }
+  ],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "wssv",
+    "acceptable_conditions": [
+      "wssv"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "wssv recipe: red_discoloration, gathering_at_edges, lethargy"
+  }
+}

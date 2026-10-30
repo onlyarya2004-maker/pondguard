@@ -159,6 +159,7 @@ class SignSets(_Strict):
     sign_to_conditions: dict[Symptom, list[Condition]]
     anomaly_to_conditions: dict[str, list[Condition]]
     condition_terms: dict[Condition, str]
+    water_quality_symptoms: list[Symptom] = Field(default_factory=list)
     question_bank: list[QuestionEntry]
     generic_question: str
 

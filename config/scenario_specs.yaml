@@ -16,7 +16,7 @@
 
 scenarios:
   - scenario_id: EHP-03
-    group: white_faeces            # R2 worked example (pond P-07, day 42); R3 main demo
+    group: ehp                     # R2 worked example (pond P-07, day 42); R3 main demo
     pond_id: P-07
     date: "2026-10-20"
     day_of_culture: 42
@@ -84,7 +84,8 @@ scenarios:
       notes: one non-specific sign and normal telemetry; evidence is insufficient, so ask a follow-up
 
   - scenario_id: CRITIC-DEMO-01
-    group: vibriosis               # kept outside the golden set; used with --inject-fault uncited_step
+    group: demo
+    golden: false                  # kept outside the golden set; used with --inject-fault uncited_step
     pond_id: P-09
     date: "2026-10-20"
     day_of_culture: 48
@@ -105,3 +106,837 @@ scenarios:
       acceptable_action_levels: [L1, L2]
       should_abstain: false
       notes: luminescence and red discoloration with a mild dawn-oxygen dip
+
+  - scenario_id: WSSV-01
+    group: wssv
+    pond_id: P-21
+    date: "2026-10-20"
+    day_of_culture: 55
+    seed: 2101
+    events:
+      - {"type": "temp_drop", "start": "2026-10-19T10:00", "hours": 6, "delta": 4.5}
+    farmer_log:
+      feed_consumed_pct: 40
+      mortality_count: 120
+      symptoms: ["white_spots", "red_discoloration", "gathering_at_edges"]
+      notes: "white spots on the shell, shrimp at the pond edge"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: wssv
+      acceptable_conditions: ["wssv"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "wssv recipe: white_spots, red_discoloration, gathering_at_edges"
+
+  - scenario_id: WSSV-02
+    group: wssv
+    pond_id: P-22
+    date: "2026-10-20"
+    day_of_culture: 62
+    seed: 2201
+    events:
+      - {"type": "salinity_drop", "start": "2026-10-19T08:00", "hours": 8, "delta": 7}
+    farmer_log:
+      feed_consumed_pct: 35
+      mortality_count: 260
+      symptoms: ["white_spots", "lethargy", "sudden_mortality"]
+      notes: "heavy rain yesterday, many dead this morning"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: wssv
+      acceptable_conditions: ["wssv"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "wssv recipe: white_spots, lethargy, sudden_mortality"
+
+  - scenario_id: WSSV-03
+    group: wssv
+    pond_id: P-23
+    date: "2026-10-20"
+    day_of_culture: 48
+    seed: 2301
+    events:
+      - {"type": "temp_drop", "start": "2026-10-19T14:00", "hours": 4, "delta": 4.0}
+      - {"type": "do_crash", "start": "2026-10-19T00:00", "nights": 2, "depth": 0.8}
+    farmer_log:
+      feed_consumed_pct: 45
+      mortality_count: 90
+      symptoms: ["white_spots", "red_discoloration", "reduced_feeding"]
+      notes: "reddish shrimp with white spots"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: wssv
+      acceptable_conditions: ["wssv"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "wssv recipe: white_spots, red_discoloration, reduced_feeding"
+
+  - scenario_id: WSSV-04
+    group: wssv
+    pond_id: P-24
+    date: "2026-10-20"
+    day_of_culture: 70
+    seed: 2401
+    events: []
+    farmer_log:
+      feed_consumed_pct: 30
+      mortality_count: 400
+      symptoms: ["white_spots", "gathering_at_edges", "lethargy", "sudden_mortality"]
+      notes: "mass deaths, white spots, no change in water readings"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: wssv
+      acceptable_conditions: ["wssv"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "wssv recipe: white_spots, gathering_at_edges, lethargy, sudden_mortality"
+
+  - scenario_id: WSSV-05
+    group: wssv
+    pond_id: P-25
+    date: "2026-10-20"
+    day_of_culture: 40
+    seed: 2501
+    events:
+      - {"type": "temp_drop", "start": "2026-10-19T09:00", "hours": 5, "delta": 5.0}
+    farmer_log:
+      feed_consumed_pct: 50
+      mortality_count: 150
+      symptoms: ["red_discoloration", "gathering_at_edges", "lethargy"]
+      notes: "red shrimp swimming at the edges after the cold night"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: wssv
+      acceptable_conditions: ["wssv"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "wssv recipe: red_discoloration, gathering_at_edges, lethargy"
+
+  - scenario_id: EHP-01
+    group: ehp
+    pond_id: P-31
+    date: "2026-10-20"
+    day_of_culture: 45
+    seed: 3101
+    events: []
+    farmer_log:
+      feed_consumed_pct: 78
+      mortality_count: 1
+      symptoms: ["slow_growth", "size_variation"]
+      notes: "sizes very uneven at sampling"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: ehp
+      acceptable_conditions: ["ehp", "white_faeces"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "ehp recipe: slow_growth, size_variation"
+
+  - scenario_id: EHP-02
+    group: ehp
+    pond_id: P-32
+    date: "2026-10-20"
+    day_of_culture: 60
+    seed: 3201
+    events: []
+    farmer_log:
+      feed_consumed_pct: 72
+      mortality_count: 2
+      symptoms: ["slow_growth", "size_variation", "reduced_feeding"]
+      notes: "growth well behind schedule"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: ehp
+      acceptable_conditions: ["ehp", "white_faeces"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "ehp recipe: slow_growth, size_variation, reduced_feeding"
+
+  - scenario_id: EHP-04
+    group: ehp
+    pond_id: P-34
+    date: "2026-10-20"
+    day_of_culture: 55
+    seed: 3401
+    events:
+      - {"type": "do_crash", "start": "2026-10-19T00:00", "nights": 2, "depth": 1.0}
+    farmer_log:
+      feed_consumed_pct: 75
+      mortality_count: 2
+      symptoms: ["slow_growth", "white_faecal_strings"]
+      notes: "slow growth and a few white strings"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: ehp
+      acceptable_conditions: ["ehp", "white_faeces"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "ehp recipe: slow_growth, white_faecal_strings"
+
+  - scenario_id: EHP-05
+    group: ehp
+    pond_id: P-35
+    date: "2026-10-20"
+    day_of_culture: 70
+    seed: 3501
+    events: []
+    farmer_log:
+      feed_consumed_pct: 80
+      mortality_count: 1
+      symptoms: ["size_variation", "slow_growth", "lethargy"]
+      notes: "uneven sizes, a few slow shrimp"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: ehp
+      acceptable_conditions: ["ehp", "white_faeces"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "ehp recipe: size_variation, slow_growth, lethargy"
+
+  - scenario_id: WFS-01
+    group: white_faeces
+    pond_id: P-41
+    date: "2026-10-20"
+    day_of_culture: 38
+    seed: 4101
+    events: []
+    farmer_log:
+      feed_consumed_pct: 70
+      mortality_count: 2
+      symptoms: ["white_faecal_strings", "reduced_feeding"]
+      notes: "white strings on the surface at feeding"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: white_faeces
+      acceptable_conditions: ["white_faeces", "ehp"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "white_faeces recipe: white_faecal_strings, reduced_feeding"
+
+  - scenario_id: WFS-02
+    group: white_faeces
+    pond_id: P-42
+    date: "2026-10-20"
+    day_of_culture: 44
+    seed: 4201
+    events:
+      - {"type": "ammonia_buildup", "start": "2026-10-18T00:00", "days": 2, "slope": 0.3}
+    farmer_log:
+      feed_consumed_pct: 65
+      mortality_count: 3
+      symptoms: ["white_faecal_strings", "reduced_feeding"]
+      notes: "white strings, trays left uneaten"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: white_faeces
+      acceptable_conditions: ["white_faeces", "ehp"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "white_faeces recipe: white_faecal_strings, reduced_feeding"
+
+  - scenario_id: WFS-03
+    group: white_faeces
+    pond_id: P-43
+    date: "2026-10-20"
+    day_of_culture: 52
+    seed: 4301
+    events:
+      - {"type": "do_crash", "start": "2026-10-19T00:00", "nights": 2, "depth": 1.2}
+    farmer_log:
+      feed_consumed_pct: 72
+      mortality_count: 1
+      symptoms: ["white_faecal_strings"]
+      notes: "white strings floating near the aerator"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: white_faeces
+      acceptable_conditions: ["white_faeces", "ehp"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "white_faeces recipe: white_faecal_strings"
+
+  - scenario_id: WFS-04
+    group: white_faeces
+    pond_id: P-44
+    date: "2026-10-20"
+    day_of_culture: 41
+    seed: 4401
+    events: []
+    farmer_log:
+      feed_consumed_pct: 68
+      mortality_count: 2
+      symptoms: ["white_faecal_strings", "lethargy"]
+      notes: "white faecal strings, some slow shrimp"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: white_faeces
+      acceptable_conditions: ["white_faeces", "ehp"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "white_faeces recipe: white_faecal_strings, lethargy"
+
+  - scenario_id: WFS-05
+    group: white_faeces
+    pond_id: P-45
+    date: "2026-10-20"
+    day_of_culture: 58
+    seed: 4501
+    events:
+      - {"type": "nitrite_buildup", "start": "2026-10-18T00:00", "days": 2, "slope": 0.5}
+    farmer_log:
+      feed_consumed_pct: 74
+      mortality_count: 1
+      symptoms: ["white_faecal_strings", "reduced_feeding"]
+      notes: "white strings, feed intake down"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: white_faeces
+      acceptable_conditions: ["white_faeces", "ehp"]
+      action_level: L2
+      acceptable_action_levels: ["L2"]
+      should_abstain: false
+      notes: "white_faeces recipe: white_faecal_strings, reduced_feeding"
+
+  - scenario_id: AHPND-01
+    group: ahpnd
+    pond_id: P-51
+    date: "2026-10-20"
+    day_of_culture: 15
+    seed: 5101
+    events: []
+    farmer_log:
+      feed_consumed_pct: 40
+      mortality_count: 250
+      symptoms: ["empty_gut", "pale_hepatopancreas", "sudden_mortality"]
+      notes: "early crop, many dead, guts empty"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: ahpnd
+      acceptable_conditions: ["ahpnd"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "ahpnd recipe: empty_gut, pale_hepatopancreas, sudden_mortality"
+
+  - scenario_id: AHPND-02
+    group: ahpnd
+    pond_id: P-52
+    date: "2026-10-20"
+    day_of_culture: 22
+    seed: 5201
+    events: []
+    farmer_log:
+      feed_consumed_pct: 35
+      mortality_count: 400
+      symptoms: ["sudden_mortality", "empty_gut"]
+      notes: "heavy mortality in the first month"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: ahpnd
+      acceptable_conditions: ["ahpnd"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "ahpnd recipe: sudden_mortality, empty_gut"
+
+  - scenario_id: AHPND-03
+    group: ahpnd
+    pond_id: P-53
+    date: "2026-10-20"
+    day_of_culture: 18
+    seed: 5301
+    events:
+      - {"type": "do_crash", "start": "2026-10-19T00:00", "nights": 2, "depth": 0.8}
+    farmer_log:
+      feed_consumed_pct: 45
+      mortality_count: 180
+      symptoms: ["pale_hepatopancreas", "sudden_mortality", "lethargy"]
+      notes: "pale shrunken organs in dead shrimp"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: ahpnd
+      acceptable_conditions: ["ahpnd"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "ahpnd recipe: pale_hepatopancreas, sudden_mortality, lethargy"
+
+  - scenario_id: AHPND-04
+    group: ahpnd
+    pond_id: P-54
+    date: "2026-10-20"
+    day_of_culture: 27
+    seed: 5401
+    events: []
+    farmer_log:
+      feed_consumed_pct: 30
+      mortality_count: 300
+      symptoms: ["empty_gut", "pale_hepatopancreas", "reduced_feeding"]
+      notes: "no feed eaten, empty guts"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: ahpnd
+      acceptable_conditions: ["ahpnd"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "ahpnd recipe: empty_gut, pale_hepatopancreas, reduced_feeding"
+
+  - scenario_id: AHPND-05
+    group: ahpnd
+    pond_id: P-55
+    date: "2026-10-20"
+    day_of_culture: 12
+    seed: 5501
+    events:
+      - {"type": "ammonia_buildup", "start": "2026-10-18T00:00", "days": 2, "slope": 0.25}
+    farmer_log:
+      feed_consumed_pct: 38
+      mortality_count: 220
+      symptoms: ["sudden_mortality", "empty_gut", "pale_hepatopancreas"]
+      notes: "sudden deaths in a young crop"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: ahpnd
+      acceptable_conditions: ["ahpnd"]
+      action_level: L3
+      acceptable_action_levels: ["L3", "L4"]
+      should_abstain: false
+      notes: "ahpnd recipe: sudden_mortality, empty_gut, pale_hepatopancreas"
+
+  - scenario_id: VIBRIO-01
+    group: vibriosis
+    pond_id: P-61
+    date: "2026-10-20"
+    day_of_culture: 48
+    seed: 6101
+    events:
+      - {"type": "do_crash", "start": "2026-10-19T00:00", "nights": 2, "depth": 1.0}
+    farmer_log:
+      feed_consumed_pct: 72
+      mortality_count: 6
+      symptoms: ["red_discoloration", "luminescence", "lethargy"]
+      notes: "water glows at night, reddish shrimp"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: vibriosis
+      acceptable_conditions: ["vibriosis"]
+      action_level: L2
+      acceptable_action_levels: ["L1", "L2"]
+      should_abstain: false
+      notes: "vibriosis recipe: red_discoloration, luminescence, lethargy"
+
+  - scenario_id: VIBRIO-02
+    group: vibriosis
+    pond_id: P-62
+    date: "2026-10-20"
+    day_of_culture: 44
+    seed: 6201
+    events: []
+    farmer_log:
+      feed_consumed_pct: 70
+      mortality_count: 8
+      symptoms: ["luminescence", "lethargy"]
+      notes: "shrimp glow in the dark"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: vibriosis
+      acceptable_conditions: ["vibriosis"]
+      action_level: L2
+      acceptable_action_levels: ["L1", "L2"]
+      should_abstain: false
+      notes: "vibriosis recipe: luminescence, lethargy"
+
+  - scenario_id: VIBRIO-03
+    group: vibriosis
+    pond_id: P-63
+    date: "2026-10-20"
+    day_of_culture: 52
+    seed: 6301
+    events:
+      - {"type": "ammonia_buildup", "start": "2026-10-17T00:00", "days": 3, "slope": 0.25}
+    farmer_log:
+      feed_consumed_pct: 68
+      mortality_count: 10
+      symptoms: ["red_discoloration", "luminescence"]
+      notes: "red shrimp, glowing at night, dirty water"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: vibriosis
+      acceptable_conditions: ["vibriosis"]
+      action_level: L2
+      acceptable_action_levels: ["L1", "L2"]
+      should_abstain: false
+      notes: "vibriosis recipe: red_discoloration, luminescence"
+
+  - scenario_id: VIBRIO-04
+    group: vibriosis
+    pond_id: P-64
+    date: "2026-10-20"
+    day_of_culture: 50
+    seed: 6401
+    events:
+      - {"type": "do_crash", "start": "2026-10-18T00:00", "nights": 3, "depth": 1.2}
+    farmer_log:
+      feed_consumed_pct: 74
+      mortality_count: 5
+      symptoms: ["luminescence", "reduced_feeding", "lethargy"]
+      notes: "glowing at night, feed down"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: vibriosis
+      acceptable_conditions: ["vibriosis"]
+      action_level: L2
+      acceptable_action_levels: ["L1", "L2"]
+      should_abstain: false
+      notes: "vibriosis recipe: luminescence, reduced_feeding, lethargy"
+
+  - scenario_id: VIBRIO-05
+    group: vibriosis
+    pond_id: P-65
+    date: "2026-10-20"
+    day_of_culture: 46
+    seed: 6501
+    events: []
+    farmer_log:
+      feed_consumed_pct: 66
+      mortality_count: 12
+      symptoms: ["red_discoloration", "luminescence", "lethargy", "reduced_feeding"]
+      notes: "red, glowing, sluggish shrimp"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: vibriosis
+      acceptable_conditions: ["vibriosis"]
+      action_level: L2
+      acceptable_action_levels: ["L1", "L2"]
+      should_abstain: false
+      notes: "vibriosis recipe: red_discoloration, luminescence, lethargy, reduced_feeding"
+
+  - scenario_id: HEALTHY-02
+    group: healthy
+    pond_id: P-81
+    date: "2026-10-20"
+    day_of_culture: 25
+    seed: 8102
+    events: []
+    farmer_log:
+      feed_consumed_pct: 99
+      mortality_count: 0
+      symptoms: []
+      notes: "trays clean, shrimp active"
+    history: []
+    label:
+      risk_level: normal
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0"]
+      should_abstain: false
+      notes: "healthy recipe: no signs"
+
+  - scenario_id: HEALTHY-03
+    group: healthy
+    pond_id: P-82
+    date: "2026-10-20"
+    day_of_culture: 48
+    seed: 8203
+    events: []
+    farmer_log:
+      feed_consumed_pct: 96
+      mortality_count: 0
+      symptoms: []
+      notes: "feeding well, no problems seen"
+    history: []
+    label:
+      risk_level: normal
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0"]
+      should_abstain: false
+      notes: "healthy recipe: no signs"
+
+  - scenario_id: HEALTHY-04
+    group: healthy
+    pond_id: P-83
+    date: "2026-10-20"
+    day_of_culture: 62
+    seed: 8304
+    events: []
+    farmer_log:
+      feed_consumed_pct: 100
+      mortality_count: 0
+      symptoms: []
+      notes: "normal day"
+    history: []
+    label:
+      risk_level: normal
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0"]
+      should_abstain: false
+      notes: "healthy recipe: no signs"
+
+  - scenario_id: HEALTHY-05
+    group: healthy
+    pond_id: P-84
+    date: "2026-10-20"
+    day_of_culture: 80
+    seed: 8405
+    events: []
+    farmer_log:
+      feed_consumed_pct: 94
+      mortality_count: 1
+      symptoms: []
+      notes: "one dead shrimp at the sampling net"
+    history: []
+    label:
+      risk_level: normal
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0"]
+      should_abstain: false
+      notes: "healthy recipe: no signs"
+
+  - scenario_id: AMBIG-02
+    group: ambiguous
+    pond_id: P-91
+    date: "2026-10-20"
+    day_of_culture: 42
+    seed: 9102
+    events: []
+    farmer_log:
+      feed_consumed_pct: 82
+      mortality_count: 0
+      symptoms: ["reduced_feeding"]
+      notes: "feed trays slightly fuller than usual"
+    history: []
+    label:
+      risk_level: watch
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0", "L1"]
+      should_abstain: true
+      notes: "ambiguous recipe: reduced_feeding"
+
+  - scenario_id: AMBIG-03
+    group: ambiguous
+    pond_id: P-92
+    date: "2026-10-20"
+    day_of_culture: 55
+    seed: 9203
+    events: []
+    farmer_log:
+      feed_consumed_pct: 90
+      mortality_count: 1
+      symptoms: ["loose_shell"]
+      notes: "a few shrimp with loose shells"
+    history: []
+    label:
+      risk_level: watch
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0", "L1"]
+      should_abstain: true
+      notes: "ambiguous recipe: loose_shell"
+
+  - scenario_id: AMBIG-04
+    group: ambiguous
+    pond_id: P-93
+    date: "2026-10-20"
+    day_of_culture: 47
+    seed: 9304
+    events: []
+    farmer_log:
+      feed_consumed_pct: 80
+      mortality_count: 2
+      symptoms: ["lethargy", "reduced_feeding"]
+      notes: "shrimp slow, eating less"
+    history: []
+    label:
+      risk_level: watch
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0", "L1"]
+      should_abstain: true
+      notes: "ambiguous recipe: lethargy, reduced_feeding"
+
+  - scenario_id: AMBIG-05
+    group: ambiguous
+    pond_id: P-94
+    date: "2026-10-20"
+    day_of_culture: 66
+    seed: 9405
+    events: []
+    farmer_log:
+      feed_consumed_pct: 85
+      mortality_count: 1
+      symptoms: ["loose_shell", "lethargy"]
+      notes: "loose shells and some slow shrimp"
+    history: []
+    label:
+      risk_level: watch
+      top_condition: null
+      acceptable_conditions: []
+      action_level: L0
+      acceptable_action_levels: ["L0", "L1"]
+      should_abstain: true
+      notes: "ambiguous recipe: loose_shell, lethargy"
+
+  - scenario_id: WQ-01
+    group: water_quality_stress
+    pond_id: P-71
+    date: "2026-10-20"
+    day_of_culture: 60
+    seed: 7101
+    events:
+      - {"type": "ammonia_buildup", "start": "2026-10-17T00:00", "days": 3, "slope": 0.25}
+    farmer_log:
+      feed_consumed_pct: 85
+      mortality_count: 0
+      symptoms: []
+      notes: "feed a little slower"
+    history: []
+    label:
+      risk_level: watch
+      top_condition: water_quality_stress
+      acceptable_conditions: ["water_quality_stress"]
+      action_level: L1
+      acceptable_action_levels: ["L1"]
+      should_abstain: false
+      notes: "one mild anomaly: ammonia just above its limit"
+
+  - scenario_id: WQ-02
+    group: water_quality_stress
+    pond_id: P-72
+    date: "2026-10-20"
+    day_of_culture: 58
+    seed: 7201
+    events:
+      - {"type": "do_crash", "start": "2026-10-19T00:00", "nights": 2, "depth": 1.0}
+    farmer_log:
+      feed_consumed_pct: 90
+      mortality_count: 0
+      symptoms: []
+      notes: "nothing unusual in the pond"
+    history: []
+    label:
+      risk_level: watch
+      top_condition: water_quality_stress
+      acceptable_conditions: ["water_quality_stress"]
+      action_level: L1
+      acceptable_action_levels: ["L1"]
+      should_abstain: false
+      notes: "one mild anomaly: dawn oxygen dip below its limit"
+
+  - scenario_id: WQ-03
+    group: water_quality_stress
+    pond_id: P-73
+    date: "2026-10-20"
+    day_of_culture: 64
+    seed: 7301
+    events:
+      - {"type": "do_crash", "start": "2026-10-18T00:00", "nights": 3, "depth": 1.5}
+    farmer_log:
+      feed_consumed_pct: 75
+      mortality_count: 2
+      symptoms: ["surfacing_at_dawn", "reduced_feeding"]
+      notes: "shrimp come to the surface at dawn"
+    history: []
+    label:
+      risk_level: alert
+      top_condition: water_quality_stress
+      acceptable_conditions: ["water_quality_stress"]
+      action_level: L1
+      acceptable_action_levels: ["L1", "L2"]
+      should_abstain: false
+      notes: "falling dawn oxygen plus surfacing and reduced feeding"
+
+  - scenario_id: WQ-04
+    group: water_quality_stress
+    pond_id: P-74
+    date: "2026-10-20"
+    day_of_culture: 66
+    seed: 7401
+    events:
+      - {"type": "ammonia_buildup", "start": "2026-10-17T00:00", "days": 3, "slope": 0.5}
+      - {"type": "nitrite_buildup", "start": "2026-10-18T00:00", "days": 2, "slope": 0.5}
+    farmer_log:
+      feed_consumed_pct: 65
+      mortality_count: 4
+      symptoms: ["reduced_feeding"]
+      notes: "water smells bad, feeding poor"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: water_quality_stress
+      acceptable_conditions: ["water_quality_stress"]
+      action_level: L3
+      acceptable_action_levels: ["L2", "L3", "L4"]
+      should_abstain: false
+      notes: "ammonia and nitrite far above their limits: a water-quality crisis"
+
+  - scenario_id: WQ-05
+    group: water_quality_stress
+    pond_id: P-75
+    date: "2026-10-20"
+    day_of_culture: 72
+    seed: 7501
+    events:
+      - {"type": "do_crash", "start": "2026-10-18T00:00", "nights": 3, "depth": 3.0}
+    farmer_log:
+      feed_consumed_pct: 60
+      mortality_count: 8
+      symptoms: ["surfacing_at_dawn", "reduced_feeding"]
+      notes: "shrimp gasping at the surface every dawn"
+    history: []
+    label:
+      risk_level: critical
+      top_condition: water_quality_stress
+      acceptable_conditions: ["water_quality_stress"]
+      action_level: L3
+      acceptable_action_levels: ["L2", "L3", "L4"]
+      should_abstain: false
+      notes: "dawn oxygen crash below the critical limit: crisis"

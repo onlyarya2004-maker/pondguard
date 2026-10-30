@@ -1,0 +1,48 @@
+{
+  "scenario_id": "WSSV-01",
+  "group": "wssv",
+  "golden": true,
+  "pond_id": "P-21",
+  "date": "2026-10-20",
+  "day_of_culture": 55,
+  "seed": 2101,
+  "telemetry_csv": "data/telemetry/WSSV-01.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-21",
+      "date": "2026-10-20",
+      "day_of_culture": 55,
+      "feed_consumed_pct": 40.0,
+      "mortality_count": 120,
+      "symptoms": [
+        "white_spots",
+        "red_discoloration",
+        "gathering_at_edges"
+      ],
+      "notes": "white spots on the shell, shrimp at the pond edge"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "temp_drop",
+      "start": "2026-10-19T10:00",
+      "hours": 6,
+      "delta": 4.5
+    }
+  ],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "wssv",
+    "acceptable_conditions": [
+      "wssv"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "wssv recipe: white_spots, red_discoloration, gathering_at_edges"
+  }
+}

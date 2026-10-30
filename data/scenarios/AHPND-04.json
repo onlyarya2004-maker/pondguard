@@ -1,0 +1,41 @@
+{
+  "scenario_id": "AHPND-04",
+  "group": "ahpnd",
+  "golden": true,
+  "pond_id": "P-54",
+  "date": "2026-10-20",
+  "day_of_culture": 27,
+  "seed": 5401,
+  "telemetry_csv": "data/telemetry/AHPND-04.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-54",
+      "date": "2026-10-20",
+      "day_of_culture": 27,
+      "feed_consumed_pct": 30.0,
+      "mortality_count": 300,
+      "symptoms": [
+        "empty_gut",
+        "pale_hepatopancreas",
+        "reduced_feeding"
+      ],
+      "notes": "no feed eaten, empty guts"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "ahpnd",
+    "acceptable_conditions": [
+      "ahpnd"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "ahpnd recipe: empty_gut, pale_hepatopancreas, reduced_feeding"
+  }
+}

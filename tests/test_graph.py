@@ -215,7 +215,7 @@ def _state(hyp=None, anomalies=(), symptoms=(), mortality=0, skipped_diagnosis=F
     )
     return {
         "diagnosis": diagnosis,
-        "anomalies": [{"severity": s} for s in anomalies],
+        "anomalies": [{"severity": s, "parameter": f"p{i}"} for i, s in enumerate(anomalies)],
         "symptoms": list(symptoms),
         "farmer_log": {"mortality_count": mortality},
     }
@@ -236,7 +236,19 @@ def _state(hyp=None, anomalies=(), symptoms=(), mortality=0, skipped_diagnosis=F
         ),  # raised; EHP is not fast-killing
         (_state(hyp="wssv"), "critical", "L3"),
         (_state(hyp="water_quality_stress", anomalies=["high"]), "critical", "L2"),
-        (_state(hyp="water_quality_stress", anomalies=["medium"]), "alert", "L2"),
+        (
+            _state(hyp="water_quality_stress", anomalies=["medium"]),
+            "watch",
+            "L1",
+        ),  # one mild signal
+        (_state(hyp="water_quality_stress", anomalies=["medium", "medium"]), "alert", "L2"),
+        (
+            _state(
+                hyp="water_quality_stress", anomalies=["medium"], symptoms=["surfacing_at_dawn"]
+            ),
+            "alert",
+            "L2",
+        ),
         (_state(hyp="water_quality_stress", anomalies=["low"]), "watch", "L1"),
         (
             _state(hyp="vibriosis", mortality=60),

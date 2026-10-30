@@ -1,6 +1,7 @@
 {
   "scenario_id": "EHP-03",
-  "group": "white_faeces",
+  "group": "ehp",
+  "golden": true,
   "pond_id": "P-07",
   "date": "2026-10-20",
   "day_of_culture": 42,

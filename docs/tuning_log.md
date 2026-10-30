@@ -26,6 +26,8 @@ Every scenario, setting or prompt used to tune the system is recorded here, so t
 | 27 Oct | **Advisor: the ladder's own wording is always the first step** of a diagnosed plan, cited `[ladder:L<n>]` | The model did not write "send a sample for PCR" for L2 on its own; the action itself should not depend on the model. |
 | 27 Oct | **Monitor: plain-language fallback** when the summary is a bare label | The model once returned the placeholder `water_quality_summary` instead of a sentence. |
 
+| 30 Oct | **Design change before any golden-set run: water-quality risk rule** (`decide_risk` in `agents/advisor.py`; `water_quality_symptoms` in `config/sign_sets.yaml`) | Aligned with the spec's own risk definitions (§3.4): watch = one mild anomaly, alert = several co-occurring signals (anomalous parameters plus the signs surfacing at dawn and reduced feeding), critical = a high-severity anomaly. It replaced a severity-only rule. Made **before** any agent ran on the 40 scenarios, and not from their results. |
+
 No score threshold was changed (still 0.6, 2 relevant passages).
 
 **Full-graph real-model results (Llama 3.1 8B, cache off, all four scenarios):** HEALTHY-01: normal/L0, diagnosis skipped. EHP-03: ehp 0.90, alert/L2, no re-query. AMBIG-01: real re-query, abstains, asks "Do you see white spots on the shell?", watch/L0. CRITIC-DEMO-01 with fault injection: draft rejected for the uncited step, sent back once, then passes; vibriosis 0.90, alert/L2. Quality caveat: some of the 8B model's management steps are generic or questionable (for example "increase water exchange"); steps are cited to the passages but are advisory text, not verified practice.

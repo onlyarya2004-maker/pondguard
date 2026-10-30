@@ -1,0 +1,47 @@
+{
+  "scenario_id": "EHP-04",
+  "group": "ehp",
+  "golden": true,
+  "pond_id": "P-34",
+  "date": "2026-10-20",
+  "day_of_culture": 55,
+  "seed": 3401,
+  "telemetry_csv": "data/telemetry/EHP-04.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-34",
+      "date": "2026-10-20",
+      "day_of_culture": 55,
+      "feed_consumed_pct": 75.0,
+      "mortality_count": 2,
+      "symptoms": [
+        "slow_growth",
+        "white_faecal_strings"
+      ],
+      "notes": "slow growth and a few white strings"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "do_crash",
+      "start": "2026-10-19T00:00",
+      "nights": 2,
+      "depth": 1.0
+    }
+  ],
+  "label": {
+    "risk_level": "alert",
+    "top_condition": "ehp",
+    "acceptable_conditions": [
+      "ehp",
+      "white_faeces"
+    ],
+    "action_level": "L2",
+    "acceptable_action_levels": [
+      "L2"
+    ],
+    "should_abstain": false,
+    "notes": "ehp recipe: slow_growth, white_faecal_strings"
+  }
+}

@@ -78,7 +78,8 @@ def test_injector_is_pure():
 
 def test_scenarios_are_written_with_labels_and_valid_data(tmp_path):
     written = simulate(SPECS, tmp_path / "scenarios", tmp_path / "telemetry")
-    assert {p.stem for p in written} == {"EHP-03", "HEALTHY-01", "AMBIG-01", "CRITIC-DEMO-01"}
+    assert len(written) == 41  # 40 golden scenarios plus the demo-only CRITIC-DEMO-01
+    assert {"EHP-03", "HEALTHY-01", "AMBIG-01", "CRITIC-DEMO-01"} <= {p.stem for p in written}
     ehp = json.loads((tmp_path / "scenarios" / "EHP-03.json").read_text())
     assert ehp["pond_id"] == "P-07" and ehp["day_of_culture"] == 42
     assert ehp["label"]["top_condition"] == "white_faeces"
@@ -111,3 +112,103 @@ def test_labels_cover_the_demo_behaviours():
     )
     assert labels["AMBIG-01"]["should_abstain"] is True
     assert labels["CRITIC-DEMO-01"]["top_condition"] == "vibriosis"
+
+
+# --- the 40-scenario golden set ----------------------------------------------------------
+
+import collections  # noqa: E402
+
+from pondguard.simulator.telemetry import apply_events  # noqa: E402
+
+
+def _golden():
+    return [s for s in load_specs(SPECS) if s.get("golden", True)]
+
+
+def test_golden_set_is_40_scenarios_five_per_group():
+    golden = _golden()
+    assert len(golden) == 40
+    groups = collections.Counter(s["group"] for s in golden)
+    assert set(groups.values()) == {5} and len(groups) == 8
+    assert {
+        "wssv",
+        "ehp",
+        "white_faeces",
+        "ahpnd",
+        "vibriosis",
+        "water_quality_stress",
+        "healthy",
+        "ambiguous",
+    } == set(groups)
+
+
+def test_ids_ponds_and_seeds_are_unique_and_the_demo_scenario_is_outside_the_set():
+    specs = load_specs(SPECS)
+    for key in ("scenario_id", "pond_id", "seed"):
+        values = [s[key] for s in specs]
+        assert len(values) == len(set(values)), key
+    demo = [s for s in specs if not s.get("golden", True)]
+    assert [s["scenario_id"] for s in demo] == ["CRITIC-DEMO-01"]
+
+
+def test_labels_follow_the_group_rules_of_the_spec():
+    for s in _golden():
+        label, group = s["label"], s["group"]
+        assert label["risk_level"] in {"normal", "watch", "alert", "critical"}
+        assert label["action_level"] in label["acceptable_action_levels"]
+        assert label["should_abstain"] is (group == "ambiguous")
+        if group in ("wssv", "ahpnd"):
+            assert label["risk_level"] == "critical" and label["action_level"] == "L3"
+        if group in ("ehp", "white_faeces"):
+            assert label["risk_level"] == "alert" and label["action_level"] == "L2"
+        if group == "healthy":
+            assert label["risk_level"] == "normal" and label["top_condition"] is None
+            assert not s["farmer_log"]["symptoms"] and not s["events"]
+        if group == "ambiguous":
+            assert label["risk_level"] == "watch" and label["top_condition"] is None
+        if label["top_condition"]:
+            assert label["top_condition"] in label["acceptable_conditions"]
+
+
+def test_every_recipe_generates_valid_readings(tmp_path):
+    simulate(SPECS, tmp_path / "s", tmp_path / "t")
+    for csv in sorted((tmp_path / "t").glob("*.csv")):
+        rows = pd.read_csv(csv, parse_dates=["ts"])
+        assert len(rows) == 168
+        for record in rows.to_dict("records"):
+            Reading(**record)
+
+
+@pytest.mark.parametrize(
+    "event,column,check",
+    [
+        (
+            {"type": "ammonia_buildup", "start": "2026-10-17T00:00", "days": 3, "slope": 0.25},
+            "tan_mg_l",
+            "rise",
+        ),
+        (
+            {"type": "nitrite_buildup", "start": "2026-10-18T00:00", "days": 2, "slope": 0.5},
+            "nitrite_mg_l",
+            "rise",
+        ),
+        (
+            {"type": "temp_drop", "start": "2026-10-19T10:00", "hours": 6, "delta": 4.5},
+            "temp_c",
+            "fall",
+        ),
+        (
+            {"type": "salinity_drop", "start": "2026-10-19T08:00", "hours": 8, "delta": 7},
+            "salinity_ppt",
+            "fall",
+        ),
+    ],
+)
+def test_new_injectors_leave_their_signature_and_change_only_their_column(event, column, check):
+    base = baseline("P-9", END, 40, 5)
+    out = apply_events(base, [event])
+    change = out[column] - base[column]
+    assert (change.iloc[-1] > 0.5) if check == "rise" else (change.iloc[-1] < -3.0)
+    assert change.iloc[0] == 0  # nothing happens before the event starts
+    others = [c for c in base.columns if c not in (column, "ts", "pond_id")]
+    pd.testing.assert_frame_equal(base[others], out[others])

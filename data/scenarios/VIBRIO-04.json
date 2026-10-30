@@ -1,0 +1,48 @@
+{
+  "scenario_id": "VIBRIO-04",
+  "group": "vibriosis",
+  "golden": true,
+  "pond_id": "P-64",
+  "date": "2026-10-20",
+  "day_of_culture": 50,
+  "seed": 6401,
+  "telemetry_csv": "data/telemetry/VIBRIO-04.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-64",
+      "date": "2026-10-20",
+      "day_of_culture": 50,
+      "feed_consumed_pct": 74.0,
+      "mortality_count": 5,
+      "symptoms": [
+        "luminescence",
+        "reduced_feeding",
+        "lethargy"
+      ],
+      "notes": "glowing at night, feed down"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "do_crash",
+      "start": "2026-10-18T00:00",
+      "nights": 3,
+      "depth": 1.2
+    }
+  ],
+  "label": {
+    "risk_level": "alert",
+    "top_condition": "vibriosis",
+    "acceptable_conditions": [
+      "vibriosis"
+    ],
+    "action_level": "L2",
+    "acceptable_action_levels": [
+      "L1",
+      "L2"
+    ],
+    "should_abstain": false,
+    "notes": "vibriosis recipe: luminescence, reduced_feeding, lethargy"
+  }
+}

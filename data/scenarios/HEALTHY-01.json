@@ -1,6 +1,7 @@
 {
   "scenario_id": "HEALTHY-01",
   "group": "healthy",
+  "golden": true,
   "pond_id": "P-01",
   "date": "2026-10-20",
   "day_of_culture": 35,

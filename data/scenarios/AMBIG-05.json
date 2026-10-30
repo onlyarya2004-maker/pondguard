@@ -1,0 +1,38 @@
+{
+  "scenario_id": "AMBIG-05",
+  "group": "ambiguous",
+  "golden": true,
+  "pond_id": "P-94",
+  "date": "2026-10-20",
+  "day_of_culture": 66,
+  "seed": 9405,
+  "telemetry_csv": "data/telemetry/AMBIG-05.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-94",
+      "date": "2026-10-20",
+      "day_of_culture": 66,
+      "feed_consumed_pct": 85.0,
+      "mortality_count": 1,
+      "symptoms": [
+        "loose_shell",
+        "lethargy"
+      ],
+      "notes": "loose shells and some slow shrimp"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "watch",
+    "top_condition": null,
+    "acceptable_conditions": [],
+    "action_level": "L0",
+    "acceptable_action_levels": [
+      "L0",
+      "L1"
+    ],
+    "should_abstain": true,
+    "notes": "ambiguous recipe: loose_shell, lethargy"
+  }
+}

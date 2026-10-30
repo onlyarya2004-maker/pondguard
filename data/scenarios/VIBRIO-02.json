@@ -1,0 +1,40 @@
+{
+  "scenario_id": "VIBRIO-02",
+  "group": "vibriosis",
+  "golden": true,
+  "pond_id": "P-62",
+  "date": "2026-10-20",
+  "day_of_culture": 44,
+  "seed": 6201,
+  "telemetry_csv": "data/telemetry/VIBRIO-02.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-62",
+      "date": "2026-10-20",
+      "day_of_culture": 44,
+      "feed_consumed_pct": 70.0,
+      "mortality_count": 8,
+      "symptoms": [
+        "luminescence",
+        "lethargy"
+      ],
+      "notes": "shrimp glow in the dark"
+    }
+  ],
+  "history": [],
+  "injected_events": [],
+  "label": {
+    "risk_level": "alert",
+    "top_condition": "vibriosis",
+    "acceptable_conditions": [
+      "vibriosis"
+    ],
+    "action_level": "L2",
+    "acceptable_action_levels": [
+      "L1",
+      "L2"
+    ],
+    "should_abstain": false,
+    "notes": "vibriosis recipe: luminescence, lethargy"
+  }
+}

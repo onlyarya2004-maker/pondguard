@@ -1,0 +1,53 @@
+{
+  "scenario_id": "WQ-04",
+  "group": "water_quality_stress",
+  "golden": true,
+  "pond_id": "P-74",
+  "date": "2026-10-20",
+  "day_of_culture": 66,
+  "seed": 7401,
+  "telemetry_csv": "data/telemetry/WQ-04.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-74",
+      "date": "2026-10-20",
+      "day_of_culture": 66,
+      "feed_consumed_pct": 65.0,
+      "mortality_count": 4,
+      "symptoms": [
+        "reduced_feeding"
+      ],
+      "notes": "water smells bad, feeding poor"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "ammonia_buildup",
+      "start": "2026-10-17T00:00",
+      "days": 3,
+      "slope": 0.5
+    },
+    {
+      "type": "nitrite_buildup",
+      "start": "2026-10-18T00:00",
+      "days": 2,
+      "slope": 0.5
+    }
+  ],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "water_quality_stress",
+    "acceptable_conditions": [
+      "water_quality_stress"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L2",
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "ammonia and nitrite far above their limits: a water-quality crisis"
+  }
+}

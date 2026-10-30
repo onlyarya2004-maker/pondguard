@@ -1,6 +1,7 @@
 {
   "scenario_id": "AMBIG-01",
   "group": "ambiguous",
+  "golden": true,
   "pond_id": "P-12",
   "date": "2026-10-20",
   "day_of_culture": 50,

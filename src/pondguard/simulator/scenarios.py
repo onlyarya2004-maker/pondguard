@@ -49,6 +49,7 @@ def build_scenario(spec: dict, telemetry_dir: Path) -> dict:
     return {
         "scenario_id": spec["scenario_id"],
         "group": spec["group"],
+        "golden": spec.get("golden", True),  # False: demo-only, outside the 40-scenario set
         "pond_id": spec["pond_id"],
         "date": spec["date"],
         "day_of_culture": spec["day_of_culture"],

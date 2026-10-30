@@ -1,0 +1,48 @@
+{
+  "scenario_id": "WSSV-02",
+  "group": "wssv",
+  "golden": true,
+  "pond_id": "P-22",
+  "date": "2026-10-20",
+  "day_of_culture": 62,
+  "seed": 2201,
+  "telemetry_csv": "data/telemetry/WSSV-02.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-22",
+      "date": "2026-10-20",
+      "day_of_culture": 62,
+      "feed_consumed_pct": 35.0,
+      "mortality_count": 260,
+      "symptoms": [
+        "white_spots",
+        "lethargy",
+        "sudden_mortality"
+      ],
+      "notes": "heavy rain yesterday, many dead this morning"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "salinity_drop",
+      "start": "2026-10-19T08:00",
+      "hours": 8,
+      "delta": 7
+    }
+  ],
+  "label": {
+    "risk_level": "critical",
+    "top_condition": "wssv",
+    "acceptable_conditions": [
+      "wssv"
+    ],
+    "action_level": "L3",
+    "acceptable_action_levels": [
+      "L3",
+      "L4"
+    ],
+    "should_abstain": false,
+    "notes": "wssv recipe: white_spots, lethargy, sudden_mortality"
+  }
+}

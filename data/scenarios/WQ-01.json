@@ -1,0 +1,43 @@
+{
+  "scenario_id": "WQ-01",
+  "group": "water_quality_stress",
+  "golden": true,
+  "pond_id": "P-71",
+  "date": "2026-10-20",
+  "day_of_culture": 60,
+  "seed": 7101,
+  "telemetry_csv": "data/telemetry/WQ-01.csv",
+  "farmer_logs": [
+    {
+      "pond_id": "P-71",
+      "date": "2026-10-20",
+      "day_of_culture": 60,
+      "feed_consumed_pct": 85.0,
+      "mortality_count": 0,
+      "symptoms": [],
+      "notes": "feed a little slower"
+    }
+  ],
+  "history": [],
+  "injected_events": [
+    {
+      "type": "ammonia_buildup",
+      "start": "2026-10-17T00:00",
+      "days": 3,
+      "slope": 0.25
+    }
+  ],
+  "label": {
+    "risk_level": "watch",
+    "top_condition": "water_quality_stress",
+    "acceptable_conditions": [
+      "water_quality_stress"
+    ],
+    "action_level": "L1",
+    "acceptable_action_levels": [
+      "L1"
+    ],
+    "should_abstain": false,
+    "notes": "one mild anomaly: ammonia just above its limit"
+  }
+}
