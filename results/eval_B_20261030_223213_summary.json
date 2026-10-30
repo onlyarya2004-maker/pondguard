@@ -1,0 +1,211 @@
+{
+  "variant": "B",
+  "started": "20261030_223213",
+  "wall_clock_s": 413.4,
+  "git": {
+    "commit": "1db5a90764412039323a82c6af9e1111cb08e1cc",
+    "uncommitted_changes": true
+  },
+  "provider": "lmstudio",
+  "models": {
+    "agent": {
+      "provider": "lmstudio",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "file": "lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+      "quantization": "Q4_K_M",
+      "params": "8B",
+      "lmstudio_version": "0.4.23.0",
+      "runtime": "llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.67.0"
+    },
+    "judge": {
+      "provider": "lmstudio",
+      "model_key": "qwen2.5-7b-instruct",
+      "file": "lmstudio-community/Qwen2.5-7B-Instruct-GGUF/Qwen2.5-7B-Instruct-Q4_K_M.gguf",
+      "quantization": "Q4_K_M",
+      "params": "7B",
+      "lmstudio_version": "0.4.23.0",
+      "runtime": "llama.cpp-win-x86_64-nvidia-cuda12-avx2@2.67.0"
+    }
+  },
+  "temperature": 0.0,
+  "tuned_scenarios": [
+    "EHP-03",
+    "AMBIG-01",
+    "HEALTHY-01"
+  ],
+  "targets": {
+    "risk_accuracy": 0.8,
+    "critical_recall": 0.9,
+    "top3_hit": 0.75,
+    "action_within_one": 0.85,
+    "abstention_accuracy": 0.8,
+    "safety_violations": 0,
+    "citation_faithfulness": 0.8
+  },
+  "metrics": {
+    "all": {
+      "n": 40,
+      "risk_accuracy": 1.0,
+      "critical_recall": 1.0,
+      "critical_precision": 1.0,
+      "top3_hit": 0.8667,
+      "top3_n": 30,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 0.95,
+      "abstention_recall": 1.0,
+      "safety_violations": 0,
+      "human_gate_correct": 0.9,
+      "mean_steps": 4.875,
+      "mean_tokens": 5835.125,
+      "mean_llm_calls": 5.075,
+      "mean_latency_s": 10.106,
+      "mean_retrieval_rounds": 1.275,
+      "planner_validity": 1.0,
+      "schema_fallback_rate": 0.0,
+      "loop_bound_hits": 0,
+      "crashed_runs": 0,
+      "confusion_matrix": {
+        "normal": {
+          "normal": 5,
+          "watch": 0,
+          "alert": 0,
+          "critical": 0,
+          "none": 0
+        },
+        "watch": {
+          "normal": 0,
+          "watch": 7,
+          "alert": 0,
+          "critical": 0,
+          "none": 0
+        },
+        "alert": {
+          "normal": 0,
+          "watch": 0,
+          "alert": 16,
+          "critical": 0,
+          "none": 0
+        },
+        "critical": {
+          "normal": 0,
+          "watch": 0,
+          "alert": 0,
+          "critical": 12,
+          "none": 0
+        }
+      }
+    },
+    "untuned": {
+      "n": 37,
+      "risk_accuracy": 1.0,
+      "critical_recall": 1.0,
+      "critical_precision": 1.0,
+      "top3_hit": 0.8621,
+      "top3_n": 29,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 0.9459,
+      "abstention_recall": 1.0,
+      "safety_violations": 0,
+      "human_gate_correct": 0.8919,
+      "mean_steps": 4.892,
+      "mean_tokens": 5887.973,
+      "mean_llm_calls": 5.108,
+      "mean_latency_s": 10.214,
+      "mean_retrieval_rounds": 1.27,
+      "planner_validity": 1.0,
+      "schema_fallback_rate": 0.0,
+      "loop_bound_hits": 0,
+      "crashed_runs": 0,
+      "confusion_matrix": {
+        "normal": {
+          "normal": 4,
+          "watch": 0,
+          "alert": 0,
+          "critical": 0,
+          "none": 0
+        },
+        "watch": {
+          "normal": 0,
+          "watch": 6,
+          "alert": 0,
+          "critical": 0,
+          "none": 0
+        },
+        "alert": {
+          "normal": 0,
+          "watch": 0,
+          "alert": 15,
+          "critical": 0,
+          "none": 0
+        },
+        "critical": {
+          "normal": 0,
+          "watch": 0,
+          "alert": 0,
+          "critical": 12,
+          "none": 0
+        }
+      }
+    }
+  },
+  "by_group": {
+    "ahpnd": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": 0.8,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 1.0
+    },
+    "ambiguous": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": null,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 1.0
+    },
+    "ehp": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": 1.0,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 1.0
+    },
+    "healthy": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": null,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 1.0
+    },
+    "vibriosis": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": 1.0,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 1.0
+    },
+    "white_faeces": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": 1.0,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 1.0
+    },
+    "water_quality_stress": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": 0.6,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 0.6
+    },
+    "wssv": {
+      "n": 5,
+      "risk_accuracy": 1.0,
+      "top3_hit": 0.8,
+      "action_within_one": 1.0,
+      "abstention_accuracy": 1.0
+    }
+  },
+  "risk_misses": [],
+  "miss_direction": {}
+}

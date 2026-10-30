@@ -29,8 +29,8 @@ REPORT = {
 
 def test_claims_come_from_hypotheses_and_cited_steps_but_not_ladder_wording():
     claims = judge.claims_from_report("S1", REPORT, {"K1"})
-    assert [(c.kind, c.passage_id) for c in claims] == [
-        ("hypothesis", "K1"), ("step", "K1"), ("step", None),
+    assert [(c.kind, c.passage_ids) for c in claims] == [
+        ("hypothesis", ["K1"]), ("step", ["K1"]), ("step", []),
     ]  # fmt: skip
     assert "EHP" in claims[0].text and claims[1].text == "Monitor growth and white gut."
 
@@ -48,7 +48,7 @@ def test_a_claim_without_a_valid_citation_is_unsupported_without_asking_the_mode
 
 def test_a_citation_to_an_unknown_passage_is_unsupported():
     claims = judge.claims_from_report("S1", REPORT, set())  # nothing was retrievable
-    assert all(c.passage_id is None for c in claims)
+    assert all(c.passage_ids == [] for c in claims)
 
 
 def test_reports_are_read_from_the_run_traces(tmp_path):
@@ -188,3 +188,37 @@ def test_figures_are_written_from_the_saved_results(tmp_path):
         "confusion_A.png", "confusion_B.png", "metrics_ab.png", "cost_quality.png"
     ]  # fmt: skip
     assert all(p.exists() and p.stat().st_size > 5000 for p in paths)
+
+
+def test_a_claim_is_supported_if_any_of_its_cited_passages_supports_it(monkeypatch):
+    from pondguard import llm as llm_module
+    from pondguard.llm import ClaimVerdict
+
+    answers = {"P1": False, "P2": True}
+    seen = []
+    real = llm_module.mock_response
+
+    def judge_by_passage(task, ctx):
+        return real(task, ctx)
+
+    monkeypatch.setattr(llm_module, "mock_response", judge_by_passage)
+    llm = get_llm("judge", SETTINGS, TokenBudget(cap=100_000))
+    original = llm.run
+
+    def run(task, prompt, **kw):
+        pid = "P2" if "[P2]" in prompt[1][1] else "P1"
+        seen.append(pid)
+        result = original(task, prompt, **kw)
+        result.output = ClaimVerdict(supported=answers[pid], reason="test")
+        return result
+
+    llm.run = run
+    claim = judge.Claim("S", "step", "Isolate the pond", ["P1", "P2"])
+    [result] = judge.judge_claims([claim], {"P1": "a", "P2": "b"}, llm)
+    assert result["supported"] and result["passage_id"] == "P2" and seen == ["P1", "P2"]
+    [again] = judge.judge_claims(
+        [judge.Claim("S", "step", "x", ["P2", "P1"])], {"P1": "a", "P2": "b"}, llm
+    )
+    assert again["passage_id"] == "P2" and seen[2:] == [
+        "P2"
+    ]  # stops at the first supporting passage

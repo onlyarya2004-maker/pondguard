@@ -53,22 +53,27 @@ class Claim:
     scenario_id: str
     kind: str  # "hypothesis" or "step"
     text: str
-    passage_id: str | None
+    passage_ids: list[str]  # retrievable passages it cites (at most MAX_CITED are checked)
+    passage_id: str | None = None  # the passage that decided it (set by judge_claims)
+
+
+MAX_CITED = 3  # a claim is supported if ANY of its first three valid citations supports it
 
 
 def claims_from_report(scenario_id: str, report: dict, known_ids: set[str]) -> list[Claim]:
     claims: list[Claim] = []
     for h in report["hypotheses"]:
-        first = next((c for c in h["citations"] if c in known_ids), None)
-        claims.append(Claim(scenario_id, "hypothesis",
-                            f"The passage discusses {READABLE.get(h['condition'], h['condition'])}"
-                            " in shrimp.", first))  # fmt: skip
+        ids = [c for c in h["citations"] if c in known_ids][:MAX_CITED]
+        what = READABLE.get(h["condition"], h["condition"])
+        claims.append(
+            Claim(scenario_id, "hypothesis", f"The passage discusses {what} in shrimp.", ids)
+        )
     for step in report["action"]["steps"]:
         cites = step_citations(step)
         if cites and all(c.startswith("ladder:") for c in cites):
             continue  # fixed ladder wording, not a knowledge-base claim
-        first = next((c for c in cites if c in known_ids), None)
-        claims.append(Claim(scenario_id, "step", strip_citations(step), first))
+        ids = [c for c in cites if c in known_ids][:MAX_CITED]
+        claims.append(Claim(scenario_id, "step", strip_citations(step), ids))
     return claims
 
 
@@ -85,23 +90,32 @@ def load_reports(variant: str, stamp: str, runs_dir: Path | None = None) -> dict
     return reports
 
 
-def check_claim_prompt(claim: Claim, passage_text: str) -> list[tuple[str, str]]:
-    user = f"Claim: {claim.text}\n\nPassage [{claim.passage_id}]:\n{passage_text[:2200]}"
+def check_claim_prompt(claim: Claim, passage_id: str, passage_text: str) -> list[tuple[str, str]]:
+    user = f"Claim: {claim.text}\n\nPassage [{passage_id}]:\n{passage_text[:2200]}"
     return [("system", SYSTEM), ("human", user)]
 
 
 def judge_claims(
     claims: list[Claim], texts: dict[str, str], llm: LLMClient
 ) -> list[dict[str, Any]]:
+    """One yes/no call per (claim, cited passage), stopping at the first that supports it."""
     results = []
     for claim in claims:
-        if claim.passage_id is None or claim.passage_id not in texts:
-            supported, reason, called = False, "no valid citation", False
-        else:
-            out = llm.run("check_claim", check_claim_prompt(claim, texts[claim.passage_id])).output
-            supported, reason, called = bool(out.supported), out.reason, True
+        ids = [p for p in claim.passage_ids if p in texts]
+        supported, reason, decided = False, "no valid citation", None
+        for pid in ids:
+            out = llm.run("check_claim", check_claim_prompt(claim, pid, texts[pid])).output
+            supported, reason, decided = bool(out.supported), out.reason, pid
+            if supported:
+                break
         results.append(
-            {**asdict(claim), "supported": supported, "reason": reason, "judged": called}
+            {
+                **asdict(claim),
+                "passage_id": decided,
+                "supported": supported,
+                "reason": reason,
+                "judged": bool(ids),
+            }  # fmt: skip
         )
     return results
 
@@ -148,7 +162,6 @@ def run_judge(
     if swap_models and settings.runtime.provider == "lmstudio":
         echo(f"loading the judge model {judge_model} (the agent model is unloaded)")
         load_only(judge_model)
-    llm = get_llm("judge", settings)
     claims_out: list[dict] = []
     per_report: dict[str, Any] = {}
     try:
@@ -157,6 +170,7 @@ def run_judge(
                 c for s in report["action"]["steps"] for c in step_citations(s)
             }
             texts = retriever.texts([i for i in ids if not i.startswith("ladder:")])
+            llm = get_llm("judge", settings)  # a fresh per-run token budget for every report
             results = judge_claims(claims_from_report(scenario_id, report, set(texts)), texts, llm)
             claims_out += results
             per_report[scenario_id] = {
