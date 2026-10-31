@@ -1,7 +1,8 @@
 # Exact versions of every package in the verified Windows environment (25-27 Oct 2026, Python 3.11.9).
 # Use as: pip install -r requirements.txt -c constraints-windows.txt --extra-index-url https://download.pytorch.org/whl/cpu
 # Why: a fresh install otherwise picks newer patch releases of dependencies, and Windows Smart App Control
-# blocked one of them (bashkit 0.20.1; 0.20.0 loads). To refresh after an intentional upgrade: pip freeze --exclude-editable
+# blocked bashkit 0.20.1. Bashkit is intentionally upgraded to the signed 0.20.2 release.
+# To refresh after an intentional upgrade: pip freeze --exclude-editable
 aiofile==3.12.3
 aiohappyeyeballs==2.7.1
 aiohttp==3.14.5
@@ -23,7 +24,7 @@ arize-phoenix-sqlean==0.2.1
 attrs==26.1.0
 Authlib==1.9.1
 backports.tarfile==1.2.0
-bashkit==0.20.0
+bashkit==0.20.2
 bcrypt==5.0.0
 beartype==0.23.1
 boto3==1.43.118
